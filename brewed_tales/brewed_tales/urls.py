@@ -18,10 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib import admin
 from django.urls import path
-from cafe.views import demo_view  # Імпортуємо ваш вигляд
+
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('demo/', demo_view, name='demo_view'),
-    path('', demo_view, name='home'),
+    path('admin/', admin.site.urls),  # URL для адмін-панелі
+    path('api/', include('cafe.urls')),  # Включає URL-адреси з додатку cafe
 ]
