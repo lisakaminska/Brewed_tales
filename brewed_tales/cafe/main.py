@@ -37,24 +37,24 @@ def display_customer_orders(customer_id):
 def main():
     repo_facade = BrewerContext()
 
-    new_customer = repo_facade.add_customer('Luke', 'Danes', 42, 'luk@gmail.com')
+    new_customer = repo_facade.add_customer('Oscar', 'Piastry', 23, 'osc@gmail.com')
     print(f"New customer: {new_customer.first_name} {new_customer.last_name}")
 
     new_book = repo_facade.add_book(
-        title='Dune',
-        author='Frank Herbert',
-        genre='Sci-fic',
-        price=560.80,
-        publish_date='1965-08-01',
+        title='The Little Prince',
+        author='Antonie de Saint-Exupery',
+        genre='Fantasy',
+        price=230.80,
+        publish_date='1965-09-07',
         stock=170
     )
     print(f"New book: {new_book.title}")
 
     new_cafe_item = repo_facade.add_item(
-        item_name='Espresso',
-        item_description='Rich and strong cofee',
-        price=65.60,
-        stock=150
+        item_name='Tea',
+        item_description='Hot and cozy cup of tea',
+        price=55.90,
+        stock=300
     )
     print(f"New cafe item: {new_cafe_item.item_name}")
 

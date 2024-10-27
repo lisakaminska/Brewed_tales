@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Book, CafeItem, Customer, Order, OrderItem
@@ -7,6 +8,7 @@ from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, 
 
 # Books
 @api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
 def book_list(request):
     if request.method == 'GET':
         books = Book.objects.all()
@@ -20,6 +22,7 @@ def book_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([AllowAny])
 def book_detail(request, pk):
     try:
         book = Book.objects.get(pk=pk)
@@ -41,6 +44,7 @@ def book_detail(request, pk):
 
 # Cafe Items
 @api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
 def cafe_item_list(request):
     if request.method == 'GET':
         items = CafeItem.objects.all()
@@ -54,6 +58,7 @@ def cafe_item_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([AllowAny])
 def cafe_item_detail(request, pk):
     try:
         item = CafeItem.objects.get(pk=pk)
