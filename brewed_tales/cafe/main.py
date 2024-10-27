@@ -37,7 +37,7 @@ def display_customer_orders(customer_id):
 def main():
     repo_facade = BrewerContext()
 
-    new_customer = repo_facade.add_customer('Luke', 'Danes', 42, 'luke_ss@gmail.com')
+    new_customer = repo_facade.add_customer('Luke', 'Danes', 42, 'luk@gmail.com')
     print(f"New customer: {new_customer.first_name} {new_customer.last_name}")
 
     new_book = repo_facade.add_book(
