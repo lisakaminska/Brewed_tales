@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Book, CafeItem, Customer, Order, OrderItem
@@ -74,6 +75,7 @@ def cafe_item_detail(request, pk):
 
 # Customers
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def customer_list(request):
     if request.method == 'GET':
         customers = Customer.objects.all()
@@ -87,6 +89,7 @@ def customer_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def customer_detail(request, pk):
     try:
         customer = Customer.objects.get(pk=pk)
@@ -108,6 +111,7 @@ def customer_detail(request, pk):
 
 # Orders
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def order_list(request):
     if request.method == 'GET':
         orders = Order.objects.all()
@@ -121,6 +125,7 @@ def order_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def order_detail(request, pk):
     try:
         order = Order.objects.get(pk=pk)
@@ -142,6 +147,7 @@ def order_detail(request, pk):
 
 # Order Items
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def order_item_list(request):
     if request.method == 'GET':
         order_items = OrderItem.objects.all()
@@ -155,6 +161,7 @@ def order_item_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def order_item_detail(request, pk):
     try:
         order_item = OrderItem.objects.get(pk=pk)

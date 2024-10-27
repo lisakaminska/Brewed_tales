@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+    <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="Changed cafe/urls.py and brewed_tales/urls.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brewed_tales/brewed_tales/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/brewed_tales/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brewed_tales/cafe/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +43,7 @@
     "Python.views.executor": "Coverage",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "start__point",
+    "git-widget-placeholder": "#1 on start__point",
     "last_opened_file_path": "C:/Users/Elizabeth/myproject",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -58,7 +59,7 @@
       <recent name="C:\Users\Elizabeth\brewed_tales\cafe\repositories" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Django Server.brewed_tales">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="brewed_tales" />
       <option name="ENV_FILES" value="" />
@@ -108,7 +109,7 @@
       <method v="2" />
     </configuration>
     <configuration name="brewed_tales" type="Python.DjangoServer" factoryName="Django server">
-      <module name="brewed_tales" />
+      <module name="Brewed_tales" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -118,7 +119,7 @@
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="SDK_NAME" value="Python 3.12" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/brewed_tales" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -133,6 +134,11 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Django Server.brewed_tales" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.views" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
@@ -165,6 +171,15 @@
       <workItem from="1730058625255" duration="55000" />
       <workItem from="1730058682218" duration="79000" />
     </task>
+    <task id="LOCAL-00001" summary="Changed cafe/urls.py and brewed_tales/urls.py">
+      <option name="closed" value="true" />
+      <created>1730065240198</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1730065240198</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +195,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changed cafe/urls.py and brewed_tales/urls.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed cafe/urls.py and brewed_tales/urls.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/brewed_tales$main.coverage" NAME="main Coverage Results" MODIFIED="1729763278326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cafe" />
