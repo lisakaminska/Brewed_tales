@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +36,6 @@
     "Python.views.executor": "Run",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "start__point",
     "last_opened_file_path": "C:/Users/Elizabeth/myproject",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -53,7 +50,6 @@
       <recent name="C:\Users\Elizabeth\brewed_tales\cafe\repositories" />
     </key>
   </component>
-  <component name="RunManager" selected="Django Server.brewed_tales">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="brewed_tales" />
       <option name="ENV_FILES" value="" />
@@ -150,8 +146,6 @@
       <workItem from="1729416213979" duration="8154000" />
       <workItem from="1729675518820" duration="3281000" />
       <workItem from="1729680584486" duration="15864000" />
-      <workItem from="1730045346690" duration="3949000" />
-      <workItem from="1730054183586" duration="35000" />
     </task>
     <servers />
   </component>
