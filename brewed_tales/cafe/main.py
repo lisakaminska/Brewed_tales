@@ -4,7 +4,7 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'brewed_tales.settings')
 django.setup()
 
-from cafe.repositories import BrewerContext
+from cafe.repositories.BrewerContext import BrewerContext
 
 
 def display_customer_orders(customer_id):

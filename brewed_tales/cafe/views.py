@@ -1,6 +1,6 @@
 # views.py
 from django.http import HttpResponse
-from cafe.repositories import BrewerContext
+from cafe.repositories.BrewerContext import BrewerContext
 
 repo_facade = BrewerContext()
 
