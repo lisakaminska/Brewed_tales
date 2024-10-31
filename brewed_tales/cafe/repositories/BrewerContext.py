@@ -60,3 +60,5 @@ class BrewerContext:
 
     def add_order(self, customer, order_items):  # Додано order_items як аргумент
         return self.order_repo.add_order(customer, order_items)
+
+    # lets check

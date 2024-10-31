@@ -185,3 +185,4 @@ def order_item_detail(request, pk):
     elif request.method == 'DELETE':
         order_item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+# lets check
