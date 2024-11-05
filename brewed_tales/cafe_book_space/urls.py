@@ -1,6 +1,8 @@
 # cafe_book_space/urls.py
 from django.urls import path
 from . import views
+from .views import book_list, book_detail, delete_book, update_book
+app_name = 'cafe_book_space'
 
 urlpatterns = [
     path('books/', views.book_list, name='book_list'),
