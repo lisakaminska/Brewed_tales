@@ -21,3 +21,21 @@ class BookRepository:
         )
         new_book.save()
         return new_book
+
+    def update_book(self, book_id, **kwargs):
+        try:
+            book = Book.objects.get(id=book_id)
+            for key, value in kwargs.items():
+                setattr(book, key, value)
+            book.save()
+            return book
+        except Book.DoesNotExist:
+            return None
+
+    def delete_book(self, book_id):
+        try:
+            book = Book.objects.get(id=book_id)
+            book.delete()
+            return True
+        except Book.DoesNotExist:
+            return False

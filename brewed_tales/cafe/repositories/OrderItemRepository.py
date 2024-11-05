@@ -21,3 +21,20 @@ class OrderItemRepository:
         new_order_item.save()
         return new_order_item
 
+    def update_order_item(self, order_item_id, **kwargs):
+        try:
+            order_item = OrderItem.objects.get(id=order_item_id)
+            for key, value in kwargs.items():
+                setattr(order_item, key, value)
+            order_item.save()
+            return order_item
+        except OrderItem.DoesNotExist:
+            return None
+
+    def delete_order_item(self, order_item_id):
+        try:
+            order_item = OrderItem.objects.get(id=order_item_id)
+            order_item.delete()
+            return True
+        except OrderItem.DoesNotExist:
+            return False

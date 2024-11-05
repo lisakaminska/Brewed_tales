@@ -19,3 +19,21 @@ class CafeItemRepository:
         )
         new_item.save()
         return new_item
+
+    def update_item(self, item_id, **kwargs):
+        try:
+            item = CafeItem.objects.get(id=item_id)
+            for key, value in kwargs.items():
+                setattr(item, key, value)
+            item.save()
+            return item
+        except CafeItem.DoesNotExist:
+            return None
+
+    def delete_item(self, item_id):
+        try:
+            item = CafeItem.objects.get(id=item_id)
+            item.delete()
+            return True
+        except CafeItem.DoesNotExist:
+            return False
