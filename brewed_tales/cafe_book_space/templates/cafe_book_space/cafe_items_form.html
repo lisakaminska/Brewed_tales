@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if cafe_item.id %}Edit{% else %}Add Cafe Item{% endif %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff; /* Синій колір для кнопки зберегти */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3; /* Темніший синій при наведенні */
+        }
+        a {
+            display: inline-block;
+            margin: 5px 0;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #28a745; /* Зелений для кнопки повернення */
+            border-radius: 5px;
+            text-align: center;
+        }
+        a:hover {
+            background-color: #218838; /* Темніший зелений при наведенні */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{% if cafe_item.id %}Edit{% else %}Add new Cafe Item{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+        <a href="{% url 'cafe_book_space:cafe_item_list' %}">Back to list</a>
+    </div>
+</body>
+</html>

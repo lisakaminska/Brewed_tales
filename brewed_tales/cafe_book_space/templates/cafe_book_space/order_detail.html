@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .order-id {
+            font-size: 1.5em;
+            color: #8B4513;
+        }
+        .order-id:hover {
+            text-decoration: underline;
+        }
+        .order-info {
+            font-size: 1.1em;
+            color: #555;
+        }
+        a {
+            text-decoration: none;
+            color: #8B4513;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .action-buttons {
+            margin-top: 10px;
+        }
+        .details-button {
+            color: white;
+            background-color: #007bff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .details-button:hover {
+            background-color: #0056b3;
+        }
+        .clearfix {
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>List of Orders</h1>
+        <ul>
+            {% for order in orders %}
+                <li>
+                    <div class="order-id">
+                        <a href="{% url 'cafe_book_space:order_detail' order.id %}">Order #{{ order.id }}</a>
+                    </div>
+                    <div class="order-info">
+                        Customer: {{ order.customer_name }} | Total: {{ order.total_price }} UAH | Date: {{ order.date }}
+                    </div>
+                    <div class="action-buttons">
+                        <a href="{% url 'cafe_book_space:order_detail' order.id %}" class="details-button">See details</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
