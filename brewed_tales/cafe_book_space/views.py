@@ -2,8 +2,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from cafe.models import Book
-from .forms import BookForm  # Необхідно створити форму для книг
-#smth
+from .forms import BookForm
+
+def home(request):
+    return render(request, 'cafe_book_space/home.html')
 def book_list(request):
     books = Book.objects.all()  # Отримати всі книги
     return render(request, 'cafe_book_space/book_list.html', {'books': books})
