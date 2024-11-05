@@ -1,41 +1,51 @@
-# cafe_book_space/views.py
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
-from cafe.models import Book
-from .forms import BookForm  # Необхідно створити форму для книг
-#smth
+import requests
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from .forms import BookForm
+
+API_URL = 'http://localhost:8000/api/books/'
+
+def home(request):
+    return render(request, 'cafe_book_space/home.html')
+
 def book_list(request):
-    books = Book.objects.all()  # Отримати всі книги
+    response = requests.get(API_URL)
+    books = response.json()
     return render(request, 'cafe_book_space/book_list.html', {'books': books})
 
 def book_detail(request, pk):
-    book = get_object_or_404(Book, id=pk)
+    response = requests.get(f'{API_URL}{pk}/')
+    book = response.json()
     return render(request, 'cafe_book_space/book_detail.html', {'book': book})
 
 def add_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('book_list')  # Повертаємось до списку книг після збереження
+            response = requests.post(API_URL, data=form.cleaned_data)
+            if response.status_code == 201:
+                return redirect(reverse('cafe_book_space:book_list'))
     else:
         form = BookForm()
     return render(request, 'cafe_book_space/book_form.html', {'form': form})
 
 def update_book(request, pk):
-    book = get_object_or_404(Book, id=pk)
+    response = requests.get(f'{API_URL}{pk}/')
+    book = response.json()
     if request.method == 'POST':
-        form = BookForm(request.POST, instance=book)
+        form = BookForm(request.POST, initial=book)
         if form.is_valid():
-            form.save()
-            return redirect('book_detail', pk=book.pk)  # Повертаємось до детального перегляду книги
+            response = requests.put(f'{API_URL}{pk}/', data=form.cleaned_data)
+            if response.status_code == 200:
+                return redirect(reverse('cafe_book_space:book_detail', args=[pk]))
     else:
-        form = BookForm(instance=book)
+        form = BookForm(initial=book)
     return render(request, 'cafe_book_space/book_form.html', {'form': form})
 
 def delete_book(request, pk):
-    book = get_object_or_404(Book, id=pk)
     if request.method == 'POST':
-        book.delete()
-        return redirect('book_list')  # Повертаємось до списку книг після видалення
-    return render(request, 'cafe_book_space/book_confirm_delete.html', {'book': book})
+        response = requests.delete(f'{API_URL}{pk}/')
+        if response.status_code == 204:
+            return redirect(reverse('cafe_book_space:book_list'))
+    return render(request, 'cafe_book_space/book_confirm_delete.html', {'pk': pk})
+

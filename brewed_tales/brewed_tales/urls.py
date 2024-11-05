@@ -18,13 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib import admin
 from django.urls import path
-
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  # URL для адмін-панелі
-    path('api/', include('cafe.urls')),  # Включає URL-адреси з додатку cafe
-
-    path('cafe_book_space/', include(('cafe_book_space.urls', 'cafe_book_space'), namespace='cafe_book_space')),  # Додайте namespace
+    path('admin/', admin.site.urls),
+    path('cafe_book_space/', include('cafe_book_space.urls')),
+    path('api/', include('cafe.urls')),
+    path('', RedirectView.as_view(url='/cafe_book_space/', permanent=True)),
 ]
