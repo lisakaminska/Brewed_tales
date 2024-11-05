@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'cafe'
+    'cafe',
+    'cafe_book_space'
 ]
 
 REST_FRAMEWORK = {

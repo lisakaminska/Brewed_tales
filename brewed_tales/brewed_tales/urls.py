@@ -25,4 +25,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),  # URL для адмін-панелі
     path('api/', include('cafe.urls')),  # Включає URL-адреси з додатку cafe
+
+    path('cafe_book_space/', include('cafe_book_space.urls')),
 ]
