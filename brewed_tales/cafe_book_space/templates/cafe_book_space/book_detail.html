@@ -1,9 +1,64 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ book.title }}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ book.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .book-info {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        a {
+            display: inline-block;
+            margin: 5px 0;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff; /* Синій колір для основних кнопок */
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #0056b3; /* Темніший синій при наведенні */
+        }
+        .edit-button {
+            background-color: #ffc107; /* Жовтий для кнопки редагування */
+        }
+        .edit-button:hover {
+            background-color: #e0a800; /* Темніший жовтий при наведенні */
+        }
+        .delete-button {
+            background-color: #dc3545; /* Червоний для кнопки видалення */
+        }
+        .delete-button:hover {
+            background-color: #c82333; /* Темніший червоний при наведенні */
+        }
+        .back-button {
+            background-color: #28a745; /* Зелений для кнопки повернення */
+        }
+        .back-button:hover {
+            background-color: #218838; /* Темніший зелений при наведенні */
+        }
+    </style>
 </head>
 <body>
     <h1>{{ book.title }}</h1>
@@ -15,5 +70,18 @@
     <a href="{% url 'cafe_book_space:book_list' %}">Повернутись до списку</a>
     <a href="{% url 'cafe_book_space:update_book' book.id %}">Редагувати книгу</a>
     <a href="{% url 'cafe_book_space:delete_book' book.id %}">Видалити книгу</a> 
+    <div class="container">
+        <h1>{{ book.title }}</h1>
+        <div class="book-info">
+            <p><strong>Автор:</strong> {{ book.author }}</p>
+            <p><strong>Жанр:</strong> {{ book.genre }}</p>
+            <p><strong>Ціна:</strong> {{ book.price }} грн</p>
+            <p><strong>Дата публікації:</strong> {{ book.publish_date }}</p>
+            <p><strong>Кількість на складі:</strong> {{ book.stock }}</p>
+        </div>
+        <a href="{% url 'cafe_book_space:book_list' %}" class="back-button">Повернутись до списку</a>
+        <a href="{% url 'cafe_book_space:update_book' book.id %}" class="edit-button">Редагувати книгу</a>
+        <a href="{% url 'cafe_book_space:delete_book' book.id %}" class="delete-button">Видалити книгу</a>
+    </div>
 </body>
 </html>
