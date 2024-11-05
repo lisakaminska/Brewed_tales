@@ -14,7 +14,7 @@
                 - Автор: {{ book.author }}
                 - Ціна: {{ book.price }} грн
                 <a href="{% url 'cafe_book_space:update_book' book.id %}">Редагувати</a>
-                <a href="{% url 'cafe_book_space:delete_book' book.id %}">Видалити</a>  <!-- Виправлено тут -->
+                <a href="{% url 'cafe_book_space:delete_book' book.id %}">Видалити</a>  
             </li>
         {% endfor %}
     </ul>

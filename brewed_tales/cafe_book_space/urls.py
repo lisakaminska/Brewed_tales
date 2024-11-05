@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 from .views import book_list, book_detail, delete_book, update_book
 app_name = 'cafe_book_space'
-
+#smth
 urlpatterns = [
     path('books/', views.book_list, name='book_list'),
     path('books/<int:pk>/', views.book_detail, name='book_detail'),

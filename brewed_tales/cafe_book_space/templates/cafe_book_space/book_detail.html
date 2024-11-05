@@ -14,6 +14,6 @@
     <p><strong>Кількість на складі:</strong> {{ book.stock }}</p>
     <a href="{% url 'cafe_book_space:book_list' %}">Повернутись до списку</a>
     <a href="{% url 'cafe_book_space:update_book' book.id %}">Редагувати книгу</a>
-    <a href="{% url 'cafe_book_space:delete_book' book.id %}">Видалити книгу</a> <!-- Додано для видалення -->
+    <a href="{% url 'cafe_book_space:delete_book' book.id %}">Видалити книгу</a> 
 </body>
 </html>

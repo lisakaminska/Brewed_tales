@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from cafe.models import Book
 from .forms import BookForm
-
+#smth
 def book_list(request):
     books = Book.objects.all()  # Отримати всі книги
     return render(request, 'cafe_book_space/book_list.html', {'books': books})

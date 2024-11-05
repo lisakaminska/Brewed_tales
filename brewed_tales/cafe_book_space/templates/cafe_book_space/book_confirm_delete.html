@@ -10,7 +10,7 @@
     <p>Ви впевнені, що хочете видалити книгу "{{ book.title }}"?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Так, видалити</button>
+        <button type="submit">Так,я хочу видалити</button>
     </form>
     <a href="{% url 'cafe_book_space:book_list' %}">Скасувати</a>
 </body>
