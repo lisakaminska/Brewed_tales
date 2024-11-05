@@ -2,8 +2,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from cafe.models import Book
-from .forms import BookForm  # Необхідно створити форму для книг
-#smth
+from .forms import BookForm
+
 def book_list(request):
     books = Book.objects.all()  # Отримати всі книги
     return render(request, 'cafe_book_space/book_list.html', {'books': books})
@@ -34,8 +34,8 @@ def update_book(request, pk):
     return render(request, 'cafe_book_space/book_form.html', {'form': form})
 
 def delete_book(request, pk):
-    book = get_object_or_404(Book, id=pk)
+    book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
         book.delete()
-        return redirect('book_list')  # Повертаємось до списку книг після видалення
+        return redirect('cafe_book_space:book_list')  # Використовуйте правильне посилання з простором імен
     return render(request, 'cafe_book_space/book_confirm_delete.html', {'book': book})
