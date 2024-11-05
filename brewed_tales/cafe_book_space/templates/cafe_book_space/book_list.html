@@ -78,6 +78,17 @@
         .delete-button:hover {
             background-color: #c82333;
         }
+        .edit-button {
+            color: white;
+            background-color: #ffc107; /* Жовтий колір для кнопки редагування */
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .edit-button:hover {
+            background-color: #e0a800;
+        }
         .clearfix {
             overflow: auto;
         }
@@ -99,7 +110,7 @@
                         Жанр: {{ book.genre }} | Автор: {{ book.author }} | Ціна: {{ book.price }} грн
                     </div>
                     <div class="action-buttons">
-                        <a href="{% url 'cafe_book_space:update_book' book.id %}">Редагувати</a>
+                        <a href="{% url 'cafe_book_space:update_book' book.id %}" class="edit-button">Редагувати</a>
                         <a href="{% url 'cafe_book_space:delete_book' book.id %}" class="delete-button">Видалити</a>
                     </div>
                 </li>
