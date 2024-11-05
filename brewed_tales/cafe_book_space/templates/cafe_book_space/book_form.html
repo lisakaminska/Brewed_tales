@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if book.id %}Edit{% else %}Add book{% endif %}</title>
+    <title>{% if book.id %}Редагувати книгу{% else %}Додати книгу{% endif %}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,13 +56,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>{% if book.id %}Edit{% else %}Add new book{% endif %}</h1>
+        <h1>{% if book.id %}Редагувати книгу{% else %}Додати нову книгу{% endif %}</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Save</button>
+            <button type="submit">Зберегти</button>
         </form>
-        <a href="{% url 'cafe_book_space:book_list' %}">Back to list</a>
+        <a href="{% url 'cafe_book_space:book_list' %}">Повернутися до списку</a>
     </div>
 </body>
 </html>

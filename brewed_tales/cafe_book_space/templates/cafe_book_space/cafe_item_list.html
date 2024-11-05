@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,20 +34,20 @@
         li:last-child {
             border-bottom: none;
         }
-        .item-name {
-            font-size: 1.5em;
-            color: #8B4513;
+        .cafe-item-title {
+            font-size: 1.5em; /* Larger font for cafe item title */
+            color: #8B4513; /* Brown color for cafe item title */
         }
-        .item-name:hover {
-            text-decoration: underline;
+        .cafe-item-title:hover {
+            text-decoration: underline; /* Underline on hover */
         }
-        .item-info {
-            font-size: 1.1em;
+        .cafe-item-info {
+            font-size: 1.1em; /* Slightly smaller font for cafe item description */
             color: #555;
         }
         a {
             text-decoration: none;
-            color: #8B4513;
+            color: #8B4513; /* Brown color for other links */
         }
         a:hover {
             text-decoration: underline;
@@ -58,7 +58,7 @@
         .add-button {
             float: right;
             padding: 10px 15px;
-            background-color: #28a745;
+            background-color: #28a745; /* Green color for add button */
             color: white;
             border: none;
             border-radius: 5px;
@@ -69,7 +69,7 @@
         }
         .delete-button {
             color: white;
-            background-color: #dc3545;
+            background-color: #dc3545; /* Red color for delete button */
             padding: 5px 10px;
             border-radius: 5px;
             margin-left: 10px;
@@ -77,6 +77,17 @@
         }
         .delete-button:hover {
             background-color: #c82333;
+        }
+        .edit-button {
+            color: white;
+            background-color: #ffc107; /* Yellow color for edit button */
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .edit-button:hover {
+            background-color: #e0a800;
         }
         .clearfix {
             overflow: auto;
@@ -87,21 +98,24 @@
     <div class="container">
         <h1>List of Cafe Items</h1>
         <div class="clearfix">
-            <a href="{% url 'cafe_book_space:add_cafe_item' %}" class="add-button">Add new item</a>
+            <a href="{% url 'cafe_book_space:add_cafe_item' %}" class="add-button">Add New Cafe Item</a>
         </div>
         <ul>
             {% for item in cafe_items %}
                 <li>
-                    <div class="item-name">
+                    <div class="cafe-item-title">
                         <a href="{% url 'cafe_book_space:cafe_item_detail' item.id %}">{{ item.item_name }}</a>
                     </div>
-                    <div class="item-info">
-                        Description: {{ item.item_description }} | Price: {{ item.price }} UAH | Stock: {{ item.stock }}
+                    <div class="cafe-item-info">
+                        Description: {{ item.item_description }} | Price: {{ item.price }} UAH
                     </div>
                     <div class="action-buttons">
+                        <a href="{% url 'cafe_book_space:update_cafe_item' item.id %}" class="edit-button">Edit</a>
                         <a href="{% url 'cafe_book_space:delete_cafe_item' item.id %}" class="delete-button">Delete</a>
                     </div>
                 </li>
+            {% empty %}
+                <li>No cafe items found.</li>
             {% endfor %}
         </ul>
     </div>
