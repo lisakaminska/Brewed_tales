@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if book.id %}Редагувати книгу{% else %}Додати книгу{% endif %}</title>
+</head>
+<body>
+    <h1>{% if book.id %}Редагувати книгу{% else %}Додати нову книгу{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Зберегти</button>
+    </form>
+    <a href="{% url 'cafe_book_space:book_list' %}">Повернутись до списку</a>
+</body>
+</html>

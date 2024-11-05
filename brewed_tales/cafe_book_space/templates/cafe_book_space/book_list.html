@@ -2,6 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Список книг</title>
 </head>
 <body>
@@ -12,11 +13,11 @@
                 <a href="{% url 'cafe_book_space:book_detail' book.id %}">{{ book.title }}</a>
                 - Автор: {{ book.author }}
                 - Ціна: {{ book.price }} грн
-                <a href="{% url 'cafe_book_space:book_edit' book.id %}">Редагувати</a>
-                <a href="{% url 'cafe_book_space:book_delete' book.id %}">Видалити</a> 
+                <a href="{% url 'cafe_book_space:update_book' book.id %}">Редагувати</a>
+                <a href="{% url 'cafe_book_space:delete_book' book.id %}">Видалити</a>  <!-- Виправлено тут -->
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'cafe_book_space:book_add' %}">Додати нову книгу</a>
+    <a href="{% url 'cafe_book_space:add_book' %}">Додати нову книгу</a>
 </body>
 </html>

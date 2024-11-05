@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.title }}</title>
+</head>
+<body>
+    <h1>{{ book.title }}</h1>
+    <p><strong>Автор:</strong> {{ book.author }}</p>
+    <p><strong>Жанр:</strong> {{ book.genre }}</p>
+    <p><strong>Ціна:</strong> {{ book.price }} грн</p>
+    <p><strong>Дата публікації:</strong> {{ book.publish_date }}</p>
+    <p><strong>Кількість на складі:</strong> {{ book.stock }}</p>
+    <a href="{% url 'cafe_book_space:book_list' %}">Повернутись до списку</a>
+    <a href="{% url 'cafe_book_space:update_book' book.id %}">Редагувати книгу</a>
+    <a href="{% url 'cafe_book_space:book_delete' book.id %}">Видалити книгу</a> <!-- Додано для видалення -->
+</body>
+</html>

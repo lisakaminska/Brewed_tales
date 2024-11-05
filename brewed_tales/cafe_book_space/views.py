@@ -5,7 +5,7 @@ from cafe.models import Book
 from .forms import BookForm  # Необхідно створити форму для книг
 #smth
 def book_list(request):
-    books = Book.objects.all()
+    books = Book.objects.all()  # Отримати всі книги
     return render(request, 'cafe_book_space/book_list.html', {'books': books})
 
 def book_detail(request, pk):
