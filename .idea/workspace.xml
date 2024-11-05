@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="took duplicated text from book detail">
+    <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="added all changes and it is finally correct">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/book_confirm_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/book_confirm_delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/book_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/book_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/book_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/book_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/book_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/book_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/brewed_tales/cafe_book_space/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe_book_space/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -179,7 +184,7 @@
       <workItem from="1730403405431" duration="8000" />
       <workItem from="1730809886941" duration="62000" />
       <workItem from="1730809952568" duration="9354000" />
-      <workItem from="1730823298730" duration="778000" />
+      <workItem from="1730823298730" duration="1981000" />
     </task>
     <task id="LOCAL-00001" summary="made home page">
       <option name="closed" value="true" />
@@ -213,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730822952586</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added all changes and it is finally correct">
+      <option name="closed" value="true" />
+      <created>1730824850171</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730824850171</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +248,8 @@
     <MESSAGE value="fixed and made home page (book list and admin)" />
     <MESSAGE value="saved and made pages pretty" />
     <MESSAGE value="took duplicated text from book detail" />
-    <option name="LAST_COMMIT_MESSAGE" value="took duplicated text from book detail" />
+    <MESSAGE value="added all changes and it is finally correct" />
+    <option name="LAST_COMMIT_MESSAGE" value="added all changes and it is finally correct" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/brewed_tales$main.coverage" NAME="main Coverage Results" MODIFIED="1729763278326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cafe" />

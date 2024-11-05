@@ -65,15 +65,15 @@
     <div class="container">
         <h1>{{ book.title }}</h1>
         <div class="book-info">
-            <p><strong>Автор:</strong> {{ book.author }}</p>
-            <p><strong>Жанр:</strong> {{ book.genre }}</p>
-            <p><strong>Ціна:</strong> {{ book.price }} грн</p>
-            <p><strong>Дата публікації:</strong> {{ book.publish_date }}</p>
-            <p><strong>Кількість на складі:</strong> {{ book.stock }}</p>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>Genre:</strong> {{ book.genre }}</p>
+            <p><strong>Price:</strong> {{ book.price }} грн</p>
+            <p><strong>Publication date:</strong> {{ book.publish_date }}</p>
+            <p><strong>On stock:</strong> {{ book.stock }}</p>
         </div>
-        <a href="{% url 'cafe_book_space:book_list' %}" class="back-button">Повернутись до списку</a>
-        <a href="{% url 'cafe_book_space:update_book' book.id %}" class="edit-button">Редагувати книгу</a>
-        <a href="{% url 'cafe_book_space:delete_book' book.id %}" class="delete-button">Видалити книгу</a>
+        <a href="{% url 'cafe_book_space:book_list' %}" class="back-button">Back to list</a>
+        <a href="{% url 'cafe_book_space:update_book' book.id %}" class="edit-button">Edit</a>
+        <a href="{% url 'cafe_book_space:delete_book' book.id %}" class="delete-button">Delete</a>
     </div>
 </body>
 </html>

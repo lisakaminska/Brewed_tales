@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список книг</title>
+    <title>List of books</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -96,9 +96,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Список книг</h1>
+        <h1>List of books</h1>
         <div class="clearfix">
-            <a href="{% url 'cafe_book_space:add_book' %}" class="add-button">Додати нову книгу</a>
+            <a href="{% url 'cafe_book_space:add_book' %}" class="add-button">Add new book</a>
         </div>
         <ul>
             {% for book in books %}
@@ -107,11 +107,11 @@
                         <a href="{% url 'cafe_book_space:book_detail' book.id %}">{{ book.title }}</a>
                     </div>
                     <div class="book-info">
-                        Жанр: {{ book.genre }} | Автор: {{ book.author }} | Ціна: {{ book.price }} грн
+                        Genre: {{ book.genre }} | Author: {{ book.author }} | Price: {{ book.price }} UAH
                     </div>
                     <div class="action-buttons">
-                        <a href="{% url 'cafe_book_space:update_book' book.id %}" class="edit-button">Редагувати</a>
-                        <a href="{% url 'cafe_book_space:delete_book' book.id %}" class="delete-button">Видалити</a>
+                        <a href="{% url 'cafe_book_space:update_book' book.id %}" class="edit-button">Edit</a>
+                        <a href="{% url 'cafe_book_space:delete_book' book.id %}" class="delete-button">Delete</a>
                     </div>
                 </li>
             {% endfor %}

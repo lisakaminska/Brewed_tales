@@ -2,6 +2,8 @@ import requests
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import BookForm
+from django.shortcuts import render, redirect, get_object_or_404
+from cafe.models import Book
 
 API_URL = 'http://localhost:8000/api/books/'
 
@@ -48,3 +50,11 @@ def delete_book(request, pk):
         if response.status_code == 204:
             return redirect(reverse('cafe_book_space:book_list'))
     return render(request, 'cafe_book_space/book_confirm_delete.html', {'pk': pk})
+
+
+def book_confirm_delete(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        book.delete()
+        return redirect('cafe_book_space:book_list')
+    return render(request, 'cafe_book_space/book_confirm_delete.html', {'book': book})

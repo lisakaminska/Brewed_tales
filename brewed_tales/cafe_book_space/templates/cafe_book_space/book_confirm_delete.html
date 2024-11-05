@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Підтвердження видалення</title>
+<title>Delete confirmation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,6 +31,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
         button:hover {
             background-color: #c82333; /* Темніший червоний при наведенні */
@@ -44,6 +45,7 @@
             background-color: #28a745; /* Зелений для кнопки повернення */
             border-radius: 5px;
             text-align: center;
+            font-size: 16px;
         }
         a:hover {
             background-color: #218838; /* Темніший зелений при наведенні */
@@ -51,21 +53,15 @@
     </style>
 </head>
 <body>
-    <h1>Підтвердження видалення книги</h1>
-    <p>Ви впевнені, що хочете видалити книгу "{{ book.title }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Так,я хочу видалити</button>
-    </form>
-    <a href="{% url 'cafe_book_space:book_list' %}">Скасувати</a>
+    
     <div class="container">
-        <h1>Підтвердження видалення книги</h1>
-        <p>Ви впевнені, що хочете видалити книгу "{{ book.title }}"?</p>
+        <h1>Delete confirmation</h1>
+        <p>Are you sure you want to delete{{ book.title }}?</p>
         <form method="post">
             {% csrf_token %}
-            <button type="submit">Так, я хочу видалити</button>
+            <button type="submit">Yes, I'm sure</button>
         </form>
-        <a href="{% url 'cafe_book_space:book_list' %}">Скасувати</a>
+        <a href="{% url 'cafe_book_space:book_list' %}">Cancel</a>
     </div>
 </body>
 </html>
