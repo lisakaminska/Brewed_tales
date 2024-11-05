@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Підтвердження видалення</title>
+</head>
+<body>
+    <h1>Підтвердження видалення книги</h1>
+    <p>Ви впевнені, що хочете видалити книгу "{{ book.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Так,я хочу видалити</button>
+    </form>
+    <a href="{% url 'cafe_book_space:book_list' %}">Скасувати</a>
+</body>
+</html>
