@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Підтвердження видалення</title>
+    <title>Update Cafe Item</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,18 +23,22 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         button {
             padding: 10px 15px;
-            background-color: #dc3545; /* Червоний колір для кнопки видалення */
+            background-color: #007bff; 
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #c82333; /* Темніший червоний при наведенні */
+            background-color: #0056b3; 
         }
         a {
             display: inline-block;
@@ -42,24 +46,24 @@
             padding: 10px 15px;
             text-decoration: none;
             color: #fff;
-            background-color: #28a745; /* Зелений для кнопки повернення */
+            background-color: #28a745; 
             border-radius: 5px;
             text-align: center;
         }
         a:hover {
-            background-color: #218838; /* Темніший зелений при наведенні */
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Підтвердження видалення книги</h1>
-        <p>Ви впевнені, що хочете видалити книгу "{{ book.title }}"?</p>
+        <h1>Update Item: {{ item.item_name }}</h1>
         <form method="post">
             {% csrf_token %}
-            <button type="submit">Так, я хочу видалити</button>
+            {{ form.as_p }}
+            <button type="submit">Save Changes</button>
         </form>
-        <a href="{% url 'cafe_book_space:book_list' %}">Скасувати</a>
+        <a href="{% url 'cafe_book_space:cafe_item_list' %}">Back to items list</a>
     </div>
 </body>
 </html>

@@ -107,14 +107,3 @@ def cafe_items_confirm_delete(request, pk):
         cafe_item.delete()
         return redirect('cafe_book_space:cafe_items_list')
     return render(request, 'cafe_book_space/cafe_item_confirm_delete.html', {'cafe_item': cafe_item})
-
-# Функції для замовлень
-def order_list(request):
-    response = requests.get(CAFE_ITEMS_API_URL)  # Тут повинен бути URL для замовлень
-    orders = response.json() if response.status_code == 200 else []
-    return render(request, 'cafe_book_space/order_list.html', {'orders': orders})
-
-def order_detail(request, order_id):
-    response = requests.get(f'{CAFE_ITEMS_API_URL}{order_id}/')  # Тут повинен бути URL для замовлень
-    order = response.json() if response.status_code == 200 else {}
-    return render(request, 'cafe_book_space/order_detail.html', {'order': order})
