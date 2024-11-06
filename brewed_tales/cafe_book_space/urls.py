@@ -17,7 +17,4 @@ urlpatterns = [
     path('cafe_items/add/', views.add_cafe_item, name='add_cafe_item'),
     path('cafe_items/<int:pk>/delete/', views.delete_cafe_item, name='delete_cafe_item'),
 
-    path ('orders/ ', views.order_list, name='order_list'),
-    path ('orders/<int:pk>/ ', views.order_detail, name='order_detail'),
-
 ]
