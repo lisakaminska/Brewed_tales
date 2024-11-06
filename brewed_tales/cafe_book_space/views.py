@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from .forms import BookForm, CafeItemForm
 from cafe.models import Book, CafeItem, Order
-#
+
 BOOKS_API_URL = 'http://localhost:8000/api/books/'
 CAFE_ITEMS_API_URL = 'http://localhost:8000/api/cafe-items/'
 
