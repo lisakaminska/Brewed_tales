@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .book-title {
+            font-size: 1.5em; /* Більший шрифт для назви книги */
+            color: #8B4513; /* Коричневий колір для назви книги */
+        }
+        .book-title:hover {
+            text-decoration: underline; /* Підкреслення при наведенні */
+        }
+        .book-info {
+            font-size: 1.1em; /* Трішки менший шрифт для жанру, автора та ціни */
+            color: #555;
+        }
+        a {
+            text-decoration: none;
+            color: #8B4513; /* Синій колір для інших посилань */
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .action-buttons {
+            margin-top: 10px;
+        }
+        .add-button {
+            float: right;
+            padding: 10px 15px;
+            background-color: #28a745; /* Зелений колір для кнопки додавання */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .add-button:hover {
+            background-color: #218838;
+        }
+        .delete-button {
+            color: white;
+            background-color: #dc3545; /* Червоний колір для кнопки видалення */
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        .edit-button {
+            color: white;
+            background-color: #ffc107; /* Жовтий колір для кнопки редагування */
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .edit-button:hover {
+            background-color: #e0a800;
+        }
+        .clearfix {
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>List of books</h1>
+        <div class="clearfix">
+            <a href="{% url 'cafe_book_space:add_book' %}" class="add-button">Add new book</a>
+        </div>
+        <ul>
+            {% for book in books %}
+                <li>
+                    <div class="book-title">
+                        <a href="{% url 'cafe_book_space:book_detail' book.id %}">{{ book.title }}</a>
+                    </div>
+                    <div class="book-info">
+                        Genre: {{ book.genre }} | Author: {{ book.author }} | Price: {{ book.price }} UAH
+                    </div>
+                    <div class="action-buttons">
+                        <a href="{% url 'cafe_book_space:update_book' book.id %}" class="edit-button">Edit</a>
+                        <a href="{% url 'cafe_book_space:delete_book' book.id %}" class="delete-button">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Cafe Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .cafe-item-title {
+            font-size: 1.5em; 
+            color: #8B4513; 
+        }
+        .cafe-item-title:hover {
+            text-decoration: underline; 
+        }
+        .cafe-item-info {
+            font-size: 1.1em; 
+            color: #555;
+        }
+        a {
+            text-decoration: none;
+            color: #8B4513; 
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .action-buttons {
+            margin-top: 10px;
+        }
+        .add-button {
+            float: right;
+            padding: 10px 15px;
+            background-color: #28a745; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .add-button:hover {
+            background-color: #218838;
+        }
+        .delete-button {
+            color: white;
+            background-color: #dc3545; 
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        .edit-button {
+            color: white;
+            background-color: #ffc107; 
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .edit-button:hover {
+            background-color: #e0a800;
+        }
+        .clearfix {
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>List of Cafe Items</h1>
+        <div class="clearfix">
+            <a href="{% url 'cafe_book_space:add_cafe_item' %}" class="add-button">Add New Cafe Item</a>
+        </div>
+        <ul>
+            {% for item in cafe_items %}
+                <li>
+                    <div class="cafe-item-title">
+                        <a href="{% url 'cafe_book_space:cafe_item_detail' item.id %}">{{ item.item_name }}</a>
+                    </div>
+                    <div class="cafe-item-info">
+                        Description: {{ item.item_description }} | Price: {{ item.price }} UAH
+                    </div>
+                    <div class="action-buttons">
+                        <a href="{% url 'cafe_book_space:update_cafe_item' item.id %}" class="edit-button">Edit</a>
+                        <a href="{% url 'cafe_book_space:delete_cafe_item' item.id %}" class="delete-button">Delete</a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No cafe items found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
