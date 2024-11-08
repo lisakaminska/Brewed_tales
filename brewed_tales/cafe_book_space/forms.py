@@ -16,14 +16,8 @@ class CafeItemForm(forms.ModelForm):
         model = CafeItem
         fields = ['item_name', 'item_description', 'price', 'stock'] #
 
-
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['first_name', 'last_name', 'age', 'email'] #
+        fields = ['first_name', 'last_name', 'age', 'email']
 
-
-class OrdersForm(forms.ModelForm):
-    class Meta:
-        model = Order
-        exclude = ['order_date'] #?

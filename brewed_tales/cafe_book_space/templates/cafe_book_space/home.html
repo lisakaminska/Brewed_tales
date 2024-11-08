@@ -45,7 +45,7 @@
         .nav a.cafe_items-list {
             background-color: #8b4513; /* Коричневий колір */
         }
-        .nav a.order-list {
+        .nav a.customer-list {
             background-color: #8b4513; /* Коричневий колір */
         }
         .nav a.admin {
@@ -62,6 +62,7 @@
         <div class="nav">
             <a href="{% url 'cafe_book_space:book_list' %}" class="book-list">List of books</a>
             <a href="{% url 'cafe_book_space:cafe_item_list' %}" class="cafe_items-list">List of cafe items</a>
+            <a href="{% url 'cafe_book_space:customer_list' %}" class="customer-list">List of customers</a>
             <a href="{% url 'admin:index' %}" class="admin">Admin</a>
         </div>
     </div>

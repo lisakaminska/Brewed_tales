@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
 from .repositories.BrewerContext import BrewerContext
+from django.db.models import Count
 
 brewer_context = BrewerContext()
 
@@ -89,14 +90,25 @@ class CafeItemViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class CustomerViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = brewer_context.customer_repo.get_all_customers()
     serializer_class = CustomerSerializer
 
-    def list(self, request):
-        customers = brewer_context.customer_repo.get_all_customers()
-        serializer = CustomerSerializer(customers, many=True)
-        return Response(serializer.data)
+    def list(self, request, *args, **kwargs):
+        # Perform aggregation
+        aggregated_data = self.queryset.aggregate(
+            total_customers=Count('id'),
+        )
+
+        # Serialize the original data
+        serializer = self.get_serializer(self.queryset, many=True)
+
+        # Combine the aggregated data with the serialized data
+        response_data = {
+            'aggregated_data': aggregated_data,
+            'customer': serializer.data
+        }
+        return Response(response_data)
 
     def retrieve(self, request, pk=None):
         customer = brewer_context.customer_repo.get_customer_by_id(pk)
