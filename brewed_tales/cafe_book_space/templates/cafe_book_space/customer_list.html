@@ -2,14 +2,51 @@
 <html>
 <head>
     <title>Customer List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .customer-info {
+            font-size: 1.1em;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <h1>Customer List</h1>
-    <h2>Total Customers: {{ aggregated_data.total_customers }}</h2>
-    <ul>
-        {% for customer in customer %}
-            <li>{{ customer.first_name }} {{ customer.last_name }} - {{ customer.email }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>Customer List</h1>
+        <h2>Total Customers: {{ aggregated_data.total_customers }}</h2>
+        <ul>
+            {% for customer in customer %}
+                <li class="customer-info">{{ customer.first_name }} {{ customer.last_name }} - {{ customer.email }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
