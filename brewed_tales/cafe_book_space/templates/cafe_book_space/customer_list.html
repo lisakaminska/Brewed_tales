@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer List</title>
+</head>
+<body>
+    <h1>Customer List</h1>
+    <h2>Total Customers: {{ aggregated_data.total_customers }}</h2>
+    <ul>
+        {% for customer in customer %}
+            <li>{{ customer.first_name }} {{ customer.last_name }} - {{ customer.email }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

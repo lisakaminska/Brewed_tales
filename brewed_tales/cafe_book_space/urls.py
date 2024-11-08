@@ -17,4 +17,6 @@ urlpatterns = [
     path('cafe_items/add/', views.add_cafe_item, name='add_cafe_item'),
     path('cafe_items/<int:pk>/delete/', views.delete_cafe_item, name='delete_cafe_item'),
 
+    path('customers/', views.customer_list, name='customer_list'),
+
 ]

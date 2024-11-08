@@ -23,8 +23,9 @@ class CafeItem(models.Model):
 class Customer(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    age = models.IntegerField(blank=True, null=True)
     email = models.EmailField(unique=True)
+    age = models.IntegerField(blank=True, null=True)
+
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
