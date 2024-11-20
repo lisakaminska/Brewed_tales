@@ -327,11 +327,13 @@ from django.db.models import Avg, Min, Max
 
 class CustomerStatisticsView(APIView):
     def get(self, request):
-        # Використовуємо агрегацію на рівні ORM
-        stats = Customer.objects.aggregate(
-            avg_orders=Avg('order__count'),
-            min_orders=Min('order__count'),
-            max_orders=Max('order__count'),
+        # Використовуємо агрегацію на рівні ORM для підрахунку замовлень
+        stats = Customer.objects.annotate(
+            order_count=Count('order')
+        ).aggregate(
+            avg_orders=Avg('order_count'),
+            min_orders=Min('order_count'),
+            max_orders=Max('order_count'),
         )
 
         return Response(stats)
