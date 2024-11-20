@@ -5,6 +5,7 @@ from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, 
 from .repositories.BrewerContext import BrewerContext
 from django.db.models import Count
 
+
 brewer_context = BrewerContext()
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -222,3 +223,58 @@ class OrderItemViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
         brewer_context.order_item_repo.delete_order_item(pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+import pandas as pd
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from cafe.repositories.analytics_repo import (
+    get_top_customers_by_orders,
+    get_most_popular_books,
+    get_orders_with_books_and_drinks,
+    get_recent_orders,
+    get_top_drinks_by_average_price,
+    get_customers_with_large_book_orders,
+)
+
+class TopCustomersView(APIView):
+    def get(self, request):
+        data = get_top_customers_by_orders()
+        # Перетворення на DataFrame
+        df = pd.DataFrame.from_records(data.values('id', 'first_name', 'last_name', 'total_orders'))
+        return Response(df.to_dict(orient='records'))
+
+class MostPopularBooksView(APIView):
+    def get(self, request):
+        data = get_most_popular_books()
+        # Перетворення на DataFrame
+        df = pd.DataFrame.from_records(data.values('id', 'title', 'total_sold'))
+        return Response(df.to_dict(orient='records'))
+
+class OrdersWithBooksAndDrinksView(APIView):
+    def get(self, request):
+        data = get_orders_with_books_and_drinks()
+        # Перетворення на DataFrame
+        df = pd.DataFrame.from_records(data.values('id', 'customer', 'book', 'drink', 'order_date'))
+        return Response(df.to_dict(orient='records'))
+
+class RecentOrdersView(APIView):
+    def get(self, request):
+        data = get_recent_orders()
+        # Перетворення на DataFrame
+        df = pd.DataFrame.from_records(data.values('id', 'customer', 'order_date'))
+        return Response(df.to_dict(orient='records'))
+
+class TopDrinksByAveragePriceView(APIView):
+    def get(self, request):
+        data = get_top_drinks_by_average_price()
+        # Перетворення на DataFrame
+        df = pd.DataFrame.from_records(data.values('id', 'name', 'average_price'))
+        return Response(df.to_dict(orient='records'))
+
+class LargeBookOrdersView(APIView):
+    def get(self, request):
+        data = get_customers_with_large_book_orders()
+        # Перетворення на DataFrame
+        df = pd.DataFrame.from_records(data.values('id', 'name', 'total_books'))
+        return Response(df.to_dict(orient='records'))
