@@ -249,32 +249,47 @@ class MostPopularBooksView(APIView):
         data = get_most_popular_books()
         # Перетворення на DataFrame
         df = pd.DataFrame.from_records(data.values('id', 'title', 'total_sold'))
+        df = df.fillna(0)  # Заповнення NaN значень нулями
         return Response(df.to_dict(orient='records'))
 
 class OrdersWithBooksAndDrinksView(APIView):
     def get(self, request):
         data = get_orders_with_books_and_drinks()
         # Перетворення на DataFrame
-        df = pd.DataFrame.from_records(data.values('id', 'customer', 'book', 'drink', 'order_date'))
+        df = pd.DataFrame.from_records(
+            data.values(
+                'id',
+                'order__customer__first_name',
+                'order__customer__last_name',
+                'book__title',
+                'cafe_item__item_name',
+                'order__order_date'
+            )
+        )
         return Response(df.to_dict(orient='records'))
 
 class RecentOrdersView(APIView):
     def get(self, request):
         data = get_recent_orders()
         # Перетворення на DataFrame
-        df = pd.DataFrame.from_records(data.values('id', 'customer', 'order_date'))
+        df = pd.DataFrame.from_records(data.values('id', 'customer__first_name', 'customer__last_name', 'order_date'))
         return Response(df.to_dict(orient='records'))
 
 class TopDrinksByAveragePriceView(APIView):
     def get(self, request):
+        # Отримуємо агреговані дані з репозиторію
         data = get_top_drinks_by_average_price()
-        # Перетворення на DataFrame
-        df = pd.DataFrame.from_records(data.values('id', 'name', 'average_price'))
+
+        # Перетворюємо отримані дані на DataFrame
+        df = pd.DataFrame.from_records(data)
+
+        # Повертаємо дані у вигляді JSON
         return Response(df.to_dict(orient='records'))
+
 
 class LargeBookOrdersView(APIView):
     def get(self, request):
         data = get_customers_with_large_book_orders()
         # Перетворення на DataFrame
-        df = pd.DataFrame.from_records(data.values('id', 'name', 'total_books'))
+        df = pd.DataFrame.from_records(data.values('id', 'first_name', 'last_name', 'total_books'))
         return Response(df.to_dict(orient='records'))
