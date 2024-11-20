@@ -1,6 +1,8 @@
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+
+from .models import Customer
 from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
 from .repositories.BrewerContext import BrewerContext
 from django.db.models import Count
@@ -293,3 +295,59 @@ class LargeBookOrdersView(APIView):
         # Перетворення на DataFrame
         df = pd.DataFrame.from_records(data.values('id', 'first_name', 'last_name', 'total_books'))
         return Response(df.to_dict(orient='records'))
+
+    def get(self, request):
+        # Отримуємо дані про найпопулярніші книги
+        data = get_most_popular_books()
+
+        # Перетворення на DataFrame
+        df = pd.DataFrame.from_records(data.values('id', 'title', 'total_orders'))
+
+class BookStatisticsView(APIView):
+    def get(self, request):
+        # Отримуємо дані про найпопулярніші книги
+        data = get_most_popular_books()
+
+        # Перетворення на DataFrame
+        df = pd.DataFrame.from_records(data.values('id', 'title', 'total_orders'))
+
+        # Обчислення статистичних показників
+        stats = {
+            'mean': df['total_orders'].mean(),
+            'median': df['total_orders'].median(),
+            'min': df['total_orders'].min(),
+            'max': df['total_orders'].max(),
+        }
+
+        # Повертаємо статистику
+        return Response(stats)
+
+
+from django.db.models import Avg, Min, Max
+
+class CustomerStatisticsView(APIView):
+    def get(self, request):
+        # Використовуємо агрегацію на рівні ORM
+        stats = Customer.objects.aggregate(
+            avg_orders=Avg('order__count'),
+            min_orders=Min('order__count'),
+            max_orders=Max('order__count'),
+        )
+
+        return Response(stats)
+
+
+class OrdersWithBooksAndDrinksStatisticsView(APIView):
+    def get(self, request):
+        data = get_orders_with_books_and_drinks()
+
+        df = pd.DataFrame.from_records(data.values('id', 'customer', 'book', 'drink', 'total_price'))
+
+        stats = {
+            'mean': df['total_price'].mean(),
+            'median': df['total_price'].median(),
+            'min': df['total_price'].min(),
+            'max': df['total_price'].max(),
+        }
+
+        return Response(stats)
