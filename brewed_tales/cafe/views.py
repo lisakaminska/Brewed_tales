@@ -1,7 +1,9 @@
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.response import Response
 
+from .charts import generate_large_book_orders_chart, generate_top_customers_chart, \
+    generate_most_popular_books_pie_chart, generate_books_and_drinks_chart, generate_top_drinks_by_price_chart, \
+    generate_recent_orders_chart
 from .models import Customer
 from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
 from .repositories.BrewerContext import BrewerContext
@@ -254,6 +256,7 @@ class MostPopularBooksView(APIView):
         df = df.fillna(0)  # Заповнення NaN значень нулями
         return Response(df.to_dict(orient='records'))
 
+
 class OrdersWithBooksAndDrinksView(APIView):
     def get(self, request):
         data = get_orders_with_books_and_drinks()
@@ -347,12 +350,6 @@ class CustomerStatisticsView(APIView):
 
         return Response(stats)
 
-
-import pandas as pd
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from cafe.repositories.analytics_repo import get_orders_with_books_and_drinks
-
 class OrdersWithBooksAndDrinksStatisticsView(APIView):
     def get(self, request):
         # Fetch the data
@@ -381,3 +378,57 @@ class OrdersWithBooksAndDrinksStatisticsView(APIView):
             }
 
         return Response(stats)
+
+    from rest_framework.views import APIView
+    from rest_framework.response import Response
+    from cafe.charts import (
+        generate_top_customers_chart,
+        generate_most_popular_books_pie_chart,
+        generate_books_and_drinks_chart,
+        generate_recent_orders_chart,
+        generate_top_drinks_by_price_chart,
+        generate_large_book_orders_chart
+    )
+
+class TopCustomersChartView(APIView):
+    def get(self, request):
+        data = get_top_customers_by_orders()
+        output_file = 'static/charts/top_customers_bar_chart.html'
+        generate_top_customers_chart(data, output_file)
+        return Response({'chart_url': output_file})
+
+
+class MostPopularBooksChartView(APIView):
+        def get(self, request):
+            data = get_most_popular_books()
+            output_file = 'static/charts/most_popular_books_pie_chart.html'
+            generate_most_popular_books_pie_chart(data, output_file)
+            return Response({'chart_url': output_file})
+
+class BooksAndDrinksChartView(APIView):
+        def get(self, request):
+            data = get_orders_with_books_and_drinks()
+            output_file = 'static/charts/books_and_drinks_bar_chart.html'
+            generate_books_and_drinks_chart(data, output_file)
+            return Response({'chart_url': output_file})
+
+class RecentOrdersChartView(APIView):
+        def get(self, request):
+            data = get_recent_orders()
+            output_file = 'static/charts/recent_orders_line_chart.html'
+            generate_recent_orders_chart(data, output_file)
+            return Response({'chart_url': output_file})
+
+class TopDrinksByPriceChartView(APIView):
+        def get(self, request):
+            data = get_top_drinks_by_average_price()
+            output_file = 'static/charts/top_drinks_by_price_bar_chart.html'
+            generate_top_drinks_by_price_chart(data, output_file)
+            return Response({'chart_url': output_file})
+
+class LargeBookOrdersChartView(APIView):
+        def get(self, request):
+            data = get_customers_with_large_book_orders()
+            output_file = 'static/charts/large_book_orders_chart.html'
+            generate_large_book_orders_chart(data, output_file)
+            return Response({'chart_url': output_file})

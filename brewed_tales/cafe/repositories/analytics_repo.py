@@ -10,7 +10,7 @@ from django.db.models.functions import Coalesce
 def get_top_customers_by_orders():
     return Customer.objects.annotate(
         total_orders=Count('order')
-    ).order_by('-total_orders')
+    ).values('first_name', 'last_name', 'total_orders').order_by('-total_orders')
 
 # Функція для отримання найпопулярніших книг за кількістю продажів
 
