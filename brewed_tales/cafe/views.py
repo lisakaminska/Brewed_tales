@@ -10,6 +10,7 @@ from django.db.models import Count
 import pandas as pd
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import HttpResponse
 
 brewer_context = BrewerContext()
 
@@ -236,9 +237,26 @@ class OrderItemViewSet(viewsets.ModelViewSet):
 
 class TopCustomersView(APIView):
     def get(self, request):
+        # Отримання даних напряму через репозиторій
         data = brewer_context.customer_repo.get_top_customers_by_orders()
-        df = pd.DataFrame.from_records(data.values('id', 'first_name', 'last_name', 'total_orders'))
-        return Response(df.to_dict(orient='records'))
+
+        # Створення DataFrame
+        df = pd.DataFrame.from_records(data)
+
+        # Перевірка, чи є дані
+        if df.empty:
+            return Response({"error": "No data available"}, status=400)
+
+        # Генерація графіка без конвертації у словники
+        output_file = 'static/charts/top_customers_bar_chart.html'
+        generate_top_customers_chart(df, output_file=output_file)
+
+        # Повернення HTML-графіка як результат
+        with open(output_file, 'r') as file:
+            chart_html = file.read()
+
+        return HttpResponse(chart_html, content_type='text/html')
+
 
 class MostPopularBooksView(APIView):
     def get(self, request):
@@ -358,10 +376,23 @@ class OrdersWithBooksAndDrinksStatisticsView(APIView):
 
 class TopCustomersChartView(APIView):
     def get(self, request):
+        # Fetch data directly from the repository
         data = brewer_context.customer_repo.get_top_customers_by_orders()
+
+        # Convert the data to a DataFrame
+        df = pd.DataFrame.from_records(data)
+
+        # Ensure a static folder for the output file exists
         output_file = 'static/charts/top_customers_bar_chart.html'
-        generate_top_customers_chart(data, output_file)
-        return Response({'chart_url': output_file})
+
+        # Generate the chart
+        generate_top_customers_chart(df, output_file)
+
+        # Serve the chart file as an HTML response
+        with open(output_file, 'r') as file:
+            chart_html = file.read()
+        return HttpResponse(chart_html, content_type='text/html')
+
 
 
 class MostPopularBooksChartView(APIView):

@@ -4,10 +4,16 @@ import pandas as pd
 from plotly.graph_objs import Bar, Pie, Scatter
 from plotly.offline import plot
 
-def generate_top_customers_chart(data, output_file='top_customers_bar_chart.html'):
-    df = pd.DataFrame(data)
+
+def generate_top_customers_chart(df, output_file='top_customers_bar_chart.html'):
+    if df.empty:  # Якщо DataFrame порожній
+        print("No data available")
+        return
+
+    # Додати колонку для повного імені
     df['full_name'] = df['first_name'] + ' ' + df['last_name']
 
+    # Побудова бар-графіка
     bar_chart = Bar(x=df['full_name'], y=df['total_orders'], name='Orders')
     layout = dict(title='Top Customers by Orders', xaxis=dict(title='Customers'), yaxis=dict(title='Total Orders'))
     plot(dict(data=[bar_chart], layout=layout), filename=output_file)
