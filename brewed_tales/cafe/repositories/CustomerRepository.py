@@ -1,6 +1,18 @@
 from cafe.models import Customer
+from django.db.models import Count, Sum
 
 class CustomerRepository:
+
+    def get_customers_with_large_book_orders(self):
+        return Customer.objects.annotate(
+            total_books=Sum('order__orderitem__quantity')
+        ).filter(total_books__gt=2)
+
+    def get_top_customers_by_orders(self):
+        return Customer.objects.annotate(
+            total_orders=Count('order')
+        ).values('first_name', 'last_name', 'total_orders').order_by('-total_orders')
+
     def get_all_customers(self):
         return Customer.objects.all()
 

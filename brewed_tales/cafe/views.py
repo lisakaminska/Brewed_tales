@@ -1,14 +1,15 @@
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-
 from .charts import generate_large_book_orders_chart, generate_top_customers_chart, \
     generate_most_popular_books_pie_chart, generate_books_and_drinks_chart, generate_top_drinks_by_price_chart, \
     generate_recent_orders_chart
-from .models import Customer
 from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
 from .repositories.BrewerContext import BrewerContext
 from django.db.models import Count
 
+import pandas as pd
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 brewer_context = BrewerContext()
 
@@ -229,37 +230,27 @@ class OrderItemViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-import pandas as pd
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from cafe.repositories.analytics_repo import (
-    get_top_customers_by_orders,
-    get_most_popular_books,
-    get_orders_with_books_and_drinks,
-    get_recent_orders,
-    get_top_drinks_by_average_price,
-    get_customers_with_large_book_orders,
-)
+
+
+
 
 class TopCustomersView(APIView):
     def get(self, request):
-        data = get_top_customers_by_orders()
-        # Перетворення на DataFrame
+        data = brewer_context.customer_repo.get_top_customers_by_orders()
         df = pd.DataFrame.from_records(data.values('id', 'first_name', 'last_name', 'total_orders'))
         return Response(df.to_dict(orient='records'))
 
 class MostPopularBooksView(APIView):
     def get(self, request):
-        data = get_most_popular_books()
+        data = brewer_context.book_repo.get_most_popular_books()
         # Перетворення на DataFrame
         df = pd.DataFrame.from_records(data.values('id', 'title', 'total_sold'))
-        df = df.fillna(0)  # Заповнення NaN значень нулями
+        df = df.fillna(0)
         return Response(df.to_dict(orient='records'))
-
 
 class OrdersWithBooksAndDrinksView(APIView):
     def get(self, request):
-        data = get_orders_with_books_and_drinks()
+        data = brewer_context.order_item_repo.get_orders_with_books_and_drinks()
         # Перетворення на DataFrame
         df = pd.DataFrame.from_records(
             data.values(
@@ -275,7 +266,7 @@ class OrdersWithBooksAndDrinksView(APIView):
 
 class RecentOrdersView(APIView):
     def get(self, request):
-        data = get_recent_orders()
+        data = brewer_context.order_repo.get_recent_orders()
         # Перетворення на DataFrame
         df = pd.DataFrame.from_records(data.values('id', 'customer__first_name', 'customer__last_name', 'order_date'))
         return Response(df.to_dict(orient='records'))
@@ -283,7 +274,7 @@ class RecentOrdersView(APIView):
 class TopDrinksByAveragePriceView(APIView):
     def get(self, request):
         # Отримуємо агреговані дані з репозиторію
-        data = get_top_drinks_by_average_price()
+        data = brewer_context.cafe_item_repo.get_top_drinks_by_average_price()
 
         # Перетворюємо отримані дані на DataFrame
         df = pd.DataFrame.from_records(data)
@@ -294,22 +285,17 @@ class TopDrinksByAveragePriceView(APIView):
 
 class LargeBookOrdersView(APIView):
     def get(self, request):
-        data = get_customers_with_large_book_orders()
+        data = brewer_context.customer_repo.get_customers_with_large_book_orders()
         # Перетворення на DataFrame
         df = pd.DataFrame.from_records(data.values('id', 'first_name', 'last_name', 'total_books'))
         return Response(df.to_dict(orient='records'))
 
-    def get(self, request):
-        # Отримуємо дані про найпопулярніші книги
-        data = get_most_popular_books()
 
-        # Перетворення на DataFrame
-        df = pd.DataFrame.from_records(data.values('id', 'title', 'total_orders'))
 
 class BookStatisticsView(APIView):
     def get(self, request):
         # Отримуємо дані про найпопулярніші книги
-        data = get_most_popular_books()
+        data = brewer_context.book_repo.get_most_popular_books()
 
         # Перетворення на DataFrame
         df = pd.DataFrame.from_records(data.values('id', 'title', 'total_sold'))
@@ -335,30 +321,20 @@ class BookStatisticsView(APIView):
         return Response(stats)
 
 
-from django.db.models import Avg, Min, Max
 
 class CustomerStatisticsView(APIView):
     def get(self, request):
         # Використовуємо агрегацію на рівні ORM для підрахунку замовлень
-        stats = Customer.objects.annotate(
-            order_count=Count('order')
-        ).aggregate(
-            avg_orders=Avg('order_count'),
-            min_orders=Min('order_count'),
-            max_orders=Max('order_count'),
-        )
+        stats = brewer_context.customer_repo.get_customer_statistics()
 
         return Response(stats)
 
 class OrdersWithBooksAndDrinksStatisticsView(APIView):
     def get(self, request):
-        # Fetch the data
-        data = get_orders_with_books_and_drinks()
+        data = brewer_context.order_item_repo.get_orders_with_books_and_drinks()
 
-        # Create a DataFrame
         df = pd.DataFrame.from_records(data)
 
-        # Check if 'price' and 'quantity' columns exist
         if 'price' in df.columns and 'quantity' in df.columns:
             # Add a calculated column for total_price
             df['total_price'] = df['price'] * df['quantity']
@@ -379,20 +355,10 @@ class OrdersWithBooksAndDrinksStatisticsView(APIView):
 
         return Response(stats)
 
-    from rest_framework.views import APIView
-    from rest_framework.response import Response
-    from cafe.charts import (
-        generate_top_customers_chart,
-        generate_most_popular_books_pie_chart,
-        generate_books_and_drinks_chart,
-        generate_recent_orders_chart,
-        generate_top_drinks_by_price_chart,
-        generate_large_book_orders_chart
-    )
 
 class TopCustomersChartView(APIView):
     def get(self, request):
-        data = get_top_customers_by_orders()
+        data = brewer_context.customer_repo.get_top_customers_by_orders()
         output_file = 'static/charts/top_customers_bar_chart.html'
         generate_top_customers_chart(data, output_file)
         return Response({'chart_url': output_file})
@@ -400,35 +366,35 @@ class TopCustomersChartView(APIView):
 
 class MostPopularBooksChartView(APIView):
         def get(self, request):
-            data = get_most_popular_books()
+            data = brewer_context.book_repo.get_most_popular_books()
             output_file = 'static/charts/most_popular_books_pie_chart.html'
             generate_most_popular_books_pie_chart(data, output_file)
             return Response({'chart_url': output_file})
 
 class BooksAndDrinksChartView(APIView):
         def get(self, request):
-            data = get_orders_with_books_and_drinks()
+            data = brewer_context.order_item_repo.get_orders_with_books_and_drinks()
             output_file = 'static/charts/books_and_drinks_bar_chart.html'
             generate_books_and_drinks_chart(data, output_file)
             return Response({'chart_url': output_file})
 
 class RecentOrdersChartView(APIView):
         def get(self, request):
-            data = get_recent_orders()
+            data = brewer_context.order_repo.get_recent_orders()
             output_file = 'static/charts/recent_orders_line_chart.html'
             generate_recent_orders_chart(data, output_file)
             return Response({'chart_url': output_file})
 
 class TopDrinksByPriceChartView(APIView):
         def get(self, request):
-            data = get_top_drinks_by_average_price()
+            data = brewer_context.cafe_item_repo.get_top_drinks_by_average_price()
             output_file = 'static/charts/top_drinks_by_price_bar_chart.html'
             generate_top_drinks_by_price_chart(data, output_file)
             return Response({'chart_url': output_file})
 
 class LargeBookOrdersChartView(APIView):
         def get(self, request):
-            data = get_customers_with_large_book_orders()
+            data = brewer_context.customer_repo.get_customers_with_large_book_orders()
             output_file = 'static/charts/large_book_orders_chart.html'
             generate_large_book_orders_chart(data, output_file)
             return Response({'chart_url': output_file})

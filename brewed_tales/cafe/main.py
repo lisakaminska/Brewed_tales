@@ -37,23 +37,23 @@ def display_customer_orders(customer_id):
 def main():
     repo_facade = BrewerContext()
 
-    new_customer = repo_facade.customer_repo.add_customer('Olesya', 'Malanchuk', 18, 'lesia@gmail.com')
+    new_customer = repo_facade.customer_repo.add_customer('Franco', 'Colapinto', 21, 'francol@gmail.com')
     print(f"New customer: {new_customer.first_name} {new_customer.last_name}")
 
     new_book = repo_facade.book_repo.add_book(
-        title='Pride and Prejudice',
-        author='Jane Austin',
-        genre='Romance',
-        price= 335.00,
-        publish_date='1813-01-28',
-        stock=50
+        title='Murder on the Orient Express',
+        author='Agatha Christie',
+        genre='Detective',
+        price= 299.00,
+        publish_date='1934-01-01',
+        stock=59
     )
     print(f"New book: {new_book.title}")
 
     new_cafe_item = repo_facade.cafe_item_repo.add_item(
-        item_name='Pistachio latte',
-        item_description='Creamy latte with a nutty pistachio twist.',
-        price=79.00,
+        item_name='Raf',
+        item_description='Espresso with steamed milk and vanilla syrup',
+        price=76.00,
         stock=100
     )
     print(f"New cafe item: {new_cafe_item.item_name}")
@@ -63,7 +63,7 @@ def main():
 
     # Додавання елементів до замовлення
     new_order_item_1 = repo_facade.order_item_repo.add_order_item(new_order, book=new_book, quantity=1, price=new_book.price)
-    new_order_item_2 = repo_facade.order_item_repo.add_order_item(new_order, cafe_item=new_cafe_item, quantity=1, price=new_cafe_item.price)
+    new_order_item_2 = repo_facade.order_item_repo.add_order_item(new_order, cafe_item=new_cafe_item, quantity=2, price=new_cafe_item.price)
 
     # Розрахунок загальної вартості замовлення
     total = (new_order_item_1.quantity * new_order_item_1.price) + (new_order_item_2.quantity * new_order_item_2.price)

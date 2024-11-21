@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'cafe',
-    'cafe_book_space'
+    'cafe_book_space',
+    'plotly',
 ]
 
 REST_FRAMEWORK = {
@@ -90,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'brewed_tales',
         'USER': 'root',
-        'PASSWORD': '25072019',
+        'PASSWORD': 'Skzonelove8',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -131,7 +132,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

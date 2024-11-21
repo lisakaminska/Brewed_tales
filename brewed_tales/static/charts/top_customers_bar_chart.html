@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Customers by Orders</title>
+    <!-- Включення бібліотеки Plotly для рендерингу графіків -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+<div id="chart"></div>
+
+<script type="text/javascript">
+    // Данні графіка, які генерує Plotly
+    var data = [
+        {
+            x: ['Customer 1', 'Customer 2', 'Customer 3'],  // Замініть на реальні імена клієнтів
+            y: [10, 20, 30],  // Замініть на реальні замовлення
+            name: 'Orders',
+            type: 'bar'
+        }
+    ];
+
+    var layout = {
+        title: 'Top Customers by Orders',
+        xaxis: {
+            title: 'Customers'
+        },
+        yaxis: {
+            title: 'Total Orders'
+        }
+    };
+
+    // Створення графіка за допомогою Plotly
+    Plotly.newPlot('chart', data, layout);
+</script>
+
+</body>
+</html>

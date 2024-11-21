@@ -25,7 +25,6 @@ router.register(r'order-items', OrderItemViewSet)
 
 
 
-
 urlpatterns = [
     path('top-customers/', TopCustomersView.as_view(), name='top-customers'),
     path('most-popular-books/', MostPopularBooksView.as_view(), name='most-popular-books'),
