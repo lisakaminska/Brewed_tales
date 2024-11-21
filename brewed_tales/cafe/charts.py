@@ -43,7 +43,7 @@ def generate_recent_orders_chart(data, output_file='recent_orders_line_chart.htm
     line_chart = Scatter(x=df['order_date'], y=df['order_count'], mode='lines+markers', name='Orders')
     layout = dict(title='Recent Orders', xaxis=dict(title='Date'), yaxis=dict(title='Order Count'))
     plot(dict(data=[line_chart], layout=layout), filename=output_file)
-
+# and here?
 
 def generate_top_drinks_by_price_chart(data, output_file='top_drinks_by_price_bar_chart.html'):
     df = pd.DataFrame.from_records(data)

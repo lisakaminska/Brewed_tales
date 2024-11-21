@@ -256,7 +256,7 @@ class TopCustomersView(APIView):
             chart_html = file.read()
 
         return HttpResponse(chart_html, content_type='text/html')
-
+# hi can you see me?
 
 class MostPopularBooksView(APIView):
     def get(self, request):
