@@ -2,6 +2,9 @@ from datetime import timedelta
 from django.utils.timezone import now
 from django.db.models import Count, Avg, Sum
 from cafe.models import Customer, Book, Order, OrderItem, CafeItem
+from django.db.models import Sum, IntegerField
+from django.db.models.functions import Coalesce
+
 
 # Функція для отримання топ-клієнтів за кількістю замовлень
 def get_top_customers_by_orders():
@@ -10,14 +13,24 @@ def get_top_customers_by_orders():
     ).order_by('-total_orders')
 
 # Функція для отримання найпопулярніших книг за кількістю продажів
+
 def get_most_popular_books():
     return Book.objects.annotate(
-        total_sold=Sum('orderitem__quantity')
+        total_sold=Coalesce(Sum('orderitem__quantity'), 0, output_field=IntegerField())
     ).order_by('-total_sold')
+
 
 # Функція для отримання замовлень з книгами та напоями
 def get_orders_with_books_and_drinks():
-    return OrderItem.objects.select_related('order', 'book', 'cafe_item')
+    return OrderItem.objects.select_related('order', 'book', 'cafe_item').values(
+        'id',
+        'order__customer__first_name',
+        'order__customer__last_name',
+        'book__title',
+        'cafe_item__item_name',
+        'price',
+        'quantity'
+    )
 
 # Функція для отримання останніх 10 замовлень
 def get_recent_orders():
