@@ -341,9 +341,14 @@ class CustomerStatisticsView(APIView):
 
 class OrdersWithBooksAndDrinksStatisticsView(APIView):
     def get(self, request):
+        # Fetch the data
         data = get_orders_with_books_and_drinks()
 
-        df = pd.DataFrame.from_records(data.values('id', 'customer', 'book', 'drink', 'total_price'))
+        # Create a DataFrame and calculate 'total_price' if it's not a field in the model
+        df = pd.DataFrame.from_records(data.values('id', 'order__customer__first_name', 'order__customer__last_name', 'book__title', 'cafe_item__item_name', 'price', 'quantity'))
+
+        # Add a calculated column for total_price
+        df['total_price'] = df['price'] * df['quantity']
 
         stats = {
             'mean': df['total_price'].mean(),
