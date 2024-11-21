@@ -90,8 +90,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'brewed_tales',
         'USER': 'root',
-        'PASSWORD': 'Skzonelove8',
-        'HOST': '127.0.0.1',
+        'PASSWORD': '25072019',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }

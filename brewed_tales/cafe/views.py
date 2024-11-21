@@ -309,15 +309,24 @@ class BookStatisticsView(APIView):
         data = get_most_popular_books()
 
         # Перетворення на DataFrame
-        df = pd.DataFrame.from_records(data.values('id', 'title', 'total_orders'))
+        df = pd.DataFrame.from_records(data.values('id', 'title', 'total_sold'))
 
-        # Обчислення статистичних показників
-        stats = {
-            'mean': df['total_orders'].mean(),
-            'median': df['total_orders'].median(),
-            'min': df['total_orders'].min(),
-            'max': df['total_orders'].max(),
-        }
+        # Перевірка наявності колонки 'total_sold'
+        if 'total_sold' in df.columns:
+            # Обчислення статистичних показників
+            stats = {
+                'mean': df['total_sold'].mean(),
+                'median': df['total_sold'].median(),
+                'min': df['total_sold'].min(),
+                'max': df['total_sold'].max(),
+            }
+        else:
+            stats = {
+                'mean': None,
+                'median': None,
+                'min': None,
+                'max': None,
+            }
 
         # Повертаємо статистику
         return Response(stats)
@@ -339,17 +348,36 @@ class CustomerStatisticsView(APIView):
         return Response(stats)
 
 
+import pandas as pd
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from cafe.repositories.analytics_repo import get_orders_with_books_and_drinks
+
 class OrdersWithBooksAndDrinksStatisticsView(APIView):
     def get(self, request):
+        # Fetch the data
         data = get_orders_with_books_and_drinks()
 
-        df = pd.DataFrame.from_records(data.values('id', 'customer', 'book', 'drink', 'total_price'))
+        # Create a DataFrame
+        df = pd.DataFrame.from_records(data)
 
-        stats = {
-            'mean': df['total_price'].mean(),
-            'median': df['total_price'].median(),
-            'min': df['total_price'].min(),
-            'max': df['total_price'].max(),
-        }
+        # Check if 'price' and 'quantity' columns exist
+        if 'price' in df.columns and 'quantity' in df.columns:
+            # Add a calculated column for total_price
+            df['total_price'] = df['price'] * df['quantity']
+
+            stats = {
+                'mean': df['total_price'].mean(),
+                'median': df['total_price'].median(),
+                'min': df['total_price'].min(),
+                'max': df['total_price'].max(),
+            }
+        else:
+            stats = {
+                'mean': None,
+                'median': None,
+                'min': None,
+                'max': None,
+            }
 
         return Response(stats)
