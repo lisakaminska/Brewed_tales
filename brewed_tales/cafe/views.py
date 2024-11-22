@@ -2,7 +2,7 @@ from plotly.graph_objs import Bar
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 # cafe/views.py
-from .charts import generate_large_book_orders_scatter_plot, generate_top_customers_chart, \
+from .charts import generate_large_book_orders_scatter_plot, generate_top_customers_bar_chart, \
     generate_most_popular_books_pie_chart, generate_books_and_drinks_histogram, \
     generate_recent_orders_line_chart, generate_top_drinks_by_price_box_plot
 from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
@@ -467,7 +467,7 @@ class TopCustomersChartView(APIView):
 
         output_file = 'static/charts/top_customers_bar_chart.html'
 
-        generate_top_customers_chart(df, output_file)
+        generate_top_customers_bar_chart(df, output_file)
 
         with open(output_file, 'r') as file:
             chart_html = file.read()
