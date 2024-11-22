@@ -18,7 +18,7 @@ def generate_most_popular_books_pie_chart(data, output_file='most_popular_books_
     pie_chart = Pie(labels=df['title'], values=df['total_sold'], name='Book Sales')
     layout = dict(title='Most Popular Books')
     plot(dict(data=[pie_chart], layout=layout), filename=output_file)
-
+#
 
 def generate_books_and_drinks_chart(data, output_file='books_and_drinks_bar_chart.html'):
     # Преобразування data в DataFrame

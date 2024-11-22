@@ -555,49 +555,10 @@ class LargeBookOrdersChartView(APIView):
         return HttpResponse(chart_html, content_type='text/html')
 
 from django.shortcuts import render
+from rest_framework.views import APIView
+
 class DashboardView(APIView):
     def get(self, request):
-        # URL-адреси графіків
-        chart_urls = [
-            '/static/charts/top_customers_bar_chart.html',
-            '/static/charts/most_popular_books_pie_chart.html',
-            '/static/charts/books_and_drinks_bar_chart.html',
-            '/static/charts/recent_orders_line_chart.html',
-            '/static/charts/top_drinks_by_price_bar_chart.html',
-            '/static/charts/large_book_orders_chart.html',
-        ]
-
-        # HTML-код для дашборда
-        dashboard_html = """
-        <!DOCTYPE html>
-        <html lang="uk">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Dashboard</title>
-            <style>
-                iframe {
-                    width: 100%;
-                    height: 400px;
-                    border: none;
-                    margin-bottom: 20px;
-                }
-                h1 {
-                    text-align: center;
-                    color: #333;
-                }
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f9f9f9;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Dashboard</h1>
-        """
-        for url in chart_urls:
-            dashboard_html += f'<iframe src="{url}"></iframe>'
-        dashboard_html += "</body></html>"
-
-        # Повернення HTML у відповідь
-        return HttpResponse(dashboard_html, content_type='text/html')
+        # Повертаємо HTML-шаблон
+        return render(request, 'cafe_book_space/dashboard.html')
+    #
