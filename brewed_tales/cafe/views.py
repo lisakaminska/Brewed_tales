@@ -238,6 +238,10 @@ class OrderItemViewSet(viewsets.ModelViewSet):
 
 
 
+from django.views.generic import TemplateView
+
+class ChartsListView(TemplateView):
+    template_name = 'cafe_book_space/charts-list.html'
 
 
 
@@ -455,19 +459,14 @@ class OrdersWithBooksAndDrinksStatisticsView(APIView):
 
 class TopCustomersChartView(APIView):
     def get(self, request):
-        # Fetch data directly from the repository
         data = brewer_context.customer_repo.get_top_customers_by_orders()
 
-        # Convert the data to a DataFrame
         df = pd.DataFrame.from_records(data)
 
-        # Ensure a static folder for the output file exists
         output_file = 'static/charts/top_customers_bar_chart.html'
 
-        # Generate the chart
         generate_top_customers_chart(df, output_file)
 
-        # Serve the chart file as an HTML response
         with open(output_file, 'r') as file:
             chart_html = file.read()
         return HttpResponse(chart_html, content_type='text/html')
@@ -476,19 +475,14 @@ class TopCustomersChartView(APIView):
 
 class MostPopularBooksChartView(APIView):
     def get(self, request):
-        # Fetch data directly from the repository
         data = brewer_context.book_repo.get_most_popular_books()
 
-        # Convert the data to a DataFrame
         df = pd.DataFrame.from_records(data.values('title', 'total_sold'))
 
-        # Ensure a static folder for the output file exists
         output_file = 'static/charts/most_popular_books_pie_chart.html'
 
-        # Generate the chart
         generate_most_popular_books_pie_chart(df, output_file)
 
-        # Serve the chart file as an HTML response
         with open(output_file, 'r') as file:
             chart_html = file.read()
 
@@ -497,19 +491,14 @@ class MostPopularBooksChartView(APIView):
 
 class BooksAndDrinksChartView(APIView):
     def get(self, request):
-        # Fetch data directly from the repository
         data = brewer_context.order_item_repo.get_orders_with_books_and_drinks()
 
-        # Convert the data to a DataFrame
         df = pd.DataFrame.from_records(data.values('book__title', 'cafe_item__item_name', 'quantity'))
 
-        # Ensure a static folder for the output file exists
         output_file = 'static/charts/books_and_drinks_bar_chart.html'
 
-        # Generate the chart
         generate_books_and_drinks_chart(df, output_file)
 
-        # Serve the chart file as an HTML response
         with open(output_file, 'r') as file:
             chart_html = file.read()
 
@@ -518,21 +507,16 @@ class BooksAndDrinksChartView(APIView):
 
 class RecentOrdersChartView(APIView):
     def get(self, request):
-        # Fetch data directly from the repository
         data = brewer_context.order_repo.get_recent_orders()
 
-        # Convert the data to a DataFrame
         df = pd.DataFrame.from_records(data.values('order_date', 'id'))
         df['order_date'] = pd.to_datetime(df['order_date'])
         df = df.groupby('order_date').size().reset_index(name='order_count')
 
-        # Ensure a static folder for the output file exists
         output_file = 'static/charts/recent_orders_line_chart.html'
 
-        # Generate the chart
         generate_recent_orders_chart(df, output_file)
 
-        # Serve the chart file as an HTML response
         with open(output_file, 'r') as file:
             chart_html = file.read()
 
@@ -541,19 +525,14 @@ class RecentOrdersChartView(APIView):
 
 class TopDrinksByPriceChartView(APIView):
     def get(self, request):
-        # Fetch data directly from the repository
         data = brewer_context.cafe_item_repo.get_top_drinks_by_average_price()
 
-        # Convert the data to a DataFrame
         df = pd.DataFrame.from_records(data)
 
-        # Ensure a static folder for the output file exists
         output_file = 'static/charts/top_drinks_by_price_bar_chart.html'
 
-        # Generate the chart
         generate_top_drinks_by_price_chart(df, output_file)
 
-        # Serve the chart file as an HTML response
         with open(output_file, 'r') as file:
             chart_html = file.read()
 
@@ -562,20 +541,63 @@ class TopDrinksByPriceChartView(APIView):
 
 class LargeBookOrdersChartView(APIView):
     def get(self, request):
-        # Fetch data directly from the repository
         data = brewer_context.customer_repo.get_customers_with_large_book_orders()
 
-        # Convert the data to a DataFrame
         df = pd.DataFrame.from_records(data.values('first_name', 'last_name', 'total_books'))
 
-        # Ensure a static folder for the output file exists
         output_file = 'static/charts/large_book_orders_chart.html'
 
-        # Generate the chart
         generate_large_book_orders_chart(df, output_file)
 
-        # Serve the chart file as an HTML response
         with open(output_file, 'r') as file:
             chart_html = file.read()
 
         return HttpResponse(chart_html, content_type='text/html')
+
+from django.shortcuts import render
+class DashboardView(APIView):
+    def get(self, request):
+        # URL-адреси графіків
+        chart_urls = [
+            '/static/charts/top_customers_bar_chart.html',
+            '/static/charts/most_popular_books_pie_chart.html',
+            '/static/charts/books_and_drinks_bar_chart.html',
+            '/static/charts/recent_orders_line_chart.html',
+            '/static/charts/top_drinks_by_price_bar_chart.html',
+            '/static/charts/large_book_orders_chart.html',
+        ]
+
+        # HTML-код для дашборда
+        dashboard_html = """
+        <!DOCTYPE html>
+        <html lang="uk">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Dashboard</title>
+            <style>
+                iframe {
+                    width: 100%;
+                    height: 400px;
+                    border: none;
+                    margin-bottom: 20px;
+                }
+                h1 {
+                    text-align: center;
+                    color: #333;
+                }
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f9f9f9;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Dashboard</h1>
+        """
+        for url in chart_urls:
+            dashboard_html += f'<iframe src="{url}"></iframe>'
+        dashboard_html += "</body></html>"
+
+        # Повернення HTML у відповідь
+        return HttpResponse(dashboard_html, content_type='text/html')

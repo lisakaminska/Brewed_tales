@@ -1,7 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import BookViewSet, CafeItemViewSet, CustomerViewSet, OrderViewSet, OrderItemViewSet, \
-    CustomerStatisticsView, OrdersWithBooksAndDrinksStatisticsView, BookStatisticsView, ChartsListView
+    CustomerStatisticsView, OrdersWithBooksAndDrinksStatisticsView, BookStatisticsView, ChartsListView, \
+    DashboardView
 from cafe.views import (
     TopCustomersView,
     MostPopularBooksView,
@@ -38,7 +39,8 @@ urlpatterns = [
     path('book-statistics/', BookStatisticsView.as_view(), name='book-statistics'),
     path('', include(router.urls)),
 
-    path('charts/', ChartsListView.as_view(), name='charts-list'),  # Новий маршрут для списку графіків
+    path('charts/', ChartsListView.as_view(), name='charts-list'),
+    path('charts/dashboard/', DashboardView.as_view(), name='dashboard'),
 
     path('charts/top-customers/', TopCustomersChartView.as_view(), name='top-customers-chart'),
     path('charts/most-popular-books/', MostPopularBooksChartView.as_view(), name='most-popular-books-chart'),
