@@ -51,6 +51,9 @@
         .nav a.admin {
             background-color: #dc3545; /* Червоний колір */
         }
+        .nav a.charts {
+        background-color: #6a5acd;
+        }            
         .nav a:hover {
             opacity: 0.8;
         }
@@ -64,6 +67,8 @@
             <a href="{% url 'cafe_book_space:cafe_item_list' %}" class="cafe_items-list">List of cafe items</a>
             <a href="{% url 'cafe_book_space:customer_list' %}" class="customer-list">List of customers</a>
             <a href="{% url 'admin:index' %}" class="admin">Admin</a>
+            <a href="{% url 'charts-list' %}" class="charts">Charts</a> <!-- Нова кнопка -->
+
         </div>
     </div>
 </body>

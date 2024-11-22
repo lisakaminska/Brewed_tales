@@ -18,9 +18,9 @@ def generate_top_customers_chart(df, output_file='top_customers_bar_chart.html')
     layout = dict(title='Top Customers by Orders', xaxis=dict(title='Customers'), yaxis=dict(title='Total Orders'))
     plot(dict(data=[bar_chart], layout=layout), filename=output_file)
 
-
 def generate_most_popular_books_pie_chart(data, output_file='most_popular_books_pie_chart.html'):
-    df = pd.DataFrame.from_records(data.values('title', 'total_sold'))
+    # Переконайтесь, що data — це правильний формат
+    df = pd.DataFrame(data, columns=['title', 'total_sold'])
 
     pie_chart = Pie(labels=df['title'], values=df['total_sold'], name='Book Sales')
     layout = dict(title='Most Popular Books')
@@ -43,7 +43,7 @@ def generate_recent_orders_chart(data, output_file='recent_orders_line_chart.htm
     line_chart = Scatter(x=df['order_date'], y=df['order_count'], mode='lines+markers', name='Orders')
     layout = dict(title='Recent Orders', xaxis=dict(title='Date'), yaxis=dict(title='Order Count'))
     plot(dict(data=[line_chart], layout=layout), filename=output_file)
-# and here?
+
 
 def generate_top_drinks_by_price_chart(data, output_file='top_drinks_by_price_bar_chart.html'):
     df = pd.DataFrame.from_records(data)

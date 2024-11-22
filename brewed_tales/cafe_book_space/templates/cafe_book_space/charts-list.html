@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; 
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #6a5acd;
+            font-weight: bold;
+        }
+        a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Charts List</h1>
+    <ul>
+        <li><a href="{% url 'top-customers-chart' %}">Top Customers Chart</a></li>
+        <li><a href="{% url 'most-popular-books-chart' %}">Most Popular Books Chart</a></li>
+        <li><a href="{% url 'books-and-drinks-chart' %}">Books and Drinks Chart</a></li>
+        <li><a href="{% url 'recent-orders-chart' %}">Recent Orders Chart</a></li>
+        <li><a href="{% url 'top-drinks-by-price-chart' %}">Top Drinks by Price Chart</a></li>
+        <li><a href="{% url 'large-book-orders-chart' %}">Large Book Orders Chart</a></li>
+    </ul>
+    <button onclick="location.href='/'">Back to Home</button>
+</body>
+</html>
