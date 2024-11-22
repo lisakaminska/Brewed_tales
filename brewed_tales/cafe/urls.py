@@ -15,7 +15,8 @@ from cafe.views import (
     BooksAndDrinksChartView,
     RecentOrdersChartView,
     TopDrinksByPriceChartView,
-    LargeBookOrdersChartView
+    LargeBookOrdersChartView,
+
 )#
 router = DefaultRouter()
 router.register(r'books', BookViewSet)
@@ -41,6 +42,7 @@ urlpatterns = [
 
     path('charts/', ChartsListView.as_view(), name='charts-list'),
     path('charts/dashboard/', DashboardView.as_view(), name='dashboard'),
+
 
     path('charts/top-customers/', TopCustomersChartView.as_view(), name='top-customers-chart'),
     path('charts/most-popular-books/', MostPopularBooksChartView.as_view(), name='most-popular-books-chart'),

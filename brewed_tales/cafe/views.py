@@ -1,12 +1,14 @@
 from plotly.graph_objs import Bar
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .charts import generate_large_book_orders_chart, generate_top_customers_chart, \
-    generate_most_popular_books_pie_chart, generate_books_and_drinks_chart, generate_top_drinks_by_price_chart, \
-    generate_recent_orders_chart
+# cafe/views.py
+from .charts import generate_large_book_orders_scatter_plot, generate_top_customers_chart, \
+    generate_most_popular_books_pie_chart, generate_books_and_drinks_histogram, \
+    generate_recent_orders_line_chart, generate_top_drinks_by_price_box_plot
 from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
 from .repositories.BrewerContext import BrewerContext
 from django.db.models import Count
+from django.shortcuts import render
 
 import pandas as pd
 from rest_framework.views import APIView
@@ -497,7 +499,7 @@ class BooksAndDrinksChartView(APIView):
 
         output_file = 'static/charts/books_and_drinks_bar_chart.html'
 
-        generate_books_and_drinks_chart(df, output_file)
+        generate_books_and_drinks_histogram(df, output_file)
 
         with open(output_file, 'r') as file:
             chart_html = file.read()
@@ -515,7 +517,7 @@ class RecentOrdersChartView(APIView):
 
         output_file = 'static/charts/recent_orders_line_chart.html'
 
-        generate_recent_orders_chart(df, output_file)
+        generate_recent_orders_line_chart(df, output_file)
 
         with open(output_file, 'r') as file:
             chart_html = file.read()
@@ -531,7 +533,7 @@ class TopDrinksByPriceChartView(APIView):
 
         output_file = 'static/charts/top_drinks_by_price_bar_chart.html'
 
-        generate_top_drinks_by_price_chart(df, output_file)
+        generate_top_drinks_by_price_box_plot(df, output_file)
 
         with open(output_file, 'r') as file:
             chart_html = file.read()
@@ -547,12 +549,14 @@ class LargeBookOrdersChartView(APIView):
 
         output_file = 'static/charts/large_book_orders_chart.html'
 
-        generate_large_book_orders_chart(df, output_file)
+        generate_large_book_orders_scatter_plot(df, output_file)
 
         with open(output_file, 'r') as file:
             chart_html = file.read()
 
         return HttpResponse(chart_html, content_type='text/html')
+
+
 
 from django.shortcuts import render
 from rest_framework.views import APIView
