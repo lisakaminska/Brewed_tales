@@ -17,6 +17,7 @@ from .views import (
     RecentOrdersChartView,
     BookStatisticsView,
     MostPopularBooksChartView,
+    DashboardBokehView,
 )
 
 router = DefaultRouter()
@@ -34,6 +35,7 @@ urlpatterns = [
 
     # Загальні графіки
     path('charts/dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('charts/dashboard-bokeh/', DashboardBokehView.as_view(), name='dashboard-bokeh'),
     path('charts/', ChartsListView.as_view(), name='charts-list'),
 
     # Графіки для кожного агрегованого запиту
