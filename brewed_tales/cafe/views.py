@@ -1,18 +1,25 @@
-from plotly.graph_objs import Bar
-from rest_framework import viewsets, status
-from rest_framework.permissions import AllowAny, IsAuthenticated
-# cafe/views.py
-from .charts import generate_top_customers_bar_chart
-from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
-from .repositories.BrewerContext import BrewerContext
-from django.db.models import Count
-from django.shortcuts import render
+
+from rest_framework.permissions import AllowAny
+from .charts import (
+    generate_top_customers_bar_chart,
+    generate_most_popular_books_pie_chart,
+    generate_top_drinks_bar_chart,
+    generate_customers_scatter_chart,
+    generate_recent_orders_line_chart,
+    generate_orders_with_books_and_drinks_chart
+)
 import os
 import pandas as pd
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import HttpResponse
 from django.views.generic import TemplateView
+from .models import Book, CafeItem, Customer, Order, OrderItem
+from django.db.models import Count, Sum, Avg
+from django.db.models.functions import Coalesce
+from .repositories.BrewerContext import BrewerContext
+from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
+from rest_framework import viewsets, status
 
 class ChartsListView(TemplateView):
     template_name = 'cafe_book_space/charts-list.html'
@@ -236,30 +243,7 @@ class OrderItemViewSet(viewsets.ModelViewSet):
         brewer_context.order_item_repo.delete_order_item(pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-
-from django.views.generic import TemplateView
-
-
 from plotly.io import to_html
-
-class TopCustomersView(APIView):
-    def get(self, request):
-        data = brewer_context.customer_repo.get_top_customers_by_orders()
-        df = pd.DataFrame.from_records(data)
-
-        if df.empty:
-            return Response({"error": "No data available"}, status=400)
-
-        # Генерація графіка
-        df['full_name'] = df['first_name'] + ' ' + df['last_name']
-        bar_chart = Bar(x=df['full_name'], y=df['total_orders'], name='Orders')
-        layout = dict(title='Top Customers by Orders', xaxis=dict(title='Customers'), yaxis=dict(title='Total Orders'))
-        fig = dict(data=[bar_chart], layout=layout)
-
-        # Повернення інтерактивного графіка
-        chart_html = to_html(fig)
-        return HttpResponse(chart_html, content_type='text/html')
 
 
 class TopCustomersChartView(APIView):
@@ -279,36 +263,75 @@ class TopCustomersChartView(APIView):
 
         return HttpResponse(chart_html, content_type='text/html')
 
-
-
-class BookStatisticsView(APIView):
+class MostPopularBooksChartView(APIView):
     def get(self, request):
-        # Отримуємо дані про найпопулярніші книги
-        data = brewer_context.book_repo.get_most_popular_books()
+        data = Book.objects.annotate(
+            total_sold=Coalesce(Sum('orderitem__quantity'), 0)
+        ).order_by('-total_sold')
 
-        # Перетворення на DataFrame
-        df = pd.DataFrame.from_records(data.values('id', 'title', 'total_sold'))
+        df = pd.DataFrame.from_records(data.values('title', 'total_sold'))
+        generate_most_popular_books_pie_chart(df, 'most_popular_books_pie_chart.html')
 
-        # Перевірка наявності колонки 'total_sold'
-        if 'total_sold' in df.columns:
-            # Обчислення статистичних показників
-            stats = {
-                'mean': df['total_sold'].mean(),
-                'median': df['total_sold'].median(),
-                'min': df['total_sold'].min(),
-                'max': df['total_sold'].max(),
-            }
-        else:
-            stats = {
-                'mean': None,
-                'median': None,
-                'min': None,
-                'max': None,
-            }
+        output_path = os.path.join('static', 'charts', 'most_popular_books_pie_chart.html')
+        with open(output_path, 'r') as file:
+            return HttpResponse(file.read(), content_type='text/html')
 
-        # Повертаємо статистику
-        return Response(stats)
 
+class TopDrinksByAveragePriceChartView(APIView):
+    def get(self, request):
+        data = CafeItem.objects.values('item_name').annotate(
+            average_price=Avg('price')
+        ).order_by('-average_price')
+
+        df = pd.DataFrame.from_records(data)
+        generate_top_drinks_bar_chart(df, 'top_drinks_bar_chart.html')
+
+        output_path = os.path.join('static', 'charts', 'top_drinks_bar_chart.html')
+        with open(output_path, 'r') as file:
+            return HttpResponse(file.read(), content_type='text/html')
+
+
+class CustomersWithLargeBookOrdersChartView(APIView):
+    def get(self, request):
+        data = Customer.objects.annotate(
+            total_books=Sum('order__orderitem__quantity')
+        ).filter(total_books__gt=2)
+
+        df = pd.DataFrame.from_records(data.values('first_name', 'last_name', 'total_books'))
+        df['full_name'] = df['first_name'] + ' ' + df['last_name']
+        generate_customers_scatter_chart(df, 'customers_scatter_chart.html')
+
+        output_path = os.path.join('static', 'charts', 'customers_scatter_chart.html')
+        with open(output_path, 'r') as file:
+            return HttpResponse(file.read(), content_type='text/html')
+
+
+class RecentOrdersChartView(APIView):
+    def get(self, request):
+        data = Order.objects.all().order_by('-order_date')[:10]
+        df = pd.DataFrame.from_records(data.values('order_date', 'total'))
+        generate_recent_orders_line_chart(df, 'recent_orders_line_chart.html')
+
+        output_path = os.path.join('static', 'charts', 'recent_orders_line_chart.html')
+        with open(output_path, 'r') as file:
+            return HttpResponse(file.read(), content_type='text/html')
+
+
+class OrdersWithBooksAndDrinksChartView(APIView):
+    def get(self, request):
+        data = OrderItem.objects.select_related('order', 'book', 'cafe_item').values(
+            'book__title',
+            'cafe_item__item_name',
+            'quantity'
+        )
+
+        df = pd.DataFrame.from_records(data)
+
+        generate_orders_with_books_and_drinks_chart(df, 'orders_with_books_and_drinks_chart.html')
+
+        output_path = os.path.join('static', 'charts', 'orders_with_books_and_drinks_chart.html')
+        with open(output_path, 'r') as file:
+            return HttpResponse(file.read(), content_type='text/html')
 
 
 class CustomerStatisticsView(APIView):
@@ -344,6 +367,12 @@ class OrdersWithBooksAndDrinksStatisticsView(APIView):
 
         return Response(stats)
 
+
+class BookStatisticsView(APIView):
+    def get(self, request):
+        data = brewer_context.book_repo.get_book_statistics()
+
+        return Response(data)
 
 from django.shortcuts import render
 from rest_framework.views import APIView
