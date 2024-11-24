@@ -4,6 +4,10 @@ from plotly.offline import plot
 
 
 # Стовпчастий графік
+from django.conf import settings
+import os
+
+
 def generate_top_customers_bar_chart(data, output_file='top_customers_bar_chart.html'):
     df = pd.DataFrame(data, columns=['first_name', 'last_name', 'total_orders'])
     if df.empty:
@@ -13,7 +17,10 @@ def generate_top_customers_bar_chart(data, output_file='top_customers_bar_chart.
     df['full_name'] = df['first_name'] + ' ' + df['last_name']
     bar_chart = Bar(x=df['full_name'], y=df['total_orders'], name='Orders')
     layout = dict(title='Top Customers by Orders', xaxis=dict(title='Customers'), yaxis=dict(title='Total Orders'))
-    plot(dict(data=[bar_chart], layout=layout), filename=output_file)
+
+    # Зберегти файл у STATICFILES_DIRS
+    file_path = os.path.join(settings.BASE_DIR, 'static', 'charts', output_file)
+    plot(dict(data=[bar_chart], layout=layout), filename=file_path)
 
 
 # Кругова діаграма
@@ -29,7 +36,9 @@ def generate_books_and_drinks_histogram(data, output_file='books_and_drinks_hist
     df = pd.DataFrame(data, columns=['book_title', 'drink_name', 'quantity'])
     histogram = Histogram(x=df['book_title'], y=df['quantity'], name='Books and Drinks')
     layout = dict(title='Books with Drinks', xaxis=dict(title='Books'), yaxis=dict(title='Total Quantity'))
-    plot(dict(data=[histogram], layout=layout), filename=output_file)
+
+    file_path = os.path.join(settings.BASE_DIR, 'static', 'charts', output_file)
+    plot(dict(data=[histogram], layout=layout), filename=file_path)
 
 
 # Лінійний графік

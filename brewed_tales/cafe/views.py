@@ -157,7 +157,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class OrderViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = brewer_context.order_repo.get_all_orders()
     serializer_class = OrderSerializer
 
@@ -198,7 +198,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class OrderItemViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = brewer_context.order_item_repo.get_all_order_items()
     serializer_class = OrderItemSerializer
 
@@ -241,10 +241,6 @@ class OrderItemViewSet(viewsets.ModelViewSet):
 
 
 from django.views.generic import TemplateView
-
-class ChartsListView(TemplateView):
-    template_name = 'cafe_book_space/charts-list.html'
-
 
 
 from plotly.io import to_html

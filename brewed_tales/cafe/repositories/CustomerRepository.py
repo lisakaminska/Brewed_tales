@@ -3,6 +3,12 @@ from django.db.models import Count, Sum
 
 class CustomerRepository:
 
+    def get_customer_statistics(self):
+        return Customer.objects.aggregate(
+            total_customers=Count('id'),
+            average_age=Sum('age') / Count('id')
+        )
+
     def get_customers_with_large_book_orders(self):
         return Customer.objects.annotate(
             total_books=Sum('order__orderitem__quantity')
