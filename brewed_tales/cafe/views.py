@@ -1,5 +1,7 @@
 
 from rest_framework.permissions import AllowAny
+from bokeh.embed import file_html
+from bokeh.resources import CDN
 from .charts import (
     generate_top_customers_bar_chart,
     generate_most_popular_books_pie_chart,
@@ -275,7 +277,7 @@ class TopCustomersChartView(APIView):
 
 class MostPopularBooksChartView(APIView):
     def get(self, request):
-        data = Book.objects.annotate(
+        data = Book.objects.values(
             total_sold=Coalesce(Sum('orderitem__quantity'), 0)
         ).order_by('-total_sold')
 
@@ -289,7 +291,7 @@ class MostPopularBooksChartView(APIView):
 
 class TopDrinksByAveragePriceChartView(APIView):
     def get(self, request):
-        data = CafeItem.objects.values('item_name').annotate(
+        data = CafeItem.objects.values('item_name').values(
             average_price=Avg('price')
         ).order_by('-average_price')
 
@@ -303,7 +305,7 @@ class TopDrinksByAveragePriceChartView(APIView):
 
 class CustomersWithLargeBookOrdersChartView(APIView):
     def get(self, request):
-        data = Customer.objects.annotate(
+        data = Customer.objects.values(
             total_books=Sum('order__orderitem__quantity')
         ).filter(total_books__gt=2)
 
@@ -346,20 +348,72 @@ class OrdersWithBooksAndDrinksChartView(APIView):
 
 class TopCustomersChartViewBokeh(APIView):
     def get(self, request):
+        # Fetch the data (adjust query according to your actual model)
         data = brewer_context.customer_repo.get_top_customers_by_orders()
         df = pd.DataFrame.from_records(data)
 
-        # Генерація графіка
+        # Generate the chart
         chart = generate_top_customers_bar_chart_bokeh(df)
 
-        # Вбудовуємо графік у відповідь
-        from bokeh.embed import file_html
-        from bokeh.resources import CDN
+        # Embed the chart into HTML response
         html = file_html(chart, CDN, "Top Customers Bar Chart")
+        return HttpResponse(html, content_type='text/html')
+
+class MostPopularBooksChartViewBokeh(APIView):
+    def get(self, request):
+        # Fetch data (adjust according to your actual model)
+        data = brewer_context.book_repo.get_most_popular_books()
+        df = pd.DataFrame.from_records(data)
+
+        # Generate the chart
+        chart = generate_most_popular_books_pie_chart_bokeh(df)
+
+        # Embed the chart into HTML response
+        html = file_html(chart, CDN, "Most Popular Books Chart")
+        return HttpResponse(html, content_type='text/html')
+
+class TopDrinksByPriceChartViewBokeh(APIView):
+    def get(self, request):
+        # Fetch data for drinks and their prices
+        data = brewer_context.cafe_item_repo.get_top_drinks_by_price()
+        df = pd.DataFrame.from_records(data)
+
+        # Generate the chart
+        chart = generate_top_drinks_by_price_bar_chart_bokeh(df)
+
+        # Embed the chart into HTML response
+        html = file_html(chart, CDN, "Top Drinks by Average Price Chart")
+        return HttpResponse(html, content_type='text/html')
+
+class RecentOrdersChartViewBokeh(APIView):
+    def get(self, request):
+        # Fetch data for recent orders
+        data = brewer_context.order_repo.get_recent_orders()
+        df = pd.DataFrame.from_records(data)
+
+        # Generate the chart
+        chart = generate_recent_orders_scatter_chart_bokeh(df)
+
+        # Embed the chart into HTML response
+        html = file_html(chart, CDN, "Recent Orders Chart")
+        return HttpResponse(html, content_type='text/html')
+
+class CustomersWithLargeOrdersChartViewBokeh(APIView):
+    def get(self, request):
+        # Fetch data for customers with large orders
+        data = brewer_context.customer_repo.get_customers_with_large_orders()
+        df = pd.DataFrame.from_records(data)
+
+        # Generate the chart
+        chart = generate_customers_with_large_orders_line_chart_bokeh(df)
+
+        # Embed the chart into HTML response
+        html = file_html(chart, CDN, "Customers with Large Orders Chart")
         return HttpResponse(html, content_type='text/html')
 
 class OrdersWithBooksAndDrinksChartViewBokeh(APIView):
     def get(self, request):
+        # Fetch the order data with books and drinks
         data = OrderItem.objects.select_related('order', 'book', 'cafe_item').values(
             customer_name='order__customer__full_name',
             book_title='book__title',
@@ -370,12 +424,10 @@ class OrdersWithBooksAndDrinksChartViewBokeh(APIView):
 
         df = pd.DataFrame.from_records(data)
 
-        # Генерація таблиці
+        # Generate the table
         table = generate_orders_with_books_and_drinks_table_bokeh(df)
 
-        # Вбудовуємо таблицю у відповідь
-        from bokeh.embed import file_html
-        from bokeh.resources import CDN
+        # Embed the table into HTML response
         html = file_html(table, CDN, "Orders Table")
         return HttpResponse(html, content_type='text/html')
 
@@ -428,5 +480,5 @@ class DashboardView (APIView):
         return render(request, 'cafe_book_space/dashboard.html')
 
 class DashboardBokehView(APIView):
-    def dashboard_bokeh(self, request):
-            return render(request, 'dashboard_bokeh.html')
+    def get(self, request):  # Added get method to handle GET requests
+        return render(request, 'cafe_book_space/dashboard_bokeh.html')

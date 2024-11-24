@@ -40,7 +40,7 @@ def generate_top_drinks_bar_chart(df, output_file='top_drinks_bar_chart.html'):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
     bar_chart = Bar(x=df['item_name'], y=df['average_price'], name='Average Price')
-    layout = dict(title='Top Drinks by Average Price', xaxis=dict(title='Drinks'), yaxis=dict(title='Average Price'))
+    layout = dict(title='Top Cafe items by Average Price', xaxis=dict(title='Cafe items'), yaxis=dict(title='Average Price'))
 
     plot(dict(data=[bar_chart], layout=layout), filename=output_path, auto_open=False)
 
