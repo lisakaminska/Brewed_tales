@@ -270,7 +270,7 @@ class TopCustomersChartView(APIView):
 
         # Відкриваємо збережений файл
         output_path = os.path.join('static', 'charts', output_file)
-        with open(output_path, 'r') as file:
+        with open(output_path, 'r', encoding='utf-8') as file:
             chart_html = file.read()
 
         return HttpResponse(chart_html, content_type='text/html')
@@ -285,13 +285,13 @@ class MostPopularBooksChartView(APIView):
         generate_most_popular_books_pie_chart(df, 'most_popular_books_pie_chart.html')
 
         output_path = os.path.join('static', 'charts', 'most_popular_books_pie_chart.html')
-        with open(output_path, 'r') as file:
+        with open(output_path, 'r', encoding='utf-8') as file:
             return HttpResponse(file.read(), content_type='text/html')
 
 
 class TopDrinksByAveragePriceChartView(APIView):
     def get(self, request):
-        data = CafeItem.objects.values('item_name').values(
+        data = CafeItem.objects.values('item_name').annotate(
             average_price=Avg('price')
         ).order_by('-average_price')
 
@@ -299,7 +299,7 @@ class TopDrinksByAveragePriceChartView(APIView):
         generate_top_drinks_bar_chart(df, 'top_drinks_bar_chart.html')
 
         output_path = os.path.join('static', 'charts', 'top_drinks_bar_chart.html')
-        with open(output_path, 'r') as file:
+        with open(output_path, 'r', encoding='utf-8') as file:
             return HttpResponse(file.read(), content_type='text/html')
 
 
@@ -314,7 +314,7 @@ class CustomersWithLargeBookOrdersChartView(APIView):
         generate_customers_scatter_chart(df, 'customers_scatter_chart.html')
 
         output_path = os.path.join('static', 'charts', 'customers_scatter_chart.html')
-        with open(output_path, 'r') as file:
+        with open(output_path, 'r', encoding='utf-8') as file:
             return HttpResponse(file.read(), content_type='text/html')
 
 
@@ -325,7 +325,7 @@ class RecentOrdersChartView(APIView):
         generate_recent_orders_line_chart(df, 'recent_orders_line_chart.html')
 
         output_path = os.path.join('static', 'charts', 'recent_orders_line_chart.html')
-        with open(output_path, 'r') as file:
+        with open(output_path, 'r', encoding='utf-8') as file:
             return HttpResponse(file.read(), content_type='text/html')
 
 
@@ -342,7 +342,7 @@ class OrdersWithBooksAndDrinksChartView(APIView):
         generate_orders_with_books_and_drinks_chart(df, 'orders_with_books_and_drinks_chart.html')
 
         output_path = os.path.join('static', 'charts', 'orders_with_books_and_drinks_chart.html')
-        with open(output_path, 'r') as file:
+        with open(output_path, 'r', encoding='utf-8') as file:
             return HttpResponse(file.read(), content_type='text/html')
 
 
