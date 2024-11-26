@@ -17,13 +17,6 @@ from .views import (
     RecentOrdersChartView,
     BookStatisticsView,
     MostPopularBooksChartView,
-    DashboardBokehView,
-    TopCustomersChartViewBokeh,
-    MostPopularBooksChartViewBokeh,
-    TopDrinksByPriceChartViewBokeh,
-    RecentOrdersChartViewBokeh,
-    CustomersWithLargeOrdersChartViewBokeh,
-    OrdersWithBooksAndDrinksChartViewBokeh,
 
 )
 
@@ -42,7 +35,7 @@ urlpatterns = [
 
     # Загальні графіки
     path('charts/dashboard/', DashboardView.as_view(), name='dashboard'),
-    path('charts/dashboard-bokeh/', DashboardBokehView.as_view(), name='dashboard-bokeh'),
+
     path('charts/', ChartsListView.as_view(), name='charts-list'),
 
     # Графіки для кожного агрегованого запиту
@@ -54,10 +47,4 @@ urlpatterns = [
     path('charts/recent-orders/', RecentOrdersChartView.as_view(), name='recent-orders-chart'),
 
 
-path('bokeh/top-customers/', TopCustomersChartViewBokeh.as_view(), name='top-customers'),
-    path('bokeh/most-popular-books/', MostPopularBooksChartViewBokeh.as_view(), name='most-popular-books'),
-    path('bokeh/top-drinks-by-price/', TopDrinksByPriceChartViewBokeh.as_view(), name='top-drinks-by-price'),
-    path('bokeh/recent-orders/', RecentOrdersChartViewBokeh.as_view(), name='recent-orders'),
-    path('bokeh/customers-with-large-orders/', CustomersWithLargeOrdersChartViewBokeh.as_view(), name='customers-with-large-orders'),
-    path('bokeh/orders-with-books-and-drinks/', OrdersWithBooksAndDrinksChartViewBokeh.as_view(), name='orders-with-books-and-drinks'),
 ]
