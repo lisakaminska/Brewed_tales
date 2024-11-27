@@ -4,7 +4,8 @@ from cafe.models import Order
 class OrderRepository:
 
     def get_recent_orders(self):
-        return Order.objects.all().order_by('-order_date')[:10]  # останні 10 замовлень
+        # Return the recent orders as a list of dictionaries
+        return Order.objects.all().order_by('-order_date')[:10].values('order_date')  # Use .values to get dictionaries
 
     def get_all_orders(self):
         return Order.objects.all()

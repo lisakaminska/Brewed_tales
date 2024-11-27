@@ -3,16 +3,19 @@ from cafe.models import OrderItem
 class OrderItemRepository:
 
     def get_orders_with_books_and_drinks(self):
-        return OrderItem.objects.select_related('order', 'book', 'cafe_item').values(
-            'id',
-            'order__customer__first_name',
-            'order__customer__last_name',
-            'book__title',
-            'cafe_item__item_name',
-            'price',
-            'quantity'
+        # Query to fetch orders with books and drinks
+        orders = OrderItem.objects.select_related('order', 'book', 'cafe_item').values(
+            'id',  # OrderItem id
+            'order__id',  # Correctly referencing Order ID
+            'order__customer__first_name',  # Customer's first name
+            'order__customer__last_name',  # Customer's last name
+            'book__title',  # Book title
+            'cafe_item__item_name',  # Cafe item name
+            'price',  # Price
+            'quantity'  # Quantity
         )
 
+        return orders
     def get_all_order_items(self):
         return OrderItem.objects.all()
 

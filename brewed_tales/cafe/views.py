@@ -445,6 +445,10 @@ class BokehDashboardView(APIView):
         # Fetch data for orders with books and drinks
         orders_with_books_and_drinks_data = brewer_context.order_item_repo.get_orders_with_books_and_drinks()
         orders_with_books_and_drinks_df = pd.DataFrame.from_records(orders_with_books_and_drinks_data)
+        orders_with_books_and_drinks_df['order_id'] = orders_with_books_and_drinks_df[
+            'order__id']  # Ensure `order_id` exists
+        orders_with_books_and_drinks_df.rename(columns={'quantity': 'quantity'}, inplace=True)
+
         print(orders_with_books_and_drinks_df)
 
         # Generate Bokeh chart for orders with books and drinks
@@ -456,6 +460,7 @@ class BokehDashboardView(APIView):
         recent_orders_df['order_date'] = pd.to_datetime(recent_orders_df['order_date'])
         recent_orders_df['order_count'] = 1
         recent_orders_df = recent_orders_df.groupby('order_date').count().reset_index()
+
         print(recent_orders_df)
 
         # Generate Bokeh chart for recent orders
