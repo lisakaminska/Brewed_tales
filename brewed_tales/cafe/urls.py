@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from cafe.views import parallel_experiment_view
 from .views import (
     BookViewSet,
     CafeItemViewSet,
@@ -46,5 +47,7 @@ urlpatterns = [
     path('charts/orders-with-books-and-drinks/', OrdersWithBooksAndDrinksChartView.as_view(), name='orders-with-books-and-drinks-chart'),
     path('charts/recent-orders/', RecentOrdersChartView.as_view(), name='recent-orders-chart'),
 
+
+    path('parallel-experiment/', parallel_experiment_view, name='parallel_experiment'),
 
 ]

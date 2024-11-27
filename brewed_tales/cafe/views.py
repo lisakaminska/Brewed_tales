@@ -482,3 +482,15 @@ class BokehDashboardView(APIView):
             'script_orders_with_books_and_drinks': script_orders_with_books_and_drinks, 'div_orders_with_books_and_drinks': div_orders_with_books_and_drinks,
             'script_recent_orders': script_recent_orders, 'div_recent_orders': div_recent_orders,
         })
+
+
+
+from django.shortcuts import render
+from cafe.parallel_processing import perform_experiment
+
+def parallel_experiment_view(request):
+    """
+    Представлення для відображення результатів експерименту з багатопоточністю/багатопроцесністю.
+    """
+    graphic = perform_experiment()
+    return render(request, 'cafe_book_space/parallel_experiment.html', {'graphic': graphic})
