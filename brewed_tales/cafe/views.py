@@ -258,7 +258,7 @@ class TopCustomersChartView(APIView):
         output_file = 'top_customers_bar_chart.html'
 
         # Генерація та збереження графіка
-        generate_top_customers_bar_chart(df, output_file)
+        generate_top_customers_bar_chart(df, output_file=output_file)
 
         # Відкриваємо збережений файл
         output_path = os.path.join('static', 'charts', output_file)
