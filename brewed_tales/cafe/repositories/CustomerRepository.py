@@ -12,7 +12,7 @@ class CustomerRepository:
     def get_customers_with_large_book_orders(self):
         return Customer.objects.annotate(
             total_books=Sum('order__orderitem__quantity')
-        ).filter(total_books__gt=2)
+        ).filter(total_books__gt=2).values('first_name', 'last_name', 'total_books')
 
     def get_top_customers_by_orders(self):
         return Customer.objects.annotate(

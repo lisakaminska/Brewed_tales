@@ -1,4 +1,4 @@
-
+from bokeh.layouts import column
 from rest_framework.permissions import AllowAny
 from bokeh.embed import file_html
 from bokeh.resources import CDN
@@ -385,3 +385,95 @@ from rest_framework.views import APIView
 class DashboardView (APIView):
     def get(self, request):
         return render(request, 'cafe_book_space/dashboard.html')
+ 
+from django.shortcuts import render
+from bokeh.embed import components
+from .bokeh_charts import generate_top_customers_bar_chart
+from .repositories.BrewerContext import BrewerContext
+from rest_framework.views import APIView
+import pandas as pd
+
+brewer_context = BrewerContext()
+
+from rest_framework.views import APIView
+from django.shortcuts import render
+import pandas as pd
+from bokeh.embed import components
+from .models import Book, Customer, CafeItem, OrderItem, Order  # Включаємо моделі, якщо вони є
+from .bokeh_charts import generate_most_popular_books_bar_chart, generate_top_drinks_by_average_price_chart, \
+    generate_customers_with_large_book_orders_chart, generate_top_customers_bar_chart, generate_orders_with_books_and_drinks_chart, generate_recent_orders_chart
+
+class BokehDashboardView(APIView):
+    def get(self, request):
+        # Fetch data for top customers
+        top_customers_data = brewer_context.customer_repo.get_top_customers_by_orders()
+        top_customers_df = pd.DataFrame.from_records(top_customers_data)
+        top_customers_df['customer'] = top_customers_df['first_name'] + ' ' + top_customers_df['last_name']
+        top_customers_df.rename(columns={'total_orders': 'orders'}, inplace=True)
+        print(top_customers_df)
+
+        # Generate Bokeh chart for top customers
+        top_customers_chart = generate_top_customers_bar_chart(top_customers_df)
+
+        # Fetch data for most popular books
+        most_popular_books_data = brewer_context.book_repo.get_most_popular_books()
+        most_popular_books_df = pd.DataFrame.from_records(most_popular_books_data)
+        most_popular_books_df['book_title'] = most_popular_books_df['title']
+        most_popular_books_df.rename(columns={'total_sold': 'sold'}, inplace=True)
+        print(most_popular_books_df)
+
+        # Generate Bokeh chart for most popular books
+        most_popular_books_chart = generate_most_popular_books_bar_chart(most_popular_books_df)
+
+        # Fetch data for top drinks by average price
+        top_drinks_data = brewer_context.cafe_item_repo.get_top_drinks_by_average_price()
+        top_drinks_df = pd.DataFrame.from_records(top_drinks_data)
+        print(top_drinks_df)
+
+        # Generate Bokeh chart for top drinks by average price
+        top_drinks_chart = generate_top_drinks_by_average_price_chart(top_drinks_df)
+
+        # Fetch data for customers with large book orders
+        large_book_orders_data = brewer_context.customer_repo.get_customers_with_large_book_orders()
+        large_book_orders_df = pd.DataFrame.from_records(large_book_orders_data)
+        large_book_orders_df['customer'] = large_book_orders_df['first_name'] + ' ' + large_book_orders_df['last_name']
+        print(large_book_orders_df)
+
+        # Generate Bokeh chart for customers with large book orders
+        large_book_orders_chart = generate_customers_with_large_book_orders_chart(large_book_orders_df)
+
+        # Fetch data for orders with books and drinks
+        orders_with_books_and_drinks_data = brewer_context.order_item_repo.get_orders_with_books_and_drinks()
+        orders_with_books_and_drinks_df = pd.DataFrame.from_records(orders_with_books_and_drinks_data)
+        print(orders_with_books_and_drinks_df)
+
+        # Generate Bokeh chart for orders with books and drinks
+        orders_with_books_and_drinks_chart = generate_orders_with_books_and_drinks_chart(orders_with_books_and_drinks_df)
+
+        # Fetch data for recent orders
+        recent_orders_data = brewer_context.order_repo.get_recent_orders()
+        recent_orders_df = pd.DataFrame.from_records(recent_orders_data)
+        recent_orders_df['order_date'] = pd.to_datetime(recent_orders_df['order_date'])
+        recent_orders_df['order_count'] = 1
+        recent_orders_df = recent_orders_df.groupby('order_date').count().reset_index()
+        print(recent_orders_df)
+
+        # Generate Bokeh chart for recent orders
+        recent_orders_chart = generate_recent_orders_chart(recent_orders_df)
+
+        # Combine all charts into the template
+        script_top_customers, div_top_customers = components(top_customers_chart)
+        script_most_popular_books, div_most_popular_books = components(most_popular_books_chart)
+        script_top_drinks, div_top_drinks = components(top_drinks_chart)
+        script_large_book_orders, div_large_book_orders = components(large_book_orders_chart)
+        script_orders_with_books_and_drinks, div_orders_with_books_and_drinks = components(orders_with_books_and_drinks_chart)
+        script_recent_orders, div_recent_orders = components(recent_orders_chart)
+
+        return render(request, 'cafe_book_space/bokeh_dashboard.html', {
+            'script_top_customers': script_top_customers, 'div_top_customers': div_top_customers,
+            'script_most_popular_books': script_most_popular_books, 'div_most_popular_books': div_most_popular_books,
+            'script_top_drinks': script_top_drinks, 'div_top_drinks': div_top_drinks,
+            'script_large_book_orders': script_large_book_orders, 'div_large_book_orders': div_large_book_orders,
+            'script_orders_with_books_and_drinks': script_orders_with_books_and_drinks, 'div_orders_with_books_and_drinks': div_orders_with_books_and_drinks,
+            'script_recent_orders': script_recent_orders, 'div_recent_orders': div_recent_orders,
+        })
