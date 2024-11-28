@@ -33,7 +33,6 @@ def generate_top_customers_bar_chart(df):
     return p
 
 
-
 from bokeh.palettes import Category20
 
 
