@@ -408,6 +408,7 @@ from bokeh.plotting import figure
 from bokeh.embed import components
 import pandas as pd
 
+
 class BokehDashboardView(APIView):
     def get(self, request):
         # Fetch data for top customers (example function; adapt as needed)

@@ -41,6 +41,7 @@ urlpatterns = [
     path('charts/bokeh-dashboard/', BokehDashboardView.as_view(), name='bokeh-dashboard'),
     path('charts/', ChartsListView.as_view(), name='charts-list'),
 
+
     # Графіки для кожного агрегованого запиту
     path('charts/top-customers/', TopCustomersChartView.as_view(), name='top-customers-chart'),
     path('charts/most-popular-books/', MostPopularBooksChartView.as_view(), name='most-popular-books-chart'),
