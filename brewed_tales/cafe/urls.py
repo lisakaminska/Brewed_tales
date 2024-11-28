@@ -1,6 +1,5 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from cafe.views import parallel_experiment_view
 from .views import (
     BookViewSet,
     CafeItemViewSet,
@@ -20,7 +19,10 @@ from .views import (
     MostPopularBooksChartView,
     BokehDashboardView,
     test_chart_serialization,
-    chart_page
+    chart_page,
+    generate_charts_view,
+    dashboard_view,
+    generate_performance_chart_view
 )
 
 router = DefaultRouter()
@@ -50,9 +52,9 @@ urlpatterns = [
     path('charts/recent-orders/', RecentOrdersChartView.as_view(), name='recent-orders-chart'),
 
 
-    path('parallel-experiment/', parallel_experiment_view, name='parallel_experiment'),
-
     path('test-serialization/', test_chart_serialization, name='test_serialization'),
 path('chart-test/', chart_page, name='chart-test'),
-
+    path('generate-charts/', generate_charts_view, name='generate-charts'),
+path('multi-dashboard/', dashboard_view, name='multi-dashboard'),
+    path('performance-chart/', generate_performance_chart_view, name='performance-chart'),
 ]

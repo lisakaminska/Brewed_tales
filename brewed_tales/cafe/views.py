@@ -428,15 +428,6 @@ class BokehDashboardView(APIView):
 
 
 from django.shortcuts import render
-from cafe.parallel_processing import perform_experiment
-
-def parallel_experiment_view(request):
-    """
-    Представлення для відображення результатів експерименту з багатопоточністю/багатопроцесністю.
-    """
-    graphic = perform_experiment()
-    return render(request, 'cafe_book_space/parallel_experiment.html', {'graphic': graphic})
-
 
 from django.http import JsonResponse
 from bokeh.embed import json_item
@@ -460,3 +451,48 @@ from django.shortcuts import render
 
 def chart_page(request):
     return render(request, 'chart-test.html')
+
+
+
+
+
+from django.http import JsonResponse
+from .charts import generate_all_charts_in_parallel
+import pandas as pd
+
+def generate_charts_view(request):
+    # Підготовка даних
+    dataframes = {
+        'customers': pd.DataFrame({'first_name': ['John', 'Jane'], 'last_name': ['Doe', 'Smith'], 'total_orders': [5, 7]}),
+        'books': pd.DataFrame({'title': ['Book A', 'Book B'], 'total_sold': [100, 200]}),
+        'drinks': pd.DataFrame({'item_name': ['Coffee', 'Tea'], 'average_price': [5.0, 3.0]}),
+        'orders': pd.DataFrame({
+            'order_date': ['2024-11-01', '2024-11-02'],
+            'total': [150, 200],
+            'book__title': ['Book A', 'Book B'],
+            'cafe_item__item_name': ['Coffee', 'Tea'],
+            'quantity': [3, 5]
+        })
+    }
+
+    # Виклик багатопроцесної генерації
+    generate_all_charts_in_parallel(dataframes)
+    return JsonResponse({'message': 'Charts generated successfully'})
+
+from django.shortcuts import render
+
+def dashboard_view(request):
+    return render(request, 'cafe_book_space/multi-dashboard.html')
+
+from .generate_performance_chart import generate_performance_chart
+
+def generate_performance_chart_view(request):
+    # Генерація графіка
+    results_csv = os.path.join( 'performance_results.csv')  # Ваш файл з результатами
+    generate_performance_chart(results_csv=results_csv)
+
+    # Рендеринг сторінки
+    return render(request, 'performance_chart.html', {
+        'chart_url': '/cafe_book_space/templates/performance_chart.html',
+    })
+

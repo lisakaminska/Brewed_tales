@@ -1,6 +1,8 @@
 import os
 from plotly.graph_objs import Bar, Pie, Scatter, Line
 from plotly.offline import plot
+import multiprocessing
+
 
 def generate_top_customers_bar_chart(df, output_file='top_customers_bar_chart.html'):
     if df.empty:
@@ -103,3 +105,30 @@ def generate_orders_with_books_and_drinks_chart(df, output_file='orders_with_boo
         plot(dict(data=grouped_bar_chart, layout=layout), filename=output_path, auto_open=False)
     else:
         print("Required columns not found in the DataFrame.")
+
+
+def generate_chart(chart_function, df, output_file):
+    try:
+        chart_function(df, output_file)
+        print(f"Chart {output_file} created successfully.")
+    except Exception as e:
+        print(f"Error generating chart {output_file}: {e}")
+
+def generate_all_charts_in_parallel(dataframes):
+    chart_jobs = [
+        (generate_top_customers_bar_chart, dataframes['customers'], 'top_customers_bar_chart.html'),
+        (generate_most_popular_books_pie_chart, dataframes['books'], 'most_popular_books_pie_chart.html'),
+        (generate_top_drinks_bar_chart, dataframes['cafe_items'], 'top_drinks_bar_chart.html'),
+        (generate_customers_scatter_chart, dataframes['customers'], 'customers_scatter_chart.html'),
+        (generate_recent_orders_line_chart, dataframes['orders'], 'recent_orders_line_chart.html'),
+        (generate_orders_with_books_and_drinks_chart, dataframes['orders_with_books_and_drinks'], 'orders_with_books_and_drinks_chart.html')
+
+    ]
+    processes = []
+    for chart_function, df, output_file in chart_jobs:
+        process = multiprocessing.Process(target=generate_chart, args=(chart_function, df, output_file))
+        processes.append(process)
+        process.start()
+    for process in processes:
+        process.join()
+    print("All charts generated.")
