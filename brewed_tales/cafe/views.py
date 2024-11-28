@@ -427,6 +427,8 @@ class BokehDashboardView(APIView):
         })
 
 
+
+
 from django.shortcuts import render
 from cafe.parallel_processing import perform_experiment
 

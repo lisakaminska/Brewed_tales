@@ -73,7 +73,7 @@ def generate_recent_orders_line_chart(df, output_file='recent_orders_line_chart.
     plot(dict(data=[line_chart], layout=layout), filename=output_path, auto_open=False)
 
 
-from plotly.graph_objs import Heatmap, Bar
+from plotly.graph_objs import Bar
 
 def generate_orders_with_books_and_drinks_chart(df, output_file='orders_with_books_and_drinks_chart.html'):
     if df.empty:
