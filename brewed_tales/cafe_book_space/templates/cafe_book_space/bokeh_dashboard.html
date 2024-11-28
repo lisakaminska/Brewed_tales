@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bokeh Dashboard</title>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.6.1.min.js"></script>
+</head>
+<body>
+    <h1>Top Customers Dashboard</h1>
+    <div id="bokeh-chart">
+        {{ script_top_customers | safe }}
+        {{ div_top_customers | safe }}
+    </div>
+</body>
+</html>
