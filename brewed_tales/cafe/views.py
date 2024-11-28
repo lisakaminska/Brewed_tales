@@ -494,3 +494,27 @@ def parallel_experiment_view(request):
     """
     graphic = perform_experiment()
     return render(request, 'cafe_book_space/parallel_experiment.html', {'graphic': graphic})
+
+
+from django.http import JsonResponse
+from bokeh.embed import json_item
+from bokeh.plotting import figure
+
+
+def test_chart_serialization(request):
+    # Create a simple chart for debugging (or use your actual chart).
+    chart = figure(title="Test Chart", x_axis_label='X', y_axis_label='Y')
+    chart.line([1, 2, 3], [4, 5, 6], legend_label="Line", line_width=2)
+
+    try:
+        # Attempt to serialize the chart.
+        serialized_chart = json_item(chart)
+        return JsonResponse(serialized_chart)
+    except Exception as e:
+        # Log and return the error if serialization fails.
+        return JsonResponse({'error': str(e)}, status=500)
+
+from django.shortcuts import render
+
+def chart_page(request):
+    return render(request, 'chart-test.html')

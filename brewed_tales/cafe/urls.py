@@ -19,6 +19,8 @@ from .views import (
     BookStatisticsView,
     MostPopularBooksChartView,
     BokehDashboardView,
+    test_chart_serialization,
+    chart_page
 )
 
 router = DefaultRouter()
@@ -49,5 +51,8 @@ urlpatterns = [
 
 
     path('parallel-experiment/', parallel_experiment_view, name='parallel_experiment'),
+
+    path('test-serialization/', test_chart_serialization, name='test_serialization'),
+path('chart-test/', chart_page, name='chart-test'),
 
 ]
