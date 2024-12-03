@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Bokeh Chart</title>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.6.1.min.js"></script>
+</head>
+<body>
+    <div id="bokeh-chart"></div>
+    <script>
+        fetch('/api/test-serialization/')
+            .then(response => response.json())
+            .then(chartData => {
+                Bokeh.embed.embed_item(chartData, 'bokeh-chart');
+            })
+            .catch(error => console.error('Error rendering chart:', error));
+    </script>
+</body>
+</html>

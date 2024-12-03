@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; 
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #6a5acd;
+            font-weight: bold;
+        }
+        a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Charts List</h1>
+    <ul>
+        <li><a href="{% url 'dashboard' %}">Dashboards V1</a></li>
+        <li><a href="{% url 'bokeh-dashboard' %}">Dashboards V2</a></li>
+    </ul>
+    <button onclick="location.href='/'">Back to Home</button>
+</body>
+</html>

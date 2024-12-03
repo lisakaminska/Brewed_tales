@@ -1,6 +1,13 @@
 from cafe.models import CafeItem
+from django.db.models import Avg
 
 class CafeItemRepository:
+
+    def get_top_drinks_by_average_price(self):
+        return CafeItem.objects.values('id', 'item_name').annotate(
+            average_price=Avg('price')
+        ).order_by('-average_price')
+
     def get_all_items(self):
         return CafeItem.objects.all()
 

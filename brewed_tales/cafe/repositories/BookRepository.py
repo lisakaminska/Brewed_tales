@@ -1,6 +1,16 @@
 from cafe.models import Book
+from django.db.models.functions import Coalesce
+from django.db.models import Sum, IntegerField
+
 
 class BookRepository:
+
+    def get_most_popular_books(self):
+        # Повертає список словників з полями book_title і total_sold
+        return Book.objects.annotate(
+            total_sold=Coalesce(Sum('orderitem__quantity'), 0, output_field=IntegerField())
+        ).values('title', 'total_sold').order_by('-total_sold')
+
     def get_all_books(self):
         return Book.objects.all()
 
