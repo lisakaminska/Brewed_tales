@@ -53,8 +53,8 @@ urlpatterns = [
 
 
     path('test-serialization/', test_chart_serialization, name='test_serialization'),
-path('chart-test/', chart_page, name='chart-test'),
+    path('chart-test/', chart_page, name='chart-test'),
     path('generate-charts/', generate_charts_view, name='generate-charts'),
-path('multi-dashboard/', dashboard_view, name='multi-dashboard'),
+    path('multi-dashboard/', dashboard_view, name='multi-dashboard'),
     path('performance-chart/', generate_performance_chart_view, name='performance-chart'),
 ]

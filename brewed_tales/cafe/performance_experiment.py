@@ -1,3 +1,4 @@
+import argparse
 import multiprocessing
 import time
 import pandas as pd
@@ -20,18 +21,25 @@ def measure_execution_time(num_processes, num_queries):
     return execution_time
 
 
-def run_experiments():
+def run_experiments(num_of_queries):
     results = []
 
     # Запуск експериментів для різної кількості процесів
     for num_processes in range(1, 11):  # Від 1 до 10 процесів
-        execution_time = measure_execution_time(num_processes, 100)  # 100 запитів
+        execution_time = measure_execution_time(num_processes, num_of_queries)
         results.append({'num_processes': num_processes, 'execution_time': execution_time})
 
     return pd.DataFrame(results)
 
 
 if __name__ == '__main__':
-    results_df = run_experiments()
-    results_df.to_csv('performance_results.csv', index=False)
-    print("Експерименти завершено. Результати збережено у файл performance_results.csv")
+    # Створення парсера аргументів командного рядка
+    parser = argparse.ArgumentParser(description='Run performance experiments.')
+    parser.add_argument('--queries', type=int, required=True, help='Number of queries to simulate.')
+
+    # Отримуємо значення num_of_queries з командного рядка
+    args = parser.parse_args()
+
+    # Запуск експериментів
+    results_df = run_experiments(args.queries)
+    print(results_df)

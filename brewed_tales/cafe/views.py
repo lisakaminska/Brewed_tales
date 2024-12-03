@@ -488,11 +488,14 @@ from .generate_performance_chart import generate_performance_chart
 
 def generate_performance_chart_view(request):
     # Генерація графіка
-    results_csv = os.path.join( 'performance_results.csv')  # Ваш файл з результатами
+    results_csv = os.path.join('cafe', 'performance_results.csv')  # Шлях до CSV
     generate_performance_chart(results_csv=results_csv)
 
     # Рендеринг сторінки
     return render(request, 'performance_chart.html', {
-        'chart_url': '/cafe_book_space/templates/performance_chart.html',
+        'chart_url': '/static/charts/performance_chart.html',  # Шлях до згенерованого HTML
     })
+
+
+
 
