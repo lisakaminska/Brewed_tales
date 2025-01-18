@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -93,6 +92,20 @@
         .clearfix {
             overflow: auto;
         }
+        .back-home-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 15px;
+            background-color: #007bff; /* Синій колір для кнопки */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .back-home-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +130,7 @@
                 </li>
             {% endfor %}
         </ul>
+        <a href="{% url 'cafe_book_space:home' %}" class="back-home-button">Back to Home</a>
     </div>
 </body>
 </html>
