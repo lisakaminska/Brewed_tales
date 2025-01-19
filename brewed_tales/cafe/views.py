@@ -1,7 +1,5 @@
-from bokeh.layouts import column
+
 from rest_framework.permissions import AllowAny
-from bokeh.embed import file_html
-from bokeh.resources import CDN
 from .charts import (
     generate_top_customers_bar_chart,
     generate_most_popular_books_pie_chart,
@@ -12,13 +10,10 @@ from .charts import (
 )
 
 import os
-import pandas as pd
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-from .models import Book, CafeItem, Customer, Order, OrderItem
 from django.db.models import Count, Sum, Avg
 from django.db.models.functions import Coalesce
 from .repositories.BrewerContext import BrewerContext
@@ -27,7 +22,6 @@ from rest_framework import viewsets, status
 
 class ChartsListView(TemplateView):
     template_name = 'cafe_book_space/charts-list.html'
-
 
 brewer_context = BrewerContext()
 
@@ -119,15 +113,10 @@ class CustomerViewSet(viewsets.ModelViewSet):
     serializer_class = CustomerSerializer
 
     def list(self, request, *args, **kwargs):
-        # Perform aggregation
         aggregated_data = self.queryset.aggregate(
             total_customers=Count('id'),
         )
-
-        # Serialize the original data
         serializer = self.get_serializer(self.queryset, many=True)
-
-        # Combine the aggregated data with the serialized data
         response_data = {
             'aggregated_data': aggregated_data,
             'customer': serializer.data
@@ -247,8 +236,8 @@ class OrderItemViewSet(viewsets.ModelViewSet):
         brewer_context.order_item_repo.delete_order_item(pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-from plotly.io import to_html
 
+#Charts
 
 class TopCustomersChartView(APIView):
     def get(self, request):
@@ -257,14 +246,11 @@ class TopCustomersChartView(APIView):
 
         output_file = 'top_customers_bar_chart.html'
 
-        # Генерація та збереження графіка
         generate_top_customers_bar_chart(df, output_file=output_file)
 
-        # Відкриваємо збережений файл
         output_path = os.path.join('static', 'charts', output_file)
         with open(output_path, 'r', encoding='utf-8') as file:
             chart_html = file.read()
-
         return HttpResponse(chart_html, content_type='text/html')
 
 class MostPopularBooksChartView(APIView):
@@ -288,11 +274,15 @@ class TopDrinksByAveragePriceChartView(APIView):
         ).order_by('-average_price')
 
         df = pd.DataFrame.from_records(data)
-        generate_top_drinks_bar_chart(df, 'top_drinks_bar_chart.html')
+        output_file = 'top_drinks_bar_chart.html'
 
-        output_path = os.path.join('static', 'charts', 'top_drinks_bar_chart.html')
+        generate_top_drinks_bar_chart(df, output_file)
+
+        output_path = os.path.join('static', 'charts', output_file)
         with open(output_path, 'r', encoding='utf-8') as file:
-            return HttpResponse(file.read(), content_type='text/html')
+            chart_html = file.read()
+        return HttpResponse(chart_html, content_type='text/html')
+
 
 
 class CustomersWithLargeBookOrdersChartView(APIView):
@@ -303,22 +293,31 @@ class CustomersWithLargeBookOrdersChartView(APIView):
 
         df = pd.DataFrame.from_records(data.values('first_name', 'last_name', 'total_books'))
         df['full_name'] = df['first_name'] + ' ' + df['last_name']
-        generate_customers_scatter_chart(df, 'customers_scatter_chart.html')
+        output_file = 'customers_scatter_chart.html'
 
-        output_path = os.path.join('static', 'charts', 'customers_scatter_chart.html')
+        generate_customers_scatter_chart(df, output_file)
+
+        output_path = os.path.join('static', 'charts', output_file)
         with open(output_path, 'r', encoding='utf-8') as file:
-            return HttpResponse(file.read(), content_type='text/html')
+            chart_html = file.read()
+        return HttpResponse(chart_html, content_type='text/html')
+
 
 
 class RecentOrdersChartView(APIView):
     def get(self, request):
         data = Order.objects.all().order_by('-order_date')[:10]
         df = pd.DataFrame.from_records(data.values('order_date', 'total'))
-        generate_recent_orders_line_chart(df, 'recent_orders_line_chart.html')
+        output_file = 'recent_orders_line_chart.html'
 
-        output_path = os.path.join('static', 'charts', 'recent_orders_line_chart.html')
+        generate_recent_orders_line_chart(df, output_file)
+
+        output_path = os.path.join('static', 'charts', output_file)
         with open(output_path, 'r', encoding='utf-8') as file:
-            return HttpResponse(file.read(), content_type='text/html')
+            chart_html = file.read()
+
+        return HttpResponse(chart_html, content_type='text/html')
+
 
 
 class OrdersWithBooksAndDrinksChartView(APIView):
@@ -337,7 +336,7 @@ class OrdersWithBooksAndDrinksChartView(APIView):
         with open(output_path, 'r', encoding='utf-8') as file:
             return HttpResponse(file.read(), content_type='text/html')
 
-
+#Statistic ??????????????????????????????????
 
 class CustomerStatisticsView(APIView):
     def get(self, request):
@@ -372,98 +371,121 @@ class OrdersWithBooksAndDrinksStatisticsView(APIView):
 
         return Response(stats)
 
-
 class BookStatisticsView(APIView):
     def get(self, request):
         data = brewer_context.book_repo.get_book_statistics()
-
         return Response(data)
-
-from django.shortcuts import render
 from rest_framework.views import APIView
+
 
 class DashboardView (APIView):
     def get(self, request):
         return render(request, 'cafe_book_space/dashboard.html')
- 
+
+# Bokeh
+
+from .repositories.BrewerContext import BrewerContext
+from .models import Book, Customer, CafeItem, OrderItem, Order
+from .bokeh_charts import (
+    generate_top_customers_bar_chart,
+    generate_most_popular_books_bar_chart,
+    generate_top_drinks_by_average_price_chart,
+    generate_customers_with_large_book_orders_chart,
+    generate_orders_with_books_and_drinks_chart,
+    generate_recent_orders_chart
+)
+from rest_framework.views import APIView
 from django.shortcuts import render
 from bokeh.embed import components
-from .bokeh_charts import generate_top_customers_bar_chart
-from .repositories.BrewerContext import BrewerContext
-from rest_framework.views import APIView
 import pandas as pd
 
 brewer_context = BrewerContext()
 
-from rest_framework.views import APIView
-from django.shortcuts import render
-import pandas as pd
-from bokeh.embed import components
-from .models import Book, Customer, CafeItem, OrderItem, Order  # Включаємо моделі, якщо вони є
-from .bokeh_charts import generate_top_customers_bar_chart
-
-from django.shortcuts import render
-from rest_framework.views import APIView
-from bokeh.plotting import figure
-from bokeh.embed import components
-import pandas as pd
-
 class BokehDashboardView(APIView):
     def get(self, request):
-        # Fetch data for top customers (example function; adapt as needed)
+        # Top Customers by Orders
         top_customers_data = brewer_context.customer_repo.get_top_customers_by_orders()
         top_customers_df = pd.DataFrame.from_records(top_customers_data)
         top_customers_df['customer'] = top_customers_df['first_name'] + ' ' + top_customers_df['last_name']
         top_customers_df.rename(columns={'total_orders': 'orders'}, inplace=True)
-
-        # Generate Bokeh chart for top customers
         top_customers_chart = generate_top_customers_bar_chart(top_customers_df)
         script_top_customers, div_top_customers = components(top_customers_chart)
+        # Most Popular Books
+        popular_books_data = brewer_context.book_repo.get_most_popular_books()
+        popular_books_df = pd.DataFrame.from_records(popular_books_data)
+        popular_books_df.rename(columns={'title': 'book_title', 'total_sold': 'sold'},inplace=True)
+        popular_books_chart = generate_most_popular_books_bar_chart(popular_books_df)
+        script_popular_books, div_popular_books = components(popular_books_chart)
 
-        # Render the template
+        # Top Drinks by Average Price
+        top_drinks_data = brewer_context.cafe_item_repo.get_top_drinks_by_average_price()
+        top_drinks_df = pd.DataFrame.from_records(top_drinks_data)
+        top_drinks_chart = generate_top_drinks_by_average_price_chart(top_drinks_df)
+        script_top_drinks, div_top_drinks = components(top_drinks_chart)
+
+        # Customers with Large Book Orders
+        large_orders_data = brewer_context.customer_repo.get_customers_with_large_book_orders()
+        large_orders_df = pd.DataFrame.from_records(large_orders_data)
+        large_orders_df.rename(columns={'customer': 'customer'}, inplace=True)
+        large_orders_chart = generate_customers_with_large_book_orders_chart(large_orders_df)
+        script_customers_scatter, div_customers_scatter = components(large_orders_chart)
+
+        # Orders with Books and Drinks
+        orders_books_drinks_data = brewer_context.order_item_repo.get_orders_with_books_and_drinks()
+        orders_books_drinks_df = pd.DataFrame.from_records(orders_books_drinks_data)
+        orders_books_drinks_df = orders_books_drinks_df.rename(columns={'order__id': 'order_id'})
+        orders_books_drinks_chart = generate_orders_with_books_and_drinks_chart(orders_books_drinks_df)
+        script_orders_books_drinks, div_orders_books_drinks = components(orders_books_drinks_chart)
+
+        # Recent Orders
+        recent_orders_data = brewer_context.order_repo.get_recent_orders()
+        recent_orders_df = pd.DataFrame.from_records(recent_orders_data)
+        recent_orders_df['order_date'] = pd.to_datetime(recent_orders_df['order_date'])
+        recent_orders_df['order_count'] = recent_orders_df.groupby('order_date')['order_date'].transform('count')
+        recent_orders_chart = generate_recent_orders_chart(recent_orders_df)
+        script_recent_orders, div_recent_orders = components(recent_orders_chart)
+
         return render(request, 'cafe_book_space/bokeh_dashboard.html', {
             'script_top_customers': script_top_customers,
             'div_top_customers': div_top_customers,
+            'script_popular_books': script_popular_books,
+            'div_popular_books': div_popular_books,
+            'script_top_drinks': script_top_drinks,
+            'div_top_drinks': div_top_drinks,
+            'script_customers_scatter': script_customers_scatter,
+            'div_customers_scatter': div_customers_scatter,
+            'script_orders_books_drinks': script_orders_books_drinks,
+            'div_orders_books_drinks': div_orders_books_drinks,
+            'script_recent_orders': script_recent_orders,
+            'div_recent_orders': div_recent_orders
         })
 
 
-
-
-from django.shortcuts import render
-
-from django.http import JsonResponse
+# ???????????????????????????????????????????????????///
 from bokeh.embed import json_item
 from bokeh.plotting import figure
-
-
 def test_chart_serialization(request):
-    # Create a simple chart for debugging (or use your actual chart).
     chart = figure(title="Test Chart", x_axis_label='X', y_axis_label='Y')
     chart.line([1, 2, 3], [4, 5, 6], legend_label="Line", line_width=2)
 
     try:
-        # Attempt to serialize the chart.
         serialized_chart = json_item(chart)
         return JsonResponse(serialized_chart)
     except Exception as e:
-        # Log and return the error if serialization fails.
         return JsonResponse({'error': str(e)}, status=500)
-
-from django.shortcuts import render
 
 def chart_page(request):
     return render(request, 'chart-test.html')
 
 
 
-
+# Multiprocessing
 
 from django.http import JsonResponse
 from .charts import generate_all_charts_in_parallel
 import pandas as pd
 
 def generate_charts_view(request):
-    # Підготовка даних
     dataframes = {
         'customers': pd.DataFrame({'first_name': ['John', 'Jane'], 'last_name': ['Doe', 'Smith'], 'total_orders': [5, 7]}),
         'books': pd.DataFrame({'title': ['Book A', 'Book B'], 'total_sold': [100, 200]}),
@@ -477,7 +499,6 @@ def generate_charts_view(request):
         })
     }
 
-    # Виклик багатопроцесної генерації
     generate_all_charts_in_parallel(dataframes)
     return JsonResponse({'message': 'Charts generated successfully'})
 
@@ -485,15 +506,11 @@ from django.shortcuts import render
 
 def dashboard_view(request):
     return render(request, 'cafe_book_space/multi-dashboard.html')
-
 from .generate_performance_chart import generate_performance_chart
 
 def generate_performance_chart_view(request):
-    # Генерація графіка
     results_csv = os.path.join('cafe', 'performance_results.csv')  # Шлях до CSV
     generate_performance_chart(results_csv=results_csv)
-
-    # Рендеринг сторінки
     return render(request, 'performance_chart.html', {
         'chart_url': '/static/charts/performance_chart.html',  # Шлях до згенерованого HTML
     })

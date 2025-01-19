@@ -1,11 +1,8 @@
 import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .forms import BookForm, CafeItemForm, CustomerForm
-from cafe.models import Book, CafeItem, Order
-from cafe.models import Customer
-
-
+from .forms import BookForm, CafeItemForm
+from cafe.models import Book, CafeItem
 
 BOOKS_API_URL = 'http://localhost:8000/api/books/'
 CAFE_ITEMS_API_URL = 'http://localhost:8000/api/cafe-items/'
@@ -14,7 +11,6 @@ CUSTOMER_API_URL = 'http://localhost:8000/api/customers/'
 def home(request):
     return render(request, 'cafe_book_space/home.html')
 
-# Функції для книг
 def book_list(request):
     response = requests.get(BOOKS_API_URL)
     books = response.json() if response.status_code == 200 else []
@@ -112,12 +108,10 @@ def cafe_items_confirm_delete(request, pk):
         return redirect('cafe_book_space:cafe_items_list')
     return render(request, 'cafe_book_space/cafe_item_confirm_delete.html', {'cafe_item': cafe_item})
 
-
 def customer_list(request):
     response = requests.get(CUSTOMER_API_URL)
     data = response.json() if response.status_code == 200 else {}
 
-    # Split the data from the JSON response
     customer_list = data.get('customer', [])
     aggregated_data = data.get('aggregated_data', {})
 

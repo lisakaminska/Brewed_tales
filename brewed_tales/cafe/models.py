@@ -14,7 +14,7 @@ class Book(models.Model):
 class CafeItem(models.Model):
     item_name = models.CharField(max_length=255)
     item_description = models.CharField(max_length=255, blank=True, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.FloatField()
     stock = models.IntegerField()
 
     def __str__(self):

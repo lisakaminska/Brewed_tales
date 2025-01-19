@@ -6,42 +6,48 @@
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.6.1.min.js"></script>
 </head>
 <body>
-    <h1>Top Customers Dashboard</h1>
+    <h1>Bokeh Dashboard</h1>
     
-    <!-- Топ клієнти -->
+    <!-- Top Customers -->
     <h2>Top Customers by Orders</h2>
     <div id="bokeh-chart-top-customers">
         {{ script_top_customers | safe }}
         {{ div_top_customers | safe }}
     </div>
     
-    <!-- Найпопулярніші книги -->
+    <!-- Most Popular Books -->
     <h2>Most Popular Books</h2>
     <div id="bokeh-chart-most-popular-books">
-    {{ script_popular_books | safe }}
-    {{ div_popular_books | safe }}
+        {{ script_popular_books | safe }}
+        {{ div_popular_books | safe }}
     </div>
-
-    <!-- Топ напоїв -->
+    
+    <!-- Top Drinks by Average Price -->
     <h2>Top Drinks by Average Price</h2>
     <div id="bokeh-chart-top-drinks">
         {{ script_top_drinks | safe }}
         {{ div_top_drinks | safe }}
     </div>
     
-    <!-- Клієнти з великими замовленнями на книги -->
+    <!-- Customers with Large Book Orders -->
     <h2>Customers with Large Book Orders</h2>
     <div id="bokeh-chart-customers-scatter">
         {{ script_customers_scatter | safe }}
         {{ div_customers_scatter | safe }}
     </div>
-
-    <!-- Останні замовлення -->
+    
+    <!-- Orders with Books and Drinks -->
+    <h2>Orders with Books and Drinks</h2>
+    <div id="bokeh-chart-orders-books-drinks">
+        {{ script_orders_books_drinks | safe }}
+        {{ div_orders_books_drinks | safe }}
+    </div>
+    
+    <!-- Recent Orders -->
     <h2>Recent Orders</h2>
     <div id="bokeh-chart-recent-orders">
         {{ script_recent_orders | safe }}
         {{ div_recent_orders | safe }}
     </div>
-
 </body>
 </html>
