@@ -250,19 +250,22 @@ class OrderItemViewSet(viewsets.ModelViewSet):
 from plotly.io import to_html
 
 
+from django.conf import settings
+import os
+
 class TopCustomersChartView(APIView):
     def get(self, request):
         data = brewer_context.customer_repo.get_top_customers_by_orders()
         df = pd.DataFrame.from_records(data)
 
-        output_file = 'top_customers_bar_chart.html'
+        # Абсолютний шлях до вихідного файлу
+        output_file_path = os.path.join(settings.BASE_DIR, 'static', 'charts', 'top_customers_bar_chart.html')
 
         # Генерація та збереження графіка
-        generate_top_customers_bar_chart(df, output_file=output_file)
+        generate_top_customers_bar_chart(df, output_file=output_file_path)
 
         # Відкриваємо збережений файл
-        output_path = os.path.join('static', 'charts', output_file)
-        with open(output_path, 'r', encoding='utf-8') as file:
+        with open(output_file_path, 'r', encoding='utf-8') as file:
             chart_html = file.read()
 
         return HttpResponse(chart_html, content_type='text/html')
@@ -386,31 +389,15 @@ class DashboardView (APIView):
     def get(self, request):
         return render(request, 'cafe_book_space/dashboard.html')
  
-from django.shortcuts import render
-from bokeh.embed import components
-from .bokeh_charts import generate_top_customers_bar_chart
-from .repositories.BrewerContext import BrewerContext
-from rest_framework.views import APIView
-import pandas as pd
 
-brewer_context = BrewerContext()
-
-from rest_framework.views import APIView
-from django.shortcuts import render
-import pandas as pd
-from bokeh.embed import components
 from .models import Book, Customer, CafeItem, OrderItem, Order  # Включаємо моделі, якщо вони є
 from .bokeh_charts import generate_top_customers_bar_chart
 
-from django.shortcuts import render
 from rest_framework.views import APIView
-from bokeh.plotting import figure
 from bokeh.embed import components
-import pandas as pd
 
 class BokehDashboardView(APIView):
     def get(self, request):
-        # Fetch data for top customers (example function; adapt as needed)
         top_customers_data = brewer_context.customer_repo.get_top_customers_by_orders()
         top_customers_df = pd.DataFrame.from_records(top_customers_data)
         top_customers_df['customer'] = top_customers_df['first_name'] + ' ' + top_customers_df['last_name']
