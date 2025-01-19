@@ -3,16 +3,15 @@ from cafe.models import OrderItem
 class OrderItemRepository:
 
     def get_orders_with_books_and_drinks(self):
-        # Query to fetch orders with books and drinks
         orders = OrderItem.objects.select_related('order', 'book', 'cafe_item').values(
-            'id',  # OrderItem id
-            'order__id',  # Correctly referencing Order ID
-            'order__customer__first_name',  # Customer's first name
-            'order__customer__last_name',  # Customer's last name
-            'book__title',  # Book title
-            'cafe_item__item_name',  # Cafe item name
-            'price',  # Price
-            'quantity'  # Quantity
+            'id',
+            'order__id',
+            'order__customer__first_name',
+            'order__customer__last_name',
+            'book__title',
+            'cafe_item__item_name',
+            'price',
+            'quantity'
         )
 
         return orders
