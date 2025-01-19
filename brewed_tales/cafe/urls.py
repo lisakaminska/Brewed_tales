@@ -48,6 +48,7 @@ urlpatterns = [
     path('charts/', ChartsListView.as_view(), name='charts-list'),
 
     # Графіки для кожного агрегованого запиту
+    # 1 2 6
     path('charts/top-customers/', TopCustomersChartView.as_view(), name='top-customers-chart'),
     path('charts/most-popular-books/', MostPopularBooksChartView.as_view(), name='most-popular-books-chart'),
     path('charts/top-drinks-average-price/', TopDrinksByAveragePriceChartView.as_view(),  name='top-drinks-average-price-chart'),

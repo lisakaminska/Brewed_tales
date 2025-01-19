@@ -243,10 +243,12 @@ class OrderItemViewSet(viewsets.ModelViewSet):
 class TopCustomersChartView(APIView):
     def get(self, request):
         data = brewer_context.customer_repo.get_top_customers_by_orders()
+        print(data)
         df = pd.DataFrame.from_records(data)
-        output_file_path = os.path.join(settings.BASE_DIR, 'static', 'charts', 'top_customers_bar_chart.html')
-        generate_top_customers_bar_chart(df, output_file=output_file_path)
-        with open(output_file_path, 'r', encoding='utf-8') as file:
+        output_file = 'top_customers_bar_chart.html'
+        generate_top_customers_bar_chart(df, output_file)
+        output_path = os.path.join('static', 'charts', output_file)
+        with open(output_path, 'r', encoding='utf-8') as file:
             chart_html = file.read()
         return HttpResponse(chart_html, content_type='text/html')
 
@@ -255,6 +257,7 @@ class MostPopularBooksChartView(APIView):
         data = Book.objects.values(
             total_sold=Coalesce(Sum('orderitem__quantity'), 0)
         ).order_by('-total_sold')
+        print(data)
 
         df = pd.DataFrame.from_records(data.values('title', 'total_sold'))
         generate_most_popular_books_pie_chart(df, 'most_popular_books_pie_chart.html')
@@ -269,12 +272,9 @@ class TopDrinksByAveragePriceChartView(APIView):
         data = CafeItem.objects.values('item_name').annotate(
             average_price=Avg('price')
         ).order_by('-average_price')
-
         df = pd.DataFrame.from_records(data)
         output_file = 'top_drinks_bar_chart.html'
-
         generate_top_drinks_bar_chart(df, output_file)
-
         output_path = os.path.join('static', 'charts', output_file)
         with open(output_path, 'r', encoding='utf-8') as file:
             chart_html = file.read()
