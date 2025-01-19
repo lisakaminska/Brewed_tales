@@ -385,11 +385,10 @@ from .repositories.BrewerContext import BrewerContext
 from .models import Book, Customer, CafeItem, OrderItem, Order
 from .bokeh_charts import (
     generate_top_customers_bar_chart,
-    generate_most_popular_books_bar_chart,
-    generate_top_drinks_by_average_price_chart,
-    generate_customers_with_large_book_orders_chart,
-    generate_orders_with_books_and_drinks_chart,
-    generate_recent_orders_chart
+    generate_most_popular_books_pie_chart,
+    generate_top_drinks_by_average_price_pie_chart,
+    generate_customers_with_large_book_orders_scatter_chart,
+    generate_recent_orders_line_chart
 )
 from rest_framework.views import APIView
 from django.shortcuts import render
@@ -411,35 +410,28 @@ class BokehDashboardView(APIView):
         popular_books_data = brewer_context.book_repo.get_most_popular_books()
         popular_books_df = pd.DataFrame.from_records(popular_books_data)
         popular_books_df.rename(columns={'title': 'book_title', 'total_sold': 'sold'},inplace=True)
-        popular_books_chart = generate_most_popular_books_bar_chart(popular_books_df)
+        popular_books_chart = generate_most_popular_books_pie_chart(popular_books_df)
         script_popular_books, div_popular_books = components(popular_books_chart)
 
         # Top Drinks by Average Price
         top_drinks_data = brewer_context.cafe_item_repo.get_top_drinks_by_average_price()
         top_drinks_df = pd.DataFrame.from_records(top_drinks_data)
-        top_drinks_chart = generate_top_drinks_by_average_price_chart(top_drinks_df)
+        top_drinks_chart = generate_top_drinks_by_average_price_pie_chart(top_drinks_df)
         script_top_drinks, div_top_drinks = components(top_drinks_chart)
 
         # Customers with Large Book Orders
         large_orders_data = brewer_context.customer_repo.get_customers_with_large_book_orders()
         large_orders_df = pd.DataFrame.from_records(large_orders_data)
         large_orders_df.rename(columns={'customer': 'customer'}, inplace=True)
-        large_orders_chart = generate_customers_with_large_book_orders_chart(large_orders_df)
+        large_orders_chart = generate_customers_with_large_book_orders_scatter_chart(large_orders_df)
         script_customers_scatter, div_customers_scatter = components(large_orders_chart)
-
-        # Orders with Books and Drinks
-        orders_books_drinks_data = brewer_context.order_item_repo.get_orders_with_books_and_drinks()
-        orders_books_drinks_df = pd.DataFrame.from_records(orders_books_drinks_data)
-        orders_books_drinks_df = orders_books_drinks_df.rename(columns={'order__id': 'order_id'})
-        orders_books_drinks_chart = generate_orders_with_books_and_drinks_chart(orders_books_drinks_df)
-        script_orders_books_drinks, div_orders_books_drinks = components(orders_books_drinks_chart)
 
         # Recent Orders
         recent_orders_data = brewer_context.order_repo.get_recent_orders()
         recent_orders_df = pd.DataFrame.from_records(recent_orders_data)
         recent_orders_df['order_date'] = pd.to_datetime(recent_orders_df['order_date'])
         recent_orders_df['order_count'] = recent_orders_df.groupby('order_date')['order_date'].transform('count')
-        recent_orders_chart = generate_recent_orders_chart(recent_orders_df)
+        recent_orders_chart = generate_recent_orders_line_chart(recent_orders_df)
         script_recent_orders, div_recent_orders = components(recent_orders_chart)
 
         return render(request, 'cafe_book_space/bokeh_dashboard.html', {
@@ -451,8 +443,6 @@ class BokehDashboardView(APIView):
             'div_top_drinks': div_top_drinks,
             'script_customers_scatter': script_customers_scatter,
             'div_customers_scatter': div_customers_scatter,
-            'script_orders_books_drinks': script_orders_books_drinks,
-            'div_orders_books_drinks': div_orders_books_drinks,
             'script_recent_orders': script_recent_orders,
             'div_recent_orders': div_recent_orders
         })
