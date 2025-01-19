@@ -1,14 +1,27 @@
 from bokeh.palettes import Spectral11
+from bokeh.palettes import Category20
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, HoverTool
 from bokeh.transform import cumsum
 from math import pi
 
 def generate_top_customers_bar_chart(df):
-    p = figure(x_range=df['customer'], title="Top Customers by Orders", toolbar_location="above", tools="pan,box_zoom,reset,hover,save")
-    p.vbar(x=df['customer'], top=df['orders'], width=0.9, color=Spectral11[2])
+    source = ColumnDataSource(data=dict(customer=df['customer'],orders=df['orders']))
+    p = figure(
+        x_range=df['customer'],
+        title="Top Customers by Orders",
+        toolbar_location="above",
+        tools="pan,box_zoom,reset,save"
+    )
+    p.vbar(
+        x='customer',
+        top='orders',
+        width=0.9,
+        color=Spectral11[2],
+        source=source
+    )
     hover = HoverTool()
-    hover.tooltips = [("Customer", "@customer"), ("Orders", "@orders")]
+    hover.tooltips = [("Customer", "@customer"),("Orders", "@orders")]
     p.add_tools(hover)
     p.xgrid.grid_line_color = None
     p.y_range.start = 0
@@ -17,13 +30,18 @@ def generate_top_customers_bar_chart(df):
     p.xaxis.axis_label = 'Customer'
     return p
 
+
 def generate_most_popular_books_pie_chart(df):
     df['angle'] = df['sold'] / df['sold'].sum() * 2 * pi
-    df['color'] = ["#%06x" % (i * 0x654321 % 0xFFFFFF) for i in range(len(df))]
+    num_colors = len(df)
+    palette = (Category20[20] * (num_colors // 20 + 1))[:num_colors]
+    df['color'] = palette
     df['percentage'] = (df['sold'] / df['sold'].sum() * 100).round(2)
     source = ColumnDataSource(df)
-    p = figure(title="Most Popular Books (Interactive Pie Chart)", toolbar_location="above", tools="pan, wheel_zoom, box_zoom, reset", height=350, width=600)
-    p.wedge(x=0, y=1, radius=0.4, start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'), line_color="white", fill_color='color', legend_field='book_title', source=source)
+    p = figure(title="Most Popular Books (Interactive Pie Chart)", toolbar_location="above",
+               tools="pan, wheel_zoom, box_zoom, reset", height=350, width=600)
+    p.wedge(x=0, y=1, radius=0.4, start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+            line_color="white", fill_color='color', legend_field='book_title', source=source)
     hover = HoverTool(tooltips=[("Book Title", "@book_title"), ("Sold", "@sold"), ("Percentage", "@percentage%")])
     p.add_tools(hover)
     p.axis.axis_label = None
@@ -35,14 +53,30 @@ def generate_most_popular_books_pie_chart(df):
     p.legend.border_line_color = None
     return p
 
-def generate_top_drinks_by_average_price_pie_chart(df):
+
+def generate_top_drinks_by_average_price_pie_chart(df, previous_palette=None):
     df['angle'] = df['average_price'] / df['average_price'].sum() * 2 * pi
-    df['color'] = ["#%06x" % (i * 0x654321 % 0xFFFFFF) for i in range(len(df))]
+    num_colors = len(df)
+
+    palette = Category20[20]
+
+    if previous_palette:
+        palette = [color for color in Category20[20] if color not in previous_palette]
+
+    palette = (palette * (num_colors // len(palette) + 1))[:num_colors]
+
+    df['color'] = palette
     df['percentage'] = (df['average_price'] / df['average_price'].sum() * 100).round(2)
+
     source = ColumnDataSource(df)
-    p = figure(title="Top Drinks by Average Price (Interactive Pie Chart)", toolbar_location="above", tools="pan, wheel_zoom, box_zoom, reset", height=350, width=600)
-    p.wedge(x=0, y=1, radius=0.4, start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'), line_color="white", fill_color='color', legend_field='item_name', source=source)
-    hover = HoverTool(tooltips=[("Drink Name", "@item_name"), ("Average Price", "@average_price"), ("Percentage", "@percentage%")])
+    p = figure(title="Top Drinks by Average Price (Interactive Pie Chart)", toolbar_location="above",
+               tools="pan, wheel_zoom, box_zoom, reset", height=350, width=600)
+
+    p.wedge(x=0, y=1, radius=0.4, start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+            line_color="white", fill_color='color', legend_field='item_name', source=source)
+
+    hover = HoverTool(
+        tooltips=[("Drink Name", "@item_name"), ("Average Price", "@average_price"), ("Percentage", "@percentage%")])
     p.add_tools(hover)
     p.axis.axis_label = None
     p.axis.visible = False
@@ -52,6 +86,7 @@ def generate_top_drinks_by_average_price_pie_chart(df):
     p.legend.label_text_font_size = "10px"
     p.legend.border_line_color = None
     return p
+
 
 def generate_customers_with_large_book_orders_scatter_chart(df):
     df['total_books'] = df['total_books'].astype(float)
