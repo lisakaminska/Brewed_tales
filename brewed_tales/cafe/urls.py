@@ -46,11 +46,10 @@ urlpatterns = [
     # Графіки для кожного агрегованого запиту
     path('charts/top-customers/', TopCustomersChartView.as_view(), name='top-customers-chart'),
     path('charts/most-popular-books/', MostPopularBooksChartView.as_view(), name='most-popular-books-chart'),
-    path('charts/top-drinks-average-price/', TopDrinksByAveragePriceChartView.as_view(), name='top-drinks-average-price-chart'),
-    path('charts/customers-large-book-orders/', CustomersWithLargeBookOrdersChartView.as_view(), name='customers-large-book-orders-chart'),
-    path('charts/top-drinks-average-price/', TopDrinksByAveragePriceChartView.as_view(), name='top-drinks-average-price-chart'),
+    path('charts/top-drinks-average-price/', TopDrinksByAveragePriceChartView.as_view(),  name='top-drinks-average-price-chart'),
+    path('charts/customers-large-book-orders/', CustomersWithLargeBookOrdersChartView.as_view(),  name='customers-large-book-orders-chart'),
+    path('charts/orders-with-books-and-drinks/', OrdersWithBooksAndDrinksChartView.as_view(), name='orders-with-books-and-drinks-chart'),
     path('charts/recent-orders/', RecentOrdersChartView.as_view(), name='recent-orders-chart'),
-
 
     path('test-serialization/', test_chart_serialization, name='test_serialization'),
     path('chart-test/', chart_page, name='chart-test'),

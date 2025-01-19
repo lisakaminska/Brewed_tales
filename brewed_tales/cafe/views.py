@@ -9,6 +9,7 @@ from .charts import (
     generate_orders_with_books_and_drinks_chart
 )
 
+from django.conf import settings
 import os
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -243,13 +244,9 @@ class TopCustomersChartView(APIView):
     def get(self, request):
         data = brewer_context.customer_repo.get_top_customers_by_orders()
         df = pd.DataFrame.from_records(data)
-
-        output_file = 'top_customers_bar_chart.html'
-
-        generate_top_customers_bar_chart(df, output_file=output_file)
-
-        output_path = os.path.join('static', 'charts', output_file)
-        with open(output_path, 'r', encoding='utf-8') as file:
+        output_file_path = os.path.join(settings.BASE_DIR, 'static', 'charts', 'top_customers_bar_chart.html')
+        generate_top_customers_bar_chart(df, output_file=output_file_path)
+        with open(output_file_path, 'r', encoding='utf-8') as file:
             chart_html = file.read()
         return HttpResponse(chart_html, content_type='text/html')
 
