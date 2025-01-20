@@ -1,4 +1,3 @@
-
 from rest_framework.permissions import AllowAny
 from .charts import (
     generate_top_customers_bar_chart,
@@ -8,8 +7,6 @@ from .charts import (
     generate_recent_orders_line_chart,
     generate_orders_with_books_and_drinks_chart
 )
-
-from django.conf import settings
 import os
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -21,10 +18,12 @@ from .repositories.BrewerContext import BrewerContext
 from .serializer import BookSerializer, CafeItemSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer
 from rest_framework import viewsets, status
 
+
 class ChartsListView(TemplateView):
     template_name = 'cafe_book_space/charts-list.html'
 
 brewer_context = BrewerContext()
+
 
 class BookViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
@@ -66,6 +65,7 @@ class BookViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
         brewer_context.book_repo.delete_book(pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class CafeItemViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]

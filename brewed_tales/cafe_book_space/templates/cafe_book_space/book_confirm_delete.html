@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Підтвердження видалення</title>
+    <title>Delete confirmation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,13 +53,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Підтвердження видалення книги</h1>
-        <p>Ви впевнені, що хочете видалити книгу "{{ book.title }}"?</p>
+        <h1>Book delete confirmation</h1>
+        <p>You really want to delete this book?</p>
         <form method="post">
             {% csrf_token %}
-            <button type="submit">Так, я хочу видалити</button>
+            <button type="submit">Yes, I want to delete it</button>
         </form>
-        <a href="{% url 'cafe_book_space:book_list' %}">Скасувати</a>
+        <a href="{% url 'cafe_book_space:book_list' %}">Cancel</a>
     </div>
 </body>
 </html>
