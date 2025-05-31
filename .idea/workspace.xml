@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="created static pages for Brewed tales">
+    <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="successfully done with Client-server interaction for lab 2">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +58,7 @@
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;lab__2__liza&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lab__3__liza&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Elizabeth/myproject&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -63,6 +66,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.python.django.customization.DjangoModulesConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\University\\2_Course\\Python\\Brewed_tales\\lab3\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -144,9 +148,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Django Server.Brewed_tales" />
       <item itemvalue="Python.main" />
       <item itemvalue="Python.views" />
+      <item itemvalue="Django Server.Brewed_tales" />
     </list>
     <recent_temporary>
       <list>
@@ -181,7 +185,11 @@
       <workItem from="1730058682218" duration="79000" />
       <workItem from="1731078399738" duration="353000" />
       <workItem from="1748687119785" duration="426000" />
-      <workItem from="1748695670841" duration="303000" />
+      <workItem from="1748695670841" duration="1696000" />
+      <workItem from="1748697711251" duration="221000" />
+      <workItem from="1748697944899" duration="1586000" />
+      <workItem from="1748699574730" duration="571000" />
+      <workItem from="1748706926019" duration="1870000" />
     </task>
     <task id="LOCAL-00001" summary="Everything is done and the lab is defended">
       <option name="closed" value="true" />
@@ -191,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731078518326</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="successfully done with Client-server interaction for lab 2">
+      <option name="closed" value="true" />
+      <created>1748696325347</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748696325347</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +227,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Everything is done and the lab is defended" />
     <MESSAGE value="created static pages for Brewed tales" />
-    <option name="LAST_COMMIT_MESSAGE" value="created static pages for Brewed tales" />
+    <MESSAGE value="successfully done with Client-server interaction for lab 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="successfully done with Client-server interaction for lab 2" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/brewed_tales$main.coverage" NAME="main Coverage Results" MODIFIED="1729763278326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cafe" />

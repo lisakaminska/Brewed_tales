@@ -9,14 +9,19 @@
         "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^6.6.3",
+        "@testing-library/react": "^16.3.0",
+        "@testing-library/user-event": "^14.6.1",
+        "@types/jest": "^29.5.14",
+        "concurrently": "^8.2.0",
         "eslint": "^6.8.0",
         "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-config-developit": "^1.2.0",
         "eslint-plugin-import": "^2.20.1",
-        "live-server": "^1.2.2",
-        "concurrently": "^8.2.0"
+        "live-server": "^1.2.0"
     },
     "dependencies": {
-        "express": "^4.18.2",
-        "cors": "^2.8.5"
+        "cors": "^2.8.5",
+        "express": "^4.18.2"
     }
-} 
+}
