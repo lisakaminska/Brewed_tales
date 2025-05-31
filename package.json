@@ -1,0 +1,22 @@
+{
+    "name": "brewed-tales",
+    "version": "1.0.0",
+    "description": "A book-themed coffee shop SPA",
+    "scripts": {
+        "lint": "eslint **/*.js --ignore-pattern node_modules/",
+        "start:frontend": "live-server --port=8080",
+        "start:backend": "node server.js",
+        "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-plugin-import": "^2.20.1",
+        "live-server": "^1.2.2",
+        "concurrently": "^8.2.0"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "cors": "^2.8.5"
+    }
+} 

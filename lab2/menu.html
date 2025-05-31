@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Brewed Tales</title>
+    <link rel="stylesheet" href="static/styles/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Brewed Tales</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="books.html">Books</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1>Our Menu</h1>
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="drinks">Drinks</button>
+                <button class="filter-btn" data-category="food">Food</button>
+            </div>
+        </div>
+
+        <section class="menu-section">
+            <div id="menu-content" class="content-grid">
+                <div class="loading">Loading menu items...</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@brewedtales.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Hours</h3>
+                <p>Mon-Fri: 7am - 8pm</p>
+                <p>Sat-Sun: 8am - 6pm</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <p>Facebook | Instagram | Twitter</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/menu.js"></script>
+</body>
+</html> 

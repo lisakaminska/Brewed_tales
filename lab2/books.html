@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - Brewed Tales</title>
+    <link rel="stylesheet" href="static/styles/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Brewed Tales</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="books.html" class="active">Books</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1>Our Book Collection</h1>
+            <div class="filters">
+                <button class="filter-btn active" data-genre="all">All</button>
+                <button class="filter-btn" data-genre="Classic Romance">Romance</button>
+                <button class="filter-btn" data-genre="Dystopian Fiction">Dystopian</button>
+                <button class="filter-btn" data-genre="Classic Fiction">Classic</button>
+            </div>
+        </div>
+
+        <section class="books-section">
+            <div id="books-content" class="content-grid">
+                <div class="loading">Loading books...</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@brewedtales.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Hours</h3>
+                <p>Mon-Fri: 7am - 8pm</p>
+                <p>Sat-Sun: 8am - 6pm</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <p>Facebook | Instagram | Twitter</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/books.js"></script>
+</body>
+</html> 

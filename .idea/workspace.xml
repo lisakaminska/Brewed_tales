@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="Everything is done and the lab is defended">
+    <list default="true" id="b5f48ca2-c12c-446c-bad0-1072e3c9dc0b" name="Changes" comment="created static pages for Brewed tales">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/cafe_item_confirm_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/cafe_item_confirm_delete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/customer_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/brewed_tales/cafe_book_space/templates/cafe_book_space/customer_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,18 +25,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "sofiiaspodaryk"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sofiiaspodaryk&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/lisakaminska/Brewed_tales",
-    "accountId": "8b4a841d-784d-4842-a702-4983c2e93aee"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/lisakaminska/Brewed_tales&quot;,
+    &quot;accountId&quot;: &quot;46e55c32-ae5b-4d2b-9f85-76abf4d1fdb9&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -47,32 +45,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Django Server.brewed_tales.executor": "Run",
-    "Python.main (1).executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.views.executor": "Coverage",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
-    "git-widget-placeholder": "part__3__s__help__with__customers",
-    "last_opened_file_path": "C:/Users/Elizabeth/myproject",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.intellij.python.django.customization.DjangoModulesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Django Server.Brewed_tales.executor&quot;: &quot;Run&quot;,
+    &quot;Django Server.brewed_tales.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.views.executor&quot;: &quot;Coverage&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lab__2__liza&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Elizabeth/myproject&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.python.django.customization.DjangoModulesConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Elizabeth\brewed_tales\cafe\repositories" />
     </key>
   </component>
-  <component name="RunManager" selected="Django Server.brewed_tales">
+  <component name="RunManager" selected="Django Server.Brewed_tales">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="brewed_tales" />
       <option name="ENV_FILES" value="" />
@@ -119,8 +118,33 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Brewed_tales" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Brewed_tales" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="brewed_tales.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Django Server.brewed_tales" />
+      <item itemvalue="Django Server.Brewed_tales" />
       <item itemvalue="Python.main" />
       <item itemvalue="Python.views" />
     </list>
@@ -156,6 +180,8 @@
       <workItem from="1730058625255" duration="55000" />
       <workItem from="1730058682218" duration="79000" />
       <workItem from="1731078399738" duration="353000" />
+      <workItem from="1748687119785" duration="426000" />
+      <workItem from="1748695670841" duration="303000" />
     </task>
     <task id="LOCAL-00001" summary="Everything is done and the lab is defended">
       <option name="closed" value="true" />
@@ -184,7 +210,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Everything is done and the lab is defended" />
-    <option name="LAST_COMMIT_MESSAGE" value="Everything is done and the lab is defended" />
+    <MESSAGE value="created static pages for Brewed tales" />
+    <option name="LAST_COMMIT_MESSAGE" value="created static pages for Brewed tales" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/brewed_tales$main.coverage" NAME="main Coverage Results" MODIFIED="1729763278326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cafe" />
