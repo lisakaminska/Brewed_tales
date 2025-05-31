@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User Details - Brewed Tales Coffee Management System">
+    <title>User Details - Brewed Tales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/main.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="site-header">
+        <div class="container">
+            <h1>Brewed Tales</h1>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h2>User Details</h2>
+                <div class="page-actions">
+                    <button class="btn btn-primary" onclick="showEditUserModal()">Edit User</button>
+                    <button class="btn btn-danger" onclick="confirmDeleteUser()">Delete User</button>
+                </div>
+            </div>
+
+            <!-- User Information -->
+            <section class="user-details">
+                <div class="info-card">
+                    <h3>Basic Information</h3>
+                    <div class="info-group">
+                        <label>Username</label>
+                        <p>john.doe</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Role</label>
+                        <p>Regular</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Status</label>
+                        <p class="status-active">Active</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Activity Information</h3>
+                    <div class="info-group">
+                        <label>Last Login</label>
+                        <p>2024-03-14 15:45</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Account Created</label>
+                        <p>2024-01-15</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Last Password Change</label>
+                        <p>2024-02-01</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Recent Activity</h3>
+                    <ul class="activity-list">
+                        <li>
+                            <span class="activity-date">2024-03-14 15:45</span>
+                            <span class="activity-type">Login</span>
+                            <span class="activity-details">Successful login from 192.168.1.100</span>
+                        </li>
+                        <li>
+                            <span class="activity-date">2024-03-13 10:30</span>
+                            <span class="activity-type">Order</span>
+                            <span class="activity-details">Created order #12345</span>
+                        </li>
+                        <li>
+                            <span class="activity-date">2024-03-12 14:20</span>
+                            <span class="activity-type">Profile</span>
+                            <span class="activity-details">Updated profile information</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit User</h3>
+            </div>
+            <form id="editUserForm">
+                <div class="form-group">
+                    <label for="editUsername">Username</label>
+                    <input type="text" id="editUsername" name="username" value="john.doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="editRole">Role</label>
+                    <select id="editRole" name="role" required>
+                        <option value="regular" selected>Regular</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Status</label>
+                    <select id="editStatus" name="status" required>
+                        <option value="active" selected>Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="hideModal('editUserModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Show/Hide Modal Functions
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function showEditUserModal() {
+            showModal('editUserModal');
+        }
+
+        function confirmDeleteUser() {
+            if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+                // Handle user deletion
+                window.location.href = 'users.html';
+            }
+        }
+
+        // Form Submission Handler
+        document.getElementById('editUserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Handle form submission
+            hideModal('editUserModal');
+        });
+    </script>
+</body>
+</html> 

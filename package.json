@@ -1,0 +1,12 @@
+{
+  "name": "brewed-tales",
+  "version": "1.0.0",
+  "description": "A book-themed coffee shop website",
+  "scripts": {
+    "sass": "sass static/styles/main.scss:static/styles/main.css --watch",
+    "sass:build": "sass static/styles/main.scss:static/styles/main.css --style compressed"
+  },
+  "devDependencies": {
+    "sass": "^1.71.0"
+  }
+} 
