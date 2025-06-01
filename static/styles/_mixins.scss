@@ -1,0 +1,101 @@
+// Flexbox mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Responsive mixins
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $mobile + 1) and (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $tablet + 1) {
+    @content;
+  }
+}
+
+// Animation mixins
+@mixin fade-in {
+  animation: fadeIn 0.3s ease-in;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin hover-lift {
+  transition: transform $transition-duration ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Card styles mixin
+@mixin card-base {
+  background: $light-text;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 1.5rem;
+  transition: transform $transition-duration ease, box-shadow $transition-duration ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba($text-color, 0.15);
+  }
+}
+
+// Button styles mixin
+@mixin button-base {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: $border-radius;
+  font-family: $font-family-sans;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all $transition-duration ease;
+  cursor: pointer;
+  border: none;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Typography mixins
+@mixin heading-style {
+  font-family: $font-family-serif;
+  color: $text-color;
+  margin-bottom: 1rem;
+}
+
+@mixin body-text {
+  font-family: $font-family-sans;
+  line-height: 1.6;
+  color: $text-color;
+} 

@@ -1,83 +1,325 @@
 @import 'variables';
+@import 'mixins';
 
-// Mixins
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// Reset and base styles
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@mixin responsive($breakpoint) {
-  @if $breakpoint == mobile {
-    @media (max-width: $mobile) { @content; }
-  } @else if $breakpoint == tablet {
-    @media (max-width: $tablet) { @content; }
-  } @else if $breakpoint == desktop {
-    @media (max-width: $desktop) { @content; }
-  } @else if $breakpoint == large-desktop {
-    @media (max-width: $large-desktop) { @content; }
+html {
+  font-size: 16px;
+  
+  @include mobile {
+    font-size: 14px;
   }
 }
 
-// Reset and base styles
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: $font-family-sans;
-  color: $text-color;
+  @include body-text;
   background-color: $background-color;
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
-// Layout
+// Container
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1rem;
+  
+  @include mobile {
+    padding: 0 0.5rem;
+  }
 }
 
 // Header styles
 .site-header {
   background-color: $primary-color;
   padding: 1rem 0;
-  box-shadow: $box-shadow;
-
+  
+  .container {
+    @include flex-between;
+  }
+  
   h1 {
     color: $light-text;
     font-family: $font-family-serif;
   }
-
+  
   nav {
-    margin-top: 1rem;
-
     ul {
+      @include flex-center;
       list-style: none;
-      display: flex;
       gap: 1.5rem;
-
-      @include responsive(mobile) {
+      
+      @include mobile {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 1rem;
       }
     }
-
+    
     a {
       color: $light-text;
       text-decoration: none;
-      transition: color $transition-duration;
-
-      &:hover {
-        color: darken($light-text, 15%);
+      transition: color $transition-duration ease;
+      
+      &:hover,
+      &.active {
+        color: $accent-color;
       }
     }
   }
+}
+
+// Hero section
+.hero {
+  @include flex-center;
+  min-height: 60vh;
+  background: linear-gradient(rgba($primary-color, 0.8), rgba($primary-color, 0.8)),
+              url('../images/hero-bg.jpg') center/cover;
+  text-align: center;
+  padding: 4rem 0;
+  
+  &-content {
+    @include fade-in;
+    color: $light-text;
+    max-width: 800px;
+    margin: 0 auto;
+    
+    h2 {
+      @include heading-style;
+      font-size: 3rem;
+      color: $light-text;
+      margin-bottom: 1.5rem;
+      
+      @include mobile {
+        font-size: 2rem;
+      }
+    }
+    
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      
+      @include mobile {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+// Feature cards
+.features {
+  padding: 4rem 0;
+  
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+}
+
+.feature-card {
+  @include card-base;
+  text-align: center;
+  
+  .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    @include heading-style;
+    font-size: 1.5rem;
+  }
+}
+
+// Featured items
+.featured-items {
+  background-color: lighten($background-color, 5%);
+  padding: 4rem 0;
+  
+  h2 {
+    @include heading-style;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.item-card {
+  @include card-base;
+  overflow: hidden;
+  
+  .item-image {
+    margin: -1.5rem -1.5rem 1rem;
+    
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+  }
+  
+  .item-content {
+    h3 {
+      @include heading-style;
+      font-size: 1.25rem;
+    }
+    
+    .price {
+      color: $secondary-color;
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+    
+    .badge {
+      display: inline-block;
+      background-color: $accent-color;
+      color: $light-text;
+      padding: 0.25rem 0.75rem;
+      border-radius: $border-radius;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// Newsletter section
+.newsletter {
+  background-color: $primary-color;
+  color: $light-text;
+  padding: 4rem 0;
+  text-align: center;
+  
+  &-content {
+    max-width: 600px;
+    margin: 0 auto;
+    
+    h2 {
+      @include heading-style;
+      color: $light-text;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  &-form {
+    margin-top: 2rem;
+    
+    .form-group {
+      @include flex-center;
+      gap: 1rem;
+      
+      @include mobile {
+        flex-direction: column;
+      }
+    }
+    
+    input[type="email"] {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: $border-radius;
+      font-family: $font-family-sans;
+      
+      &:focus {
+        outline: 2px solid $accent-color;
+      }
+    }
+  }
+}
+
+// Buttons
+.btn {
+  @include button-base;
+  
+  &-primary {
+    background-color: $accent-color;
+    color: $light-text;
+    
+    &:hover {
+      background-color: darken($accent-color, 10%);
+    }
+  }
+  
+  &-secondary {
+    background-color: transparent;
+    border: 2px solid $light-text;
+    color: $light-text;
+    
+    &:hover {
+      background-color: rgba($light-text, 0.1);
+    }
+  }
+}
+
+// Footer
+.site-footer {
+  background-color: darken($primary-color, 5%);
+  color: $light-text;
+  padding: 4rem 0 2rem;
+  
+  &-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  &-section {
+    h3 {
+      @include heading-style;
+      color: $light-text;
+      font-size: 1.25rem;
+    }
+    
+    p {
+      margin-bottom: 0.5rem;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      
+      a {
+        color: $light-text;
+        text-decoration: none;
+        transition: color $transition-duration ease;
+        
+        &:hover {
+          color: $accent-color;
+        }
+      }
+    }
+  }
+  
+  &-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba($light-text, 0.1);
+  }
+}
+
+// Utility classes
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 // Main content
@@ -87,45 +329,6 @@ body {
 }
 
 // Components
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: $border-radius;
-  cursor: pointer;
-  transition: background-color $transition-duration;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
-
-  &-primary {
-    background-color: $primary-color;
-    color: $light-text;
-
-    &:hover {
-      background-color: darken($primary-color, 10%);
-    }
-  }
-
-  &-secondary {
-    background-color: $secondary-color;
-    color: $light-text;
-
-    &:hover {
-      background-color: darken($secondary-color, 10%);
-    }
-  }
-
-  &-danger {
-    background-color: $error-color;
-    color: $light-text;
-
-    &:hover {
-      background-color: darken($error-color, 10%);
-    }
-  }
-}
-
-// Forms
 .form-group {
   margin-bottom: 1rem;
 
@@ -248,18 +451,6 @@ body {
   margin-top: 0.25rem;
 }
 
-// Footer
-.site-footer {
-  background: linear-gradient(
-    to bottom,
-    darken($primary-color, 5%),
-    $primary-color
-  );
-  color: $light-text;
-  padding: 1rem 0;
-  margin-top: auto;
-}
-
 // Page header
 .page-header {
   display: flex;
@@ -345,274 +536,6 @@ body {
 
   .activity-details {
     color: $text-color;
-  }
-}
-
-// Hero section
-.hero {
-  background-color: $primary-color;
-  color: $light-text;
-  padding: 4rem 0;
-  margin-bottom: 4rem;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, 
-      rgba($primary-color, 0.95), 
-      rgba($secondary-color, 0.9)
-    ),
-    url('../images/coffee-beans-bg.jpg') center/cover;
-    z-index: 1;
-  }
-
-  .container {
-    position: relative;
-    z-index: 2;
-  }
-
-  &-content {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-
-    h2 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      font-family: $font-family-serif;
-    }
-
-    p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-  }
-
-  &-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-}
-
-// Features section
-.features {
-  padding: 4rem 0;
-
-  &-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-}
-
-.feature-card {
-  text-align: center;
-  padding: 2rem;
-  background: linear-gradient(
-    135deg, 
-    rgba($light-text, 0.95),
-    rgba($light-text, 0.98)
-  );
-  border-left: 4px solid $accent-color;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
-  transition: transform $transition-duration;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-
-  .feature-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-
-  h3 {
-    color: $primary-color;
-    margin-bottom: 1rem;
-    font-family: $font-family-serif;
-  }
-
-  p {
-    color: lighten($text-color, 20%);
-  }
-}
-
-// Featured items section
-.featured-items {
-  padding: 4rem 0;
-  background-color: lighten($background-color, 2%);
-
-  h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-family: $font-family-serif;
-    color: $primary-color;
-  }
-
-  .items-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-}
-
-.item-card {
-  background: $light-text;
-  border-radius: $border-radius;
-  overflow: hidden;
-  box-shadow: $box-shadow;
-  transition: transform $transition-duration;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-
-  .item-image {
-    height: 200px;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .item-content {
-    padding: 1.5rem;
-
-    h3 {
-      margin-bottom: 0.5rem;
-      color: $primary-color;
-    }
-
-    p {
-      color: lighten($text-color, 20%);
-      margin-bottom: 1rem;
-    }
-
-    .price {
-      color: $secondary-color;
-      font-weight: 600;
-      font-size: 1.25rem;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background-color: lighten($secondary-color, 45%);
-      color: $secondary-color;
-      border-radius: $border-radius;
-      font-size: 0.875rem;
-      font-weight: 600;
-    }
-  }
-}
-
-// Newsletter section
-.newsletter {
-  padding: 4rem 0;
-  background: linear-gradient(
-    45deg,
-    $primary-color,
-    $secondary-color
-  );
-  color: $light-text;
-
-  &-content {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-
-    h2 {
-      margin-bottom: 1rem;
-      font-family: $font-family-serif;
-    }
-
-    p {
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-  }
-
-  &-form {
-    .form-group {
-      display: flex;
-      gap: 1rem;
-
-      @include responsive(mobile) {
-        flex-direction: column;
-      }
-
-      input {
-        flex: 1;
-        padding: 0.75rem 1rem;
-        border: none;
-        border-radius: $border-radius;
-        font-size: 1rem;
-
-        &:focus {
-          outline: none;
-          box-shadow: 0 0 0 2px rgba($secondary-color, 0.5);
-        }
-      }
-    }
-  }
-}
-
-// Footer styles
-.footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid rgba($light-text, 0.1);
-}
-
-.footer-section {
-  h3 {
-    color: $light-text;
-    margin-bottom: 1rem;
-    font-family: $font-family-serif;
-  }
-
-  p {
-    color: rgba($light-text, 0.8);
-    margin-bottom: 0.5rem;
-  }
-}
-
-.social-links {
-  display: flex;
-  gap: 1rem;
-
-  .social-link {
-    color: $light-text;
-    text-decoration: none;
-    transition: color $transition-duration;
-
-    &:hover {
-      color: $secondary-color;
-    }
-  }
-}
-
-.footer-bottom {
-  padding: 1rem 0;
-  text-align: center;
-
-  p {
-    color: rgba($light-text, 0.8);
-    margin: 0;
   }
 }
 
