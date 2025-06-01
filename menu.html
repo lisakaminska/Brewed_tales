@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Menu - Brewed Tales Coffee Shop">
+    <title>Menu - Brewed Tales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/main.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="site-header">
+        <div class="container">
+            <h1>Brewed Tales</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html" class="active">Menu</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h2>Our Menu</h2>
+            </div>
+
+            <!-- Menu Categories -->
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">All Items</button>
+                <button class="category-btn" data-category="coffee">Coffee</button>
+                <button class="category-btn" data-category="tea">Tea</button>
+                <button class="category-btn" data-category="desserts">Desserts</button>
+                <button class="category-btn" data-category="snacks">Snacks</button>
+            </div>
+
+            <!-- Coffee Section -->
+            <section class="menu-section" id="coffee">
+                <h3>Coffee</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="coffee">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/espresso.jpg" alt="Espresso">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Classic Espresso</h4>
+                            <p>Rich and bold single shot of espresso</p>
+                            <span class="price">$2.99</span>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="coffee">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/latte.jpg" alt="Latte">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Writer's Latte</h4>
+                            <p>Smooth espresso with steamed milk and literary inspiration</p>
+                            <span class="price">$4.49</span>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="coffee">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/cappuccino.jpg" alt="Cappuccino">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Storyteller's Cappuccino</h4>
+                            <p>Perfect balance of espresso, steamed milk, and foam</p>
+                            <span class="price">$4.29</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tea Section -->
+            <section class="menu-section" id="tea">
+                <h3>Tea</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="tea">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/earl-gray.jpg" alt="Earl Grey">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Earl Grey</h4>
+                            <p>Classic bergamot-infused black tea</p>
+                            <span class="price">$3.49</span>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="tea">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/green-tea.jpg" alt="Green Tea">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Japanese Green Tea</h4>
+                            <p>Traditional sencha green tea</p>
+                            <span class="price">$3.99</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Desserts Section -->
+            <section class="menu-section" id="desserts">
+                <h3>Desserts</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="desserts">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/chocolate-cake.jpg" alt="Chocolate Cake">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Dark Tales Chocolate Cake</h4>
+                            <p>Rich chocolate cake with a mysterious twist</p>
+                            <span class="price">$6.99</span>
+                            <span class="badge">Bestseller</span>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="desserts">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/cheesecake.jpg" alt="Cheesecake">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Plot Twist Cheesecake</h4>
+                            <p>Classic cheesecake with seasonal toppings</p>
+                            <span class="price">$5.99</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Snacks Section -->
+            <section class="menu-section" id="snacks">
+                <h3>Snacks</h3>
+                <div class="menu-grid">
+                    <div class="menu-item" data-category="snacks">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/croissant.jpg" alt="Croissant">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Buttery Croissant</h4>
+                            <p>Freshly baked classic croissant</p>
+                            <span class="price">$3.49</span>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="snacks">
+                        <div class="menu-item-image">
+                            <img src="../static/styles/images/sandwich.jpg" alt="Sandwich">
+                        </div>
+                        <div class="menu-item-content">
+                            <h4>Chapter Break Sandwich</h4>
+                            <p>Grilled chicken with fresh vegetables</p>
+                            <span class="price">$7.99</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 7am - 10pm</p>
+                    <p>Saturday - Sunday: 8am - 11pm</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>123 Book Street</p>
+                    <p>Phone: (555) 123-4567</p>
+                    <p>Email: info@brewedtales.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Category Filter
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const category = button.dataset.category;
+
+                // Show/hide menu items based on category
+                menuItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

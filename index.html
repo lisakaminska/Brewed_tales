@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brewed Tales - Where Coffee Meets Literature">
+    <meta name="keywords" content="coffee shop, books, literature, cafe, reading">
+    <meta name="author" content="Brewed Tales">
+    <title>Brewed Tales - Book-themed Coffee Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/main.css">
+</head>
+<body>
+    <!-- Main Header: Contains primary navigation and branding -->
+    <header class="site-header" role="banner">
+        <div class="container">
+            <h1>Brewed Tales</h1>
+            <nav role="navigation" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main role="main">
+        <!-- Hero Section: Primary call-to-action area -->
+        <section class="hero" aria-label="Welcome section">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Where Coffee Meets Literature</h2>
+                    <p>Experience the perfect blend of artisanal coffee and literary atmosphere</p>
+                    <div class="hero-buttons">
+                        <a href="menu.html" class="btn btn-primary">View Menu</a>
+                        <a href="events.html" class="btn btn-secondary">Upcoming Events</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section: Highlights our main offerings -->
+        <section class="features" aria-label="Key features">
+            <div class="container">
+                <div class="features-grid">
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">📚</div>
+                        <h3>Curated Books</h3>
+                        <p>Browse our carefully selected collection of books while enjoying your coffee</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">☕</div>
+                        <h3>Artisanal Coffee</h3>
+                        <p>Savor our premium coffee blends, prepared by expert baristas</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">🍰</div>
+                        <h3>Homemade Desserts</h3>
+                        <p>Indulge in our freshly baked pastries and literary-themed treats</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">📅</div>
+                        <h3>Book Events</h3>
+                        <p>Join our book clubs and meet your favorite authors</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Items Section: Showcases special products and events -->
+        <section class="featured-items" aria-label="Featured items">
+            <div class="container">
+                <h2>Featured This Month</h2>
+                <div class="items-grid">
+                    <article class="item-card">
+                        <div class="item-image">
+                            <img src="../static/images/coffee-special.jpg" alt="Writer's Block Blend - Our signature dark roast coffee with notes of chocolate and caramel">
+                        </div>
+                        <div class="item-content">
+                            <h3>Writer's Block Blend</h3>
+                            <p>Our signature coffee blend, perfect for creative inspiration</p>
+                            <span class="price">$4.99</span>
+                        </div>
+                    </article>
+                    <article class="item-card">
+                        <div class="item-image">
+                            <img src="../static/images/book-month.jpg" alt="Current Book of the Month featuring this month's selected literary masterpiece">
+                        </div>
+                        <div class="item-content">
+                            <h3>Book of the Month</h3>
+                            <p>Join our monthly book club discussion</p>
+                            <span class="badge">Featured</span>
+                        </div>
+                    </article>
+                    <article class="item-card">
+                        <div class="item-image">
+                            <img src="../static/images/dessert-special.jpg" alt="Literary Lemon Cake - Our signature dessert with fresh lemon zest and vanilla cream">
+                        </div>
+                        <div class="item-content">
+                            <h3>Literary Lemon Cake</h3>
+                            <p>Inspired by classic literature</p>
+                            <span class="price">$6.99</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section: Email subscription form -->
+        <section class="newsletter" aria-label="Newsletter signup">
+            <div class="container">
+                <div class="newsletter-content">
+                    <h2>Stay Updated</h2>
+                    <p>Subscribe to our newsletter for the latest events and special offers</p>
+                    <form class="newsletter-form" action="/subscribe" method="POST">
+                        <div class="form-group">
+                            <label for="email" class="visually-hidden">Email address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required aria-required="true">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer: Contains secondary information and links -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <section class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 7am - 10pm</p>
+                    <p>Saturday - Sunday: 8am - 11pm</p>
+                </section>
+                <section class="footer-section">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Book Street</p>
+                        <p>Phone: <a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p>Email: <a href="mailto:info@brewedtales.com">info@brewedtales.com</a></p>
+                    </address>
+                </section>
+                <section class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Visit our Facebook page">Facebook</a>
+                        <a href="#" class="social-link" aria-label="Follow us on Instagram">Instagram</a>
+                        <a href="#" class="social-link" aria-label="Follow us on Twitter">Twitter</a>
+                    </div>
+                </section>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

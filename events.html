@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Literary Events at Brewed Tales - Book readings, author meetups, and more">
+    <meta name="keywords" content="book events, author meetups, literary events, coffee shop events">
+    <meta name="author" content="Brewed Tales">
+    <title>Events - Brewed Tales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/main.css">
+</head>
+<body>
+    <!-- Main Header: Contains primary navigation and branding -->
+    <header class="site-header" role="banner">
+        <div class="container">
+            <h1>Brewed Tales</h1>
+            <nav role="navigation" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="events.html" class="active" aria-current="page">Events</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main role="main" class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <header class="page-header">
+                <h2>Upcoming Events</h2>
+                <div class="page-actions">
+                    <button class="btn btn-primary" aria-label="Filter events by category">Filter Events</button>
+                </div>
+            </header>
+
+            <!-- Featured Event Section -->
+            <section class="featured-event" aria-labelledby="featured-event-title">
+                <div class="event-card featured">
+                    <div class="event-image">
+                        <img src="../static/styles/images/author-meetup.jpg" alt="Author Jane Smith discussing her latest novel at our monthly book club meeting">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Saturday, March 30, 2024</span>
+                        <h3 id="featured-event-title">Monthly Book Club: Meet Author Jane Smith</h3>
+                        <p>Join us for an evening with bestselling author Jane Smith as she discusses her latest novel "The Coffee Chronicles". Enjoy special coffee pairings inspired by the book.</p>
+                        <div class="event-details">
+                            <span class="event-time">6:00 PM - 8:00 PM</span>
+                            <span class="event-badge">Featured Event</span>
+                        </div>
+                        <button class="btn btn-primary" aria-label="Register for Monthly Book Club event">Register Now</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upcoming Events Grid -->
+            <section class="events-grid" aria-label="List of upcoming events">
+                <!-- Poetry Night Event -->
+                <article class="event-card">
+                    <div class="event-image">
+                        <img src="../static/styles/images/poetry-night.jpg" alt="Open mic poetry night setup with dim lighting and comfortable seating">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Friday, April 5, 2024</span>
+                        <h3>Poetry Night: Open Mic</h3>
+                        <p>Express yourself at our monthly poetry night. Share your original works or favorite poems in a welcoming atmosphere.</p>
+                        <div class="event-details">
+                            <span class="event-time">7:00 PM - 9:00 PM</span>
+                            <span class="event-badge">Regular Event</span>
+                        </div>
+                        <button class="btn btn-secondary" aria-label="Register for Poetry Night event">Register Now</button>
+                    </div>
+                </article>
+
+                <!-- Writing Workshop Event -->
+                <article class="event-card">
+                    <div class="event-image">
+                        <img src="../static/styles/images/writing-workshop.jpg" alt="Writing workshop setup with notebooks and writing materials">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Sunday, April 7, 2024</span>
+                        <h3>Creative Writing Workshop</h3>
+                        <p>Learn the craft of storytelling in this hands-on workshop led by professional writer Mark Johnson.</p>
+                        <div class="event-details">
+                            <span class="event-time">2:00 PM - 4:00 PM</span>
+                            <span class="event-badge">Workshop</span>
+                        </div>
+                        <button class="btn btn-secondary" aria-label="Register for Writing Workshop event">Register Now</button>
+                    </div>
+                </article>
+
+                <!-- Book Launch Event -->
+                <article class="event-card">
+                    <div class="event-image">
+                        <img src="../static/styles/images/book-launch.jpg" alt="Book launch event setup with display of new books">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Thursday, April 11, 2024</span>
+                        <h3>Book Launch: "Morning Pages"</h3>
+                        <p>Be among the first to get your copy of "Morning Pages" and meet the author Sarah Williams.</p>
+                        <div class="event-details">
+                            <span class="event-time">5:30 PM - 7:30 PM</span>
+                            <span class="event-badge">Book Launch</span>
+                        </div>
+                        <button class="btn btn-secondary" aria-label="Register for Book Launch event">Register Now</button>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Newsletter Section -->
+            <section class="newsletter" aria-label="Newsletter signup">
+                <div class="newsletter-content">
+                    <h2>Stay Updated on Events</h2>
+                    <p>Subscribe to our newsletter to receive event updates and special invitations.</p>
+                    <form class="newsletter-form" action="/subscribe" method="POST">
+                        <div class="form-group">
+                            <label for="email" class="visually-hidden">Email address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required aria-required="true">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer: Contains secondary information and links -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <section class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 7am - 10pm</p>
+                    <p>Saturday - Sunday: 8am - 11pm</p>
+                </section>
+                <section class="footer-section">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Book Street</p>
+                        <p>Phone: <a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p>Email: <a href="mailto:info@brewedtales.com">info@brewedtales.com</a></p>
+                    </address>
+                </section>
+                <section class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Visit our Facebook page">Facebook</a>
+                        <a href="#" class="social-link" aria-label="Follow us on Instagram">Instagram</a>
+                        <a href="#" class="social-link" aria-label="Follow us on Twitter">Twitter</a>
+                    </div>
+                </section>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
