@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brewed Tales Book Collection - Browse and Borrow Books">
+    <meta name="keywords" content="books, library, literature, reading, book borrowing">
+    <meta name="author" content="Brewed Tales">
+    <title>Books - Brewed Tales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles/main.css">
+</head>
+<body>
+    <!-- Main Header -->
+    <header class="site-header" role="banner">
+        <div class="container">
+            <h1>Brewed Tales</h1>
+            <nav role="navigation" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="books.html" class="active" aria-current="page">Books</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main">
+        <div class="container">
+            <section class="page-header">
+                <h2>Our Book Collection</h2>
+                <p>Browse our carefully curated selection of books available for reading and borrowing</p>
+            </section>
+
+            <div class="search-filter">
+                <div class="search-box">
+                    <input type="text" placeholder="Search books by title, author, or genre..." aria-label="Search books">
+                </div>
+                <div class="filter-options">
+                    <select aria-label="Filter by genre">
+                        <option value="">All Genres</option>
+                        <option value="fiction">Fiction</option>
+                        <option value="non-fiction">Non-Fiction</option>
+                        <option value="poetry">Poetry</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="sci-fi">Science Fiction</option>
+                    </select>
+                    <select aria-label="Filter by availability">
+                        <option value="">All Status</option>
+                        <option value="available">Available</option>
+                        <option value="borrowed">Borrowed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="books-grid">
+                <article class="book-card">
+                    <div class="book-cover">
+                        <img src="static/styles/images/book1.jpg" alt="The Great Novel">
+                        <span class="book-status available">Available</span>
+                    </div>
+                    <div class="book-info">
+                        <h3>The Great Novel</h3>
+                        <p class="author">By Jane Author</p>
+                        <p class="genre">Fiction</p>
+                        <div class="book-actions">
+                            <button class="btn btn-primary">Borrow Book</button>
+                            <button class="btn btn-secondary">Details</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="book-card">
+                    <div class="book-cover">
+                        <img src="static/styles/images/book2.jpg" alt="Poetry Collection">
+                        <span class="book-status borrowed">Borrowed</span>
+                    </div>
+                    <div class="book-info">
+                        <h3>Poetry Collection</h3>
+                        <p class="author">By John Poet</p>
+                        <p class="genre">Poetry</p>
+                        <div class="book-actions">
+                            <button class="btn btn-primary" disabled>Borrow Book</button>
+                            <button class="btn btn-secondary">Details</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Add more book cards -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <section class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 7am - 10pm</p>
+                    <p>Saturday - Sunday: 8am - 11pm</p>
+                </section>
+                <section class="footer-section">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Book Street</p>
+                        <p>Phone: <a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p>Email: <a href="mailto:info@brewedtales.com">info@brewedtales.com</a></p>
+                    </address>
+                </section>
+                <section class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Visit our Facebook page">Facebook</a>
+                        <a href="#" class="social-link" aria-label="Follow us on Instagram">Instagram</a>
+                        <a href="#" class="social-link" aria-label="Follow us on Twitter">Twitter</a>
+                    </div>
+                </section>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
