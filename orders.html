@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brewed Tales Users - Manage User Accounts">
-    <meta name="keywords" content="user management, account management, admin">
+    <meta name="description" content="Brewed Tales Orders - Manage Your Coffee and Food Orders">
+    <meta name="keywords" content="coffee orders, food orders, order management">
     <meta name="author" content="Brewed Tales">
-    <title>Users - Brewed Tales</title>
+    <title>Orders - Brewed Tales</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/styles/main.css">
 </head>
@@ -21,8 +21,8 @@
                     <li><a href="menu.html">Menu</a></li>
                     <li><a href="books.html">Books</a></li>
                     <li><a href="events.html">Events</a></li>
-                    <li><a href="orders.html">Orders</a></li>
-                    <li><a href="users.html" class="active" aria-current="page">Users</a></li>
+                    <li><a href="orders.html" class="active" aria-current="page">Orders</a></li>
+                    <li><a href="users.html">Users</a></li>
                     <li><a href="login.html">Login</a></li>
                 </ul>
             </nav>
@@ -32,81 +32,77 @@
     <main role="main">
         <div class="container">
             <section class="page-header">
-                <h2>User Management</h2>
-                <p>View and manage user accounts</p>
-                <div class="page-actions">
-                    <button class="btn btn-primary">Add New User</button>
-                </div>
+                <h2>Your Orders</h2>
+                <p>View and manage your orders</p>
             </section>
 
             <div class="search-filter">
                 <div class="search-box">
-                    <input type="text" placeholder="Search users..." aria-label="Search users">
+                    <input type="text" placeholder="Search orders..." aria-label="Search orders">
                 </div>
                 <div class="filter-options">
-                    <select aria-label="Filter by role">
-                        <option value="">All Roles</option>
-                        <option value="admin">Admin</option>
-                        <option value="staff">Staff</option>
-                        <option value="customer">Customer</option>
-                    </select>
                     <select aria-label="Filter by status">
                         <option value="">All Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <select aria-label="Filter by date">
+                        <option value="">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
                     </select>
                 </div>
             </div>
 
-            <div class="user-list">
+            <div class="orders-list">
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Total</th>
                             <th>Status</th>
-                            <th>Last Login</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>John Doe</td>
-                            <td>john@example.com</td>
-                            <td>Admin</td>
-                            <td><span class="status-active">Active</span></td>
+                            <td>#12345</td>
                             <td>Mar 15, 2024</td>
+                            <td>Writer's Block Blend, Literary Lemon Cake</td>
+                            <td>$11.98</td>
+                            <td><span class="order-status status-pending">Pending</span></td>
                             <td>
                                 <div class="actions">
-                                    <button class="btn btn-secondary">Edit</button>
-                                    <button class="btn btn-danger">Deactivate</button>
+                                    <button class="btn btn-secondary">View</button>
+                                    <button class="btn btn-danger">Cancel</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td>Jane Smith</td>
-                            <td>jane@example.com</td>
-                            <td>Staff</td>
-                            <td><span class="status-active">Active</span></td>
+                            <td>#12344</td>
                             <td>Mar 14, 2024</td>
+                            <td>Poet's Latte, Classic Earl Grey</td>
+                            <td>$9.48</td>
+                            <td><span class="order-status status-completed">Completed</span></td>
                             <td>
                                 <div class="actions">
-                                    <button class="btn btn-secondary">Edit</button>
-                                    <button class="btn btn-danger">Deactivate</button>
+                                    <button class="btn btn-secondary">View</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td>Bob Wilson</td>
-                            <td>bob@example.com</td>
-                            <td>Customer</td>
-                            <td><span class="status-inactive">Inactive</span></td>
-                            <td>Mar 10, 2024</td>
+                            <td>#12343</td>
+                            <td>Mar 13, 2024</td>
+                            <td>Writer's Block Blend</td>
+                            <td>$4.99</td>
+                            <td><span class="order-status status-cancelled">Cancelled</span></td>
                             <td>
                                 <div class="actions">
-                                    <button class="btn btn-secondary">Edit</button>
-                                    <button class="btn btn-primary">Activate</button>
+                                    <button class="btn btn-secondary">View</button>
                                 </div>
                             </td>
                         </tr>

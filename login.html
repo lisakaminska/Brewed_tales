@@ -3,50 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Login page for Brewed Tales - Your Coffee Management System">
+    <meta name="description" content="Brewed Tales Login - Access Your Account">
+    <meta name="keywords" content="login, account access, user authentication">
+    <meta name="author" content="Brewed Tales">
     <title>Login - Brewed Tales</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../static/styles/main.css">
+    <link rel="stylesheet" href="static/styles/main.css">
 </head>
 <body>
-    <!-- Header Section -->
-    <header class="site-header">
+    <!-- Main Header -->
+    <header class="site-header" role="banner">
         <div class="container">
             <h1>Brewed Tales</h1>
+            <nav role="navigation" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="login.html" class="active" aria-current="page">Login</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <main role="main">
         <div class="container">
-            <section class="login-section">
-                <h2>Login</h2>
-                <!-- Login Form -->
-                <form class="login-form" action="#" method="POST">
+            <div class="login-container">
+                <h2>Welcome Back</h2>
+                <form class="login-form" action="/login" method="POST">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required aria-required="true">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
+                        <input type="password" id="password" name="password" required aria-required="true">
+                        <a href="#" class="forgot-password">Forgot Password?</a>
                     </div>
-                    <!-- Error notification (hidden by default) -->
-                    <div class="notification notification-error" style="display: none;">
-                        Invalid username or password
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                    <p class="register-link">
+                        Don't have an account? <a href="#">Sign up</a>
+                    </p>
                 </form>
-            </section>
+            </div>
         </div>
     </main>
 
-    <!-- Footer Section -->
-    <footer class="site-footer">
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
         <div class="container">
-            <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+            <div class="footer-content">
+                <section class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 7am - 10pm</p>
+                    <p>Saturday - Sunday: 8am - 11pm</p>
+                </section>
+                <section class="footer-section">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Book Street</p>
+                        <p>Phone: <a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p>Email: <a href="mailto:info@brewedtales.com">info@brewedtales.com</a></p>
+                    </address>
+                </section>
+                <section class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Visit our Facebook page">Facebook</a>
+                        <a href="#" class="social-link" aria-label="Follow us on Instagram">Instagram</a>
+                        <a href="#" class="social-link" aria-label="Follow us on Twitter">Twitter</a>
+                    </div>
+                </section>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Brewed Tales. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 </body>

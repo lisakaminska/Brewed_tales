@@ -708,4 +708,242 @@ body {
   cursor: not-allowed;
 }
 
+/* Events Page Styles */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.event-card {
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(44, 24, 16, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.event-image {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-date {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #4A3728;
+  color: #ffffff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+  min-width: 60px;
+}
+
+.event-date .day {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.event-date .month {
+  display: block;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.event-content {
+  padding: 1.5rem;
+}
+
+.event-content h3 {
+  margin-bottom: 0.5rem;
+  color: #4A3728;
+  font-family: "Merriweather", serif;
+}
+
+.event-time {
+  color: #8B5E3C;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.event-description {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.event-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.calendar-section {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(44, 24, 16, 0.1);
+}
+
+.calendar-section h3 {
+  margin-bottom: 1.5rem;
+  color: #4A3728;
+  font-family: "Merriweather", serif;
+}
+
+.calendar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.calendar-controls h4 {
+  margin: 0;
+  color: #4A3728;
+  font-family: "Merriweather", serif;
+}
+
+/* Orders Page Styles */
+.orders-list {
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(44, 24, 16, 0.1);
+  overflow: hidden;
+}
+
+.orders-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-list th,
+.orders-list td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #C8A287;
+}
+
+.orders-list th {
+  background-color: #e8ddd5;
+  font-weight: 600;
+}
+
+.orders-list tr:hover {
+  background-color: #e6d4c6;
+}
+
+.order-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-pending {
+  background-color: #FFE082;
+  color: #856404;
+}
+
+.status-completed {
+  background-color: #A5D6A7;
+  color: #155724;
+}
+
+.status-cancelled {
+  background-color: #EF9A9A;
+  color: #721c24;
+}
+
+/* Login Page Styles */
+.login-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(44, 24, 16, 0.1);
+}
+
+.login-container h2 {
+  margin-bottom: 1.5rem;
+  color: #4A3728;
+  font-family: "Merriweather", serif;
+  text-align: center;
+}
+
+.login-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4A3728;
+  font-weight: 600;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #C8A287;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #8B5E3C;
+}
+
+.login-form .forgot-password {
+  display: block;
+  text-align: right;
+  margin-top: 0.5rem;
+  color: #8B5E3C;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.login-form .forgot-password:hover {
+  text-decoration: underline;
+}
+
+.login-form .btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.login-form .register-link {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #666;
+}
+
+.login-form .register-link a {
+  color: #8B5E3C;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-form .register-link a:hover {
+  text-decoration: underline;
+}
+
 /*# sourceMappingURL=main.css.map */
